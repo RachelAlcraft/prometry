@@ -162,3 +162,7 @@ cython_debug/
 
 # skip private files
 instructions/*
+
+# skip data and results files
+examples/data/*
+examples/results/*
