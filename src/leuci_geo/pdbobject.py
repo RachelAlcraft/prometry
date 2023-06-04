@@ -84,7 +84,7 @@ class PdbObject(object):
                                     z = atom.get_vector()[2]
                                     bfactor = atom.get_bfactor()
                                     occupancy = atom.get_occupancy()
-                                    one_atom = PdbAtom(atom_name[0],atom_name,atomNo,disordered,occupancy,bfactor,x,y,z)
+                                    one_atom = PdbAtom(chain,resd,atom_name[0],atom_name,atomNo,disordered,occupancy,bfactor,x,y,z)
                                     resd.atoms[atom_name] = one_atom
                                 self.chains[chain][rid] = resd
                                 last_bad = ""
@@ -120,6 +120,10 @@ class PdbResidue:
     def __str__(self):
        delim = "\t"
        return f"{self.amino_acid}{delim}{self.rid}{delim}{self.ridx}"
+    
+    def infoResd(self):
+       delim = "|"
+       return f"{self.amino_acid}{delim}{self.rid}"
 
 ###################################################################################################################
 class PdbAtom:
@@ -135,13 +139,15 @@ class PdbAtom:
     :data bfactor:
     """
 
-    def __init__(self, atom_type,atom_name,atom_no,disordered,occupancy,bfactor,x,y,z):
+    def __init__(self, chain,res,atom_type,atom_name,atom_no,disordered,occupancy,bfactor,x,y,z):
         """Initialises a pdb with a biopython structure
 
         :param biopython_structure: A list of structures that has been created from biopython
         """
 
         self.info = {}
+        self.chain = chain
+        self.res = res
         self.atom_type = atom_type
         self.atom_name = atom_name
         self.atom_no = atom_no
@@ -156,6 +162,10 @@ class PdbAtom:
         delim = "\t"
         return f"{self.atom_type}{delim}{self.atom_name}{delim}{self.atom_no}{delim}{self.disordered}{delim}{self.occupancy}{delim}{self.bfactor}{delim}({self.x}{self.y}{self.z})"
 
+    def infoAtom(self):
+        delim = "|"
+        return f"({self.chain}{delim}{self.res.infoResd()}{delim}{self.atom_name}{delim}{self.atom_no})"
+
     def matchesCriteria(self, chain, res, criteria,dis=0):
         crits = criteria.split(",")
         for crit in crits:
@@ -165,7 +175,7 @@ class PdbAtom:
                     pass
                 else:
                     return False
-            elif cri[0].lower() == "val" and dis != 0:
+            elif cri[0].lower() == "dis" and dis != 0:
                 if "<" in cri[1]:
                     crit_dis = cri[1][1:]
                     if dis <crit_dis:

@@ -29,7 +29,7 @@ for pdb in pdbs:
    
 gm = pg.GeometryMaker(pobjs)
 #for geo in ['{(N),(C)}[aa:ser]:(O)','(O):{(N),OG}','(N):(O)+1','(O):(N)@1']:
-for geo in ['N[aa|ser]:CA[val|<1.456]']:
+for geo in ['N[aa|ser]:CA[dis|<1.456]']:
     print("-----",geo,"-----")
     df = gm.calculateGeometry([geo],log=0)
     print(df)

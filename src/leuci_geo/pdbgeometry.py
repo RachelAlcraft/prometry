@@ -23,100 +23,129 @@ class GeometryMaker:
         self.log = log
         
               
-    def calculateGeometry(self,geos,hues=['pdb_code','resolution','chain','aa-1','aa','aa+1','id','rid','ridx','avgrid','avgridx','bfactor','avgbfactor','occupancy','info'],log=0):
+    def calculateGeometry(self,geos,hues=['pdb_code','resolution','aa','rid'],log=0):
         """Creates the geoemtry from the structures in the class
 
         :param geos: A list of geometric measures to calculate in the format 2,3 or 4 atoms for distance, angle or dihedral, e.g. 'N:CA', 'N:CA:C', or 'N:CA:C:N+1'
         :param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
         :returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
-        """
-
-        vals = []
-        used_hues = []
-        for geo in geos:
-            hues.append('info' + geo)
-
-        count = 1
+        """                        
+        geo2 = ["val","blob"]
+        vals = []        
         for geopdb in self.pobjs:
             hue_pdb = geopdb.pdb_code
             if log > 0:
-                print('LeucipPy(1) df calc for ' + hue_pdb, count, '/', len(self.pobjs))
+                print('leuci-geo(1) df calc for ' + hue_pdb, count, '/', len(self.pobjs))
                 count += 1
 
             hue_res = geopdb.resolution
             ridx = 1
-            for chain, res in geopdb.chains.items():
-                for rid, resd in res.items():
-                    avg_bfactor = 0
-                    bfactor = 0
-                    avg_occupancy = 0
-                    avg_rid = 0
-                    avg_ridx = 0
-                    num_atoms = 0
+            for chain, res in geopdb.chains.items():                
+                for rid, resd in res.items():                    
                     hue_aa = resd.amino_acid
-                    tuplerow = []
-                    aam1 = ''
-                    aap1 = ''
-                    refatom = None
-                    if len(resd.atoms) > 0 and 'CA' in resd.atoms:
-                        refatom = resd.atoms['CA']
-
-                    all_geos_ok = True
-                    all_hues = {}
+                    geo_cols = {}
+                    geo_col = -1
                     for geo in geos:
+                        geo_col += 1
+                        geo_cols[geo_col] = []
                         geo_as_atoms = self.geoToAtoms(geo)
-                        ok,val,bfac,avgbfac,occ,rno, rnox,num,refatom,other = self.calculateOneGeometry(geopdb,chain,rid,geo_as_atoms,log)
-                        avg_bfactor += avgbfac
-                        avg_occupancy += occ
-                        avg_rid += rno
-                        avg_ridx += rnox
-                        num_atoms += num
-                        if bfactor == 0:
-                            bfactor = bfac
-                        if ok:
-                            tuplerow.append(val)
-                            all_hues['info' + geo] = other
+                        ret = self.calculateOneGeometry(geopdb,chain,rid,geo_as_atoms,log)
+                        for row in ret:#we will need to cross product each of the matches against all others                                                        
+                            if self.log > 1:
+                                print("leuci-geo(2)",row)
+                            val,avgbfac,occ,rno, rnox,num,info = row                                                        
+                            geo_cols[geo_col].append([val,info])
 
-                            geosaa = geo.split(':')
-                            infosaa = other.split('_')
-                            for i in range(0,len(geosaa)):
-                                geoaa = geosaa[i]
-                                if 'CA+1' == geoaa or 'N+1' == geoaa or 'C+1' == geoaa or 'O+1' == geoaa:
-                                    aap1 = infosaa[i][:3]
-                                if 'CA-1:' == geoaa or 'N-1' == geoaa or 'C-1' == geoaa or 'O-1' == geoaa:
-                                    aam1 = infosaa[i][:3]
 
-                        else:
-                            all_geos_ok = False
-                    #Append hues
-                    if all_geos_ok:#we are only adding complete rows
-                        all_hues['pdb_code'] =hue_pdb
+                        all_hues = {}
+                        all_hues['pdb_code'] = hue_pdb
                         all_hues['resolution'] =hue_res
-                        all_hues['chain'] = chain
-                        all_hues['aa'] =hue_aa
-                        all_hues['aa+1'] = aap1
-                        all_hues['aa-1'] = aam1
-                        all_hues['avgrid'] = avg_rid/ num_atoms
-                        all_hues['avgridx'] =avg_ridx/ num_atoms
-                        all_hues['rid'] = rid
-                        all_hues['ridx'] = resd.ridx
-                        all_hues['avgbfactor'] =avg_bfactor / num_atoms
-                        all_hues['bfactor'] = bfactor
-                        all_hues['occupancy'] =avg_occupancy / num_atoms
-                        used_hues = []
-                        for hue in hues:
-                            if hue in all_hues and hue not in used_hues:
-                                used_hues.append(hue)
-                                tuplerow.append(all_hues[hue])
-                        # TODO special optional hue of type aa-1:aa:aa+1
-                        vals.append(tuplerow)
-                    ridx += 1
+                        all_hues['aa'] =hue_aa                            
+                        all_hues['rid'] = rid                            
+                        
+                                                                                                        
+                        # a cross product of the geos - using itertools
+                        
+                        if len(geo_cols) == len(geos):  
+                            row_vals = {}                            
+                            row_infos = {}                                                        
+                            lengths = []
+                            for geo_col_i in range(len(geo_cols)):    # first pass is to find the total length                                                            
+                                lengths.append(len(geo_cols[geo_col_i]))                            
+                            cross_length = 1
+                            for x in lengths:
+                                cross_length *= x                                
+                            #print(cross_length,lengths)
+                            if cross_length > 0:
+                                for x in range(cross_length):
+                                    row_vals[x] = []
+                                    row_infos[x] = []
 
-        geos2 = []
+                                    #row_counter = 0
+                                for geo_col_i in range(len(geo_cols)):
+                                    loops = cross_length/len(geo_cols[geo_col_i])
+                                    loop_no = 0
+                                    row = 0
+                                    while loop_no < loops:
+                                        for multi_match in range (len(geo_cols[geo_col_i])):
+                                            #print(loop_no,row)
+                                            val = geo_cols[geo_col_i][multi_match][0]
+                                            info = geo_cols[geo_col_i][multi_match][1]
+                                            
+                                            #  row_counter += multi_match
+                                            #if len(row_vals[row_counter]) == geo_col_i+1: # it is already full
+                                            #    row_counter += 1
+                                            #    row_vals[row_counter] = []
+                                            #    row_infos[row_counter] = []
+                                            #    for thing in row_vals[row_counter-1]:
+                                            #        row_vals[row_counter].append(thing)
+                                            #    for thing in row_infos[row_counter-1]:
+                                            #        row_infos[row_counter].append(thing)
+                                            #    row_vals[row_counter] = row_vals[row_counter][:-1] #cut the last thing off
+                                            #    row_infos[row_counter] = row_infos[row_counter][:-1] #cut the last thing off
+                                            
+                                            #val = geo_cols[geo_col_i][multi_match][0]
+                                            #info = geo_cols[geo_col_i][multi_match][1]
+                                            row_vals[row].append(val)
+                                            row_infos[row].append(info)
+                                            row += 1
+                                        loop_no += 1
+
+                                    
+                                    #print(row_counter, geo_cols[geo_col_i][multi_match])
+                                                                                                                                                
+                                                                
+                            for row in range(cross_length):                                
+                                row_entry = []
+                                row_val = row_vals[row]
+                                row_info = row_infos[row]
+                                
+                                for v in row_val:
+                                   row_entry.append(v)
+                            #    for valr,infor in geo_cols[r]:                                        
+                            #        row_vals.append(valr)
+                                for hue in hues:
+                                    row_entry.append(all_hues[hue])                        
+                                for i in row_info:
+                                   row_entry.append(i)
+                            #    row_vals.append(info)
+                            #    for i in range(1,len(geo_cols)):
+                            #        valr,infor = geo_cols[i][0] #or it should be a list if it is cross product
+                            #        row_vals.append(infor)                                
+                                geo_cols[0] = row_entry
+                                vals.append(row_entry)
+                                    
+
+                    ridx += 1                    
+
+        geos2 = []        
         for geo in geos:
-            geos2.append(geo)
-
-        geos2.extend(used_hues)
+            geos2.append(geo)                        
+        geos2.extend(hues)
+        inf = 1
+        for geo in geos:            
+            geos2.append("info_" + geo)
+            inf += 1
         df = pd.DataFrame(vals,columns=geos2)
         return df
 
@@ -155,7 +184,7 @@ class GeometryMaker:
         for geopdb in self.bio_strucs:
             pdb = geopdb.pdb_code
             if log > 0:
-                print('LeucipPy(1) df calc for ' + pdb, count,'/',len(self.bio_strucs))
+                print('leuci-geo(1) df calc for ' + pdb, count,'/',len(self.bio_strucs))
                 count += 1
             reso = geopdb.resolution
 
@@ -270,7 +299,7 @@ class GeometryMaker:
                         atoms.append(last_atm)
                     else:
                         if log > 1:
-                            print('...LeucipPy(2) Not found',resno,chain,atomlist,offset,nearest)
+                            print('...leuci-geo(2) Not found',resno,chain,atomlist,offset,nearest)
                         return empty_return
                 elif int(this_rid) not in rids:
                     #print(this_rid, resno)
@@ -344,7 +373,7 @@ class GeometryMaker:
         other = ''
         is_nearest = False
 
-        empty_return = [False, 0, 0, 0, 0, 0, 0, 0, None,'']
+        nonempty_return = []#[False, 0, 0, 0, 0, 0, 0, 0, None,'']
 
         rids = pobj.chains[chain]
         all_there = True
@@ -353,11 +382,11 @@ class GeometryMaker:
 
         first_atoms = self.getMatchingStartAtoms(pobj, chain, resno,geo_atoms[0])
         first_atoms = self.getMatchingStartAtoms(pobj, chain, resno,geo_atoms[0])
-        print(len(first_atoms))
+        #print(len(first_atoms))
         for chain, residue,atom in first_atoms:
             atom_group = []
-            atom_group.append((chain, residue,atom))
-            print("FIRST ATOM=",chain,residue,atom)
+            atom_group.append(atom)
+            #print("FIRST ATOM=",chain,residue,atom)
             for i in range(1,len(geo_atoms)):                
                 candidate_atoms, nearest,criteria = self.getMatchingAtoms(pobj, resno, chain, residue,atom, geo_atoms[i])
                 #candidate_atoms = self.applyCriteria()
@@ -365,44 +394,47 @@ class GeometryMaker:
                     best_atom = self.getNearestAtomMatch(pobj, atom, candidate_atoms, nearest,criteria)
                     #for chain_m, residue_m,atom_m in candidate_atoms:
                     #    print("CANDIDATE=",chain_m, residue_m,atom_m)
-                    print("BEST=",chain, residue,str(best_atom[1]))
-                    atom_group.append(best_atom)
+                    if len(best_atom) > 0:
+                        if self.log > 0:
+                            print("leuci-geo(1) BEST=",chain, residue,str(best_atom[0]))
+                        atom_group.append(best_atom[0])
+                    else:
+                        continue
                 else:
                     continue
-            atom_groups.append(atom_group)
+            if len(atom_group) == len(geo_atoms):
+                atom_groups.append(atom_group)
+        
         
         for atoms in atom_groups:
+            info = self.infoAtoms(atoms)
             val = 0
-            if len(atoms) == 2:                
-                val = calc.getDistance(atoms[0][2].x, atoms[0][2].y, atoms[0][2].z,
-                                        atoms[1][0][2].x, atoms[1][0][2].y, atoms[1][0][2].z)
-            elif len(atoms) == 3:
-                val = calc.getAngle(atoms[0][2].x, atoms[0][2].y, atoms[0][2].z,
-                                    atoms[1][0][2].x, atoms[1][0][2].y, atoms[1][0][2].z,
-                                    atoms[2][0][2].x, atoms[2][0][2].y, atoms[2][0][2].z)
-            elif len(atoms) == 4:
-                val = calc.getDihedral(atoms[0][2].x, atoms[0][2].y, atoms[0][2].z,
-                                    atoms[1][0][2].x, atoms[1][0][2].y, atoms[1][0][2].z,
-                                    atoms[2][0][2].x, atoms[2][0][2].y, atoms[2][0][2].z,
-                                    atoms[3][0][2].x, atoms[3][0][2].y, atoms[3][0][2].z)
+            if len(atoms) in [2,3,4]:
+                if len(atoms) == 2:                
+                    val = calc.getDistance(atoms[0].x, atoms[0].y, atoms[0].z,
+                                            atoms[1].x, atoms[1].y, atoms[1].z)
+                elif len(atoms) == 3:
+                    val = calc.getAngle(atoms[0].x, atoms[0].y, atoms[0].z,
+                                        atoms[1].x, atoms[1].y, atoms[1].z,
+                                        atoms[2].x, atoms[2].y, atoms[2].z)
+                elif len(atoms) == 4:
+                    val = calc.getDihedral(atoms[0].x, atoms[0].y, atoms[0].z,
+                                        atoms[1].x, atoms[1].y, atoms[1].z,
+                                        atoms[2].x, atoms[2].y, atoms[2].z,
+                                        atoms[3].x, atoms[3].y, atoms[3].z)
+            
+                total_bfactor = 0
+                bfactor = 0
+                total_occupancy = 0
+                for atm in atoms:
+                    if bfactor == 0:
+                        bfactor = 1
+                    total_bfactor += 1
+                    total_occupancy  += 1
 
-            else:
-                print("???")
-            total_bfactor = 0
-            bfactor = 0
-            total_occupancy = 0
-            for atm in atoms:
-                if bfactor == 0:
-                    bfactor = 1
-                total_bfactor += 1
-                total_occupancy  += 1
-
-
-
-            return True, val, bfactor,total_bfactor, total_occupancy, total_rid, total_ridx, len(atoms), atoms[0],other[1:]
-
-
-        return empty_return
+                nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info))
+            
+        return nonempty_return
         
         
     
@@ -418,7 +450,7 @@ class GeometryMaker:
 
         if "{" in geo_atom[0] and "}" in geo_atom[0]:
             atom_list = geo_atom[0][1:-1]
-            print(atom_list)
+            #print(atom_list)
             atom_list = atom_list.split(",")
         else:
             atom_list = [geo_atom[0]]
@@ -483,9 +515,9 @@ class GeometryMaker:
                     if res.rid == res_match:
                         for attype,atm in res.atoms.items():
                             if atom_type != "" and atm.atom_type == atom_type:
-                                atom_matches.append((chain,res,atm))
+                                atom_matches.append(atm)
                             elif atom_name != "" and atm.atom_name == atom_name:
-                                atom_matches.append((chain,res,atm))
+                                atom_matches.append(atm)
                         break
             
         return atom_matches, nearest,criteria
@@ -494,25 +526,31 @@ class GeometryMaker:
         disses = []
         va = v3.VectorThree(float(atom.x),float(atom.y),float(atom.z))
                 
-        for chain_m, residue_m,atom_m in candidate_atoms:            
+        for atom_m in candidate_atoms:            
             vc = v3.VectorThree(float(atom_m.x),float(atom_m.y),float(atom_m.z))            
             val = va.distance(vc)            
-            if atom_m.matchesCriteria(chain_m,residue_m,criteria):
-                disses.append(((chain_m, residue_m,atom_m),val))
+            if atom_m.matchesCriteria(atom_m.chain,atom_m.res,criteria):
+                disses.append((atom_m,val))
         
         # now sort on the values
         sorted_disses = sorted(disses,key=itemgetter(1))
-        if nearest < len(sorted_disses):
-            return sorted_disses[nearest]
+        if int(nearest) < len(sorted_disses):
+            return sorted_disses[int(nearest)]
         else:
-            return sorted_disses[-1]
+            return []#sorted_disses[-1]
 
 
 
-    
+    def infoAtoms(self,atoms):
+        infos = ""
+        for atm in atoms:
+            #print(atm)
+            infos += atm.infoAtom()
+        return infos
+
     def getNearestAtom(self,pobj,refatm, ref_rid,ref_chain,atmtypes,resmax,nearest,log=0,elements=False):
         if log > 1:
-            print('LeucipPy(2) nearest:',atmtypes,"within res num=",resmax,"nearest=",nearest)
+            print('leuci-geo(2) nearest:',atmtypes,"within res num=",resmax,"nearest=",nearest)
         dic_res = {}
         last_dis = 10000
         last_atom = None
@@ -536,7 +574,7 @@ class GeometryMaker:
                             other = str(res.amino_acid) + "|" + str(no) + str(chain) + "|" + atm.atom_name
                             dic_res[distance] = [atm,other]
                             if log > 2:
-                                print("LeucipPy(3) to dictionary", other)
+                                print("leuci-geo(3) to dictionary", other)
 
                         #    last_dis = distance
                         #    last_atom = atm
@@ -547,14 +585,14 @@ class GeometryMaker:
         found = False
         for dis,st in sorted_dic.items():
             if log > 2:
-                print("LeucipPy(3) nearest", count,nearest,round(dis,4),st[0].atom_name)
+                print("leuci-geo(3) nearest", count,nearest,round(dis,4),st[0].atom_name)
             if int(count) == int(nearest):
                 last_dis = dis
                 last_atom = st[0]
                 other = st[1]
                 found = True
                 if log > 3:
-                    print("...LeucipPy(4) found")
+                    print("...leuci-geo(4) found")
                 break
             count +=1
 
@@ -563,5 +601,9 @@ class GeometryMaker:
             return last_dis,last_atom,other
         else:
             return 0, "", ""
+
+class GeometryRow:    
+    def __init__(self):
+        pass
                 
 

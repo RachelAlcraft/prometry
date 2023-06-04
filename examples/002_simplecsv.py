@@ -17,18 +17,28 @@ from leuci_geo import pdbloader as pl
 from leuci_geo import pdbgeometry as pg
 
 pdbs = ["1ejg","6eex","7uly","3nir","5d8v"]
+pdbs = ["6eex"]
 pobjs = []
 
 print("---")
 for pdb in pdbs:    
     pla = pl.PdbLoader(pdb,DATADIR,cif=True)    
     po = pla.load_pdb()
-    print(po,len(po.lines()))
-    print("---")
+    #print(po,len(po.lines()))
+    #print("---")
     pobjs.append(po)
 
 gm = pg.GeometryMaker(pobjs)
-df = gm.calculateGeometry(['C:O','C:N+1'])
+#df = gm.calculateGeometry(['N:CA','C:O'])
+#df = gm.calculateGeometry(['N:CA:C:N+1','N:CA:C'])
+#df = gm.calculateGeometry(['N:CA','C:O+1'])
+#df = gm.calculateGeometry(['C:CA','O:CB'])
+df = gm.calculateGeometry(['(N):CA','(C):O'])
+
+#df = gm.calculateGeometry(['N+1:CA','C:O+1'])
+#df = gm.calculateGeometry(['N+1:CA-1','C+1:O-1'])
+
+
 print(df)
 
 
