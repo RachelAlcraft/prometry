@@ -122,6 +122,12 @@ class ReportMaker:
             self.ax.set_xlabel('')
             self.ax.set_ylabel('')
             plt.legend(title=hue,bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)  # Put the legend out of the figure
+        elif plottype == 'barplot':
+            if palette == "viridis":
+                palette = 'b'            
+            self.ax.bar(data[geo_x],data[geo_y],color=palette,width=0.5)        
+            self.ax.set_xlabel('')
+            self.ax.set_ylabel('')            
         elif plottype == 'hist2d':
             x = data[geo_x]
             y = data[geo_y]
@@ -214,7 +220,7 @@ class ReportMaker:
             g = plt.hist(mydata, edgecolor='k', bins=bins, color=palette, alpha=alpha, label='geo_x',range=axisrange,cumulative=cumulative,density=density,histtype='barstacked')
         elif plottype == 'violin':
             g = plt.violinplot(mydata,showmeans=False,showextrema=True,showmedians=True,quantiles=[0.25,0.75])
-
+        
         #cb = plt.colorbar(g)
         #hue is used to find the outliers
         if hue != '':
@@ -251,12 +257,18 @@ class ReportMaker:
             self.HTMLIncrement()
             self.html_string += '<td width=' + str(int(100 / self.cols)) + '%>' + htmlstring + '</td>\n'
 
-    def addPlotPi(self, data,geo_x,hue,title='',colors=[],overlay=False,alpha=1):
+    def addPlotPi(self, data,geo_x,hue,title='',colors=[],overlay=False,alpha=1,percent=False):
         self.incrementOverlay(overlay)
         if colors == []:
-            plt.pie(data[geo_x],labels=data[hue])
+            if percent:
+                plt.pie(data[geo_x],labels=data[hue], autopct='%1.1f%%')
+            else:
+                plt.pie(data[geo_x],labels=data[hue])
         else:
-            plt.pie(data[geo_x], labels=data[hue],colors=colors,alpha=alpha)
+            if percent:
+                plt.pie(data[geo_x], labels=data[hue],colors=colors,alpha=alpha, autopct='%1.1f%%')
+            else:
+                plt.pie(data[geo_x], labels=data[hue],colors=colors,alpha=alpha)
         plt.title(title)
         # Having plotted we now need to get the image data from the plt
         if not overlay:

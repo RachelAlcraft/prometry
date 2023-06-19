@@ -42,6 +42,16 @@ np2 = np.array([[1,2,3,2],[0,0,1,1],[2,0,4,4],[3,2,1,1]])
 rep.addContours(np2,overlay=True,colourbar=False)
 rep.addPoints2d([[1,1],[2,2]],overlay=False)
 
+df2 = df.groupby(['aa'])['aa'].count().reset_index(name='count')
+rep.addPlotPi(df2,'count',hue='aa',title='plot title for aa',percent=True)   
+rep.addPlotPi(df2,'count',hue='aa',title='plot title for aa')   
+
+rep.changeColNumber(4)
+rep.addPlot2d(df,'barplot',geo_x='chain',geo_y='C:O',title='Hist',hue='C:O',palette='r')
+rep.addPlot2d(df2,'barplot',geo_x='aa',geo_y='count',title='Hist',hue='count')
+rep.addPlot2d(df2,'seaborn',geo_x='aa',geo_y='count',title='Hist',hue='count')
+
+
 #rep.addSeries(df['C:N+1'].describe(),'C:N+1', transpose=True)
 #df = df.sort_values(by='C:N+1',ascending=True)
 #rep.addDataFrame(df,'C:N+1')
