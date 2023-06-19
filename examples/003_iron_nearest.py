@@ -31,10 +31,15 @@ for pdb in pdbs:
     #    print(line)
 
 gm = pg.GeometryMaker(pobjs)
-geos = ['FE:{O}','FE:{O@2}','FE:{O,N,NE2}','FE:{O,N@2}','(FE):(N,O)+1']
+#geos = ['FE:{O}','FE:{O@2}','FE:{O,N,NE2}','FE:{O,N@2}','(FE):(O,N)+1']
+geos = ['FE:{(N),(O)}','FE:{(N),(O)@2}','FE:{(N),(O)&2}','(FE):(O,N)+1']
+#geos = ['FE:{N,O}','FE:{N,O@2}','FE:{N,O@3}']
 for geo in geos:
     df = gm.calculateGeometry([geo],log=0)
     print(df)
+
+df = gm.calculateGeometry(geos,log=0)
+print(df)
 
 
 

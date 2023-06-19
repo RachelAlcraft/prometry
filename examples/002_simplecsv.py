@@ -29,17 +29,21 @@ for pdb in pdbs:
     pobjs.append(po)
 
 gm = pg.GeometryMaker(pobjs)
-#df = gm.calculateGeometry(['N:CA','C:O'])
-#df = gm.calculateGeometry(['N:CA:C:N+1','N:CA:C'])
-#df = gm.calculateGeometry(['N:CA','C:O+1'])
-#df = gm.calculateGeometry(['C:CA','O:CB'])
-df = gm.calculateGeometry(['(N):CA','(C):O'])
 
-#df = gm.calculateGeometry(['N+1:CA','C:O+1'])
-#df = gm.calculateGeometry(['N+1:CA-1','C+1:O-1'])
-
-
+df = gm.calculateGeometry(['N:CA','C:O'])
 print(df)
+
+df = gm.calculateGeometry(['N:CA:C:N+1','N:CA:C'])
+print(df)
+
+df = gm.calculateGeometry(['N+1:CA','C:O+1'])
+print(df)
+
+df = gm.calculateGeometry(['N+1:CA-1','C+1:O-1'])
+print(df)
+
+
+
 
 
     

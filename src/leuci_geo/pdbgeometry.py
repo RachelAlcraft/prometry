@@ -23,7 +23,7 @@ class GeometryMaker:
         self.log = log
         
               
-    def calculateGeometry(self,geos,hues=['pdb_code','resolution','aa','rid'],log=0):
+    def calculateGeometry(self,geos,log=0):
         """Creates the geoemtry from the structures in the class
 
         :param geos: A list of geometric measures to calculate in the format 2,3 or 4 atoms for distance, angle or dihedral, e.g. 'N:CA', 'N:CA:C', or 'N:CA:C:N+1'
@@ -31,7 +31,8 @@ class GeometryMaker:
         :returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
         """                        
         geo2 = ["val","blob"]
-        vals = []        
+        vals = []
+        hues=['pdb_code','resolution','aa','chain','rid']        
         for geopdb in self.pobjs:
             hue_pdb = geopdb.pdb_code
             if log > 0:
@@ -45,7 +46,7 @@ class GeometryMaker:
                     hue_aa = resd.amino_acid
                     geo_cols = {}
                     geo_col = -1
-                    for geo in geos:
+                    for geo in geos:                        
                         geo_col += 1
                         geo_cols[geo_col] = []
                         geo_as_atoms = self.geoToAtoms(geo)
@@ -54,13 +55,14 @@ class GeometryMaker:
                             if self.log > 1:
                                 print("leuci-geo(2)",row)
                             val,avgbfac,occ,rno, rnox,num,info = row                                                        
-                            geo_cols[geo_col].append([val,info])
+                            geo_cols[geo_col].append([val,info,occ,avgbfac])
 
 
                         all_hues = {}
                         all_hues['pdb_code'] = hue_pdb
                         all_hues['resolution'] =hue_res
                         all_hues['aa'] =hue_aa                            
+                        all_hues['chain'] =chain
                         all_hues['rid'] = rid                            
                         
                                                                                                         
@@ -69,6 +71,8 @@ class GeometryMaker:
                         if len(geo_cols) == len(geos):  
                             row_vals = {}                            
                             row_infos = {}                                                        
+                            row_occs = {}
+                            row_bfs = {}
                             lengths = []
                             for geo_col_i in range(len(geo_cols)):    # first pass is to find the total length                                                            
                                 lengths.append(len(geo_cols[geo_col_i]))                            
@@ -80,6 +84,8 @@ class GeometryMaker:
                                 for x in range(cross_length):
                                     row_vals[x] = []
                                     row_infos[x] = []
+                                    row_occs[x] = []
+                                    row_bfs[x] = []
 
                                     #row_counter = 0
                                 for geo_col_i in range(len(geo_cols)):
@@ -91,23 +97,12 @@ class GeometryMaker:
                                             #print(loop_no,row)
                                             val = geo_cols[geo_col_i][multi_match][0]
                                             info = geo_cols[geo_col_i][multi_match][1]
-                                            
-                                            #  row_counter += multi_match
-                                            #if len(row_vals[row_counter]) == geo_col_i+1: # it is already full
-                                            #    row_counter += 1
-                                            #    row_vals[row_counter] = []
-                                            #    row_infos[row_counter] = []
-                                            #    for thing in row_vals[row_counter-1]:
-                                            #        row_vals[row_counter].append(thing)
-                                            #    for thing in row_infos[row_counter-1]:
-                                            #        row_infos[row_counter].append(thing)
-                                            #    row_vals[row_counter] = row_vals[row_counter][:-1] #cut the last thing off
-                                            #    row_infos[row_counter] = row_infos[row_counter][:-1] #cut the last thing off
-                                            
-                                            #val = geo_cols[geo_col_i][multi_match][0]
-                                            #info = geo_cols[geo_col_i][multi_match][1]
+                                            occ = geo_cols[geo_col_i][multi_match][2]
+                                            bf = geo_cols[geo_col_i][multi_match][3]                                                                                        
                                             row_vals[row].append(val)
                                             row_infos[row].append(info)
+                                            row_occs[row].append(occ)
+                                            row_bfs[row].append(bf)
                                             row += 1
                                         loop_no += 1
 
@@ -119,19 +114,20 @@ class GeometryMaker:
                                 row_entry = []
                                 row_val = row_vals[row]
                                 row_info = row_infos[row]
+                                row_occ = row_occs[row]
+                                row_bf = row_bfs[row]
                                 
                                 for v in row_val:
-                                   row_entry.append(v)
-                            #    for valr,infor in geo_cols[r]:                                        
-                            #        row_vals.append(valr)
+                                   row_entry.append(v)                            
                                 for hue in hues:
                                     row_entry.append(all_hues[hue])                        
                                 for i in row_info:
                                    row_entry.append(i)
-                            #    row_vals.append(info)
-                            #    for i in range(1,len(geo_cols)):
-                            #        valr,infor = geo_cols[i][0] #or it should be a list if it is cross product
-                            #        row_vals.append(infor)                                
+                                for i in row_occ:
+                                   row_entry.append(i)
+                                for i in row_bf:
+                                   row_entry.append(i)
+                            
                                 geo_cols[0] = row_entry
                                 vals.append(row_entry)
                                     
@@ -141,11 +137,14 @@ class GeometryMaker:
         geos2 = []        
         for geo in geos:
             geos2.append(geo)                        
-        geos2.extend(hues)
-        inf = 1
+        geos2.extend(hues)        
         for geo in geos:            
             geos2.append("info_" + geo)
-            inf += 1
+        for geo in geos:            
+            geos2.append("occ_" + geo)
+        for geo in geos:            
+            geos2.append("bf_" + geo)
+        
         df = pd.DataFrame(vals,columns=geos2)
         return df
 
@@ -157,6 +156,12 @@ class GeometryMaker:
         geo_split = geo.split(':')
         for g in geo_split:
             ref=0
+            criterion = ""
+            if "[" in g and "]" in g:
+                gl = g.split("[")
+                g = gl[0]
+                criterion = gl[1][:-1]
+
             if '+' in g:
                 g_split = g.split('+')
                 g_atom = g_split[0]
@@ -167,7 +172,7 @@ class GeometryMaker:
                 ref = int(g_split[1]) * -1
             else:
                 g_atom = g
-            geo_atoms.append([g_atom,ref])
+            geo_atoms.append([g_atom,ref,criterion])
         return geo_atoms
 
     def calculateData(self,hues=['pdb_code','resolution','chain','aa','rid','ridx','atom_no','atom_name','element','bfactor','occupancy','x','y','z'],log=0):
@@ -370,18 +375,13 @@ class GeometryMaker:
         """
         total_rid = 0
         total_ridx = 0
-        other = ''
-        is_nearest = False
-
-        nonempty_return = []#[False, 0, 0, 0, 0, 0, 0, 0, None,'']
-
-        rids = pobj.chains[chain]
-        all_there = True
+        
+        nonempty_return = []
+        
         atoms = []
         atom_groups = []
 
-        first_atoms = self.getMatchingStartAtoms(pobj, chain, resno,geo_atoms[0])
-        first_atoms = self.getMatchingStartAtoms(pobj, chain, resno,geo_atoms[0])
+        first_atoms = self.getMatchingStartAtoms(pobj, chain, resno,geo_atoms[0])        
         #print(len(first_atoms))
         for chain, residue,atom in first_atoms:
             atom_group = []
@@ -423,14 +423,14 @@ class GeometryMaker:
                                         atoms[2].x, atoms[2].y, atoms[2].z,
                                         atoms[3].x, atoms[3].y, atoms[3].z)
             
-                total_bfactor = 0
-                bfactor = 0
+                total_bfactor = 0                
                 total_occupancy = 0
-                for atm in atoms:
-                    if bfactor == 0:
-                        bfactor = 1
-                    total_bfactor += 1
-                    total_occupancy  += 1
+                for atm in atoms:                    
+                    total_bfactor += atm.bfactor
+                    total_occupancy  += atm.occupancy
+
+                total_occupancy = total_occupancy / len(atoms)
+                total_bfactor = total_bfactor / len(atoms)
 
                 nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info))
             
@@ -443,10 +443,10 @@ class GeometryMaker:
         atom_starts = []
         criteria = ""
 
-        if "[" in geo_atom[0] and "]" in geo_atom[0]:
-            al = geo_atom[0].split("[")
-            geo_atom[0] = al[0]
-            criteria = al[1][:-1]
+        #if "[" in geo_atom[0] and "]" in geo_atom[0]:
+        #    al = geo_atom[0].split("[")
+        #    geo_atom[0] = al[0]
+        criteria = geo_atom[2]
 
         if "{" in geo_atom[0] and "}" in geo_atom[0]:
             atom_list = geo_atom[0][1:-1]
@@ -465,36 +465,45 @@ class GeometryMaker:
                 atom_name = geo_a
             res_match = resno + geo_atom[1]
             
-            for chain,resdic in pobj.chains.items():
-                for no,res in resdic.items():
-                    if res.rid == res_match:
-                        for attype,atm in res.atoms.items():
-                            if atm.matchesCriteria(chain,res,criteria):
-                                if atom_type != "" and atm.atom_type == atom_type:
-                                    atom_starts.append((chain,res,atm))
-                                elif atom_name != "" and atm.atom_name == atom_name:
-                                    atom_starts.append((chain,res,atm))
-                        break
+            for ch,resdic in pobj.chains.items():
+                if ch == chain:
+                    for no,res in resdic.items():
+                        if res.rid == res_match:
+                            for attype,atm in res.atoms.items():
+                                if atm.matchesCriteria(criteria):
+                                    if atom_type != "" and atm.atom_type == atom_type:
+                                        atom_starts.append((chain,res,atm))
+                                    elif atom_name != "" and atm.atom_name == atom_name:
+                                        atom_starts.append((chain,res,atm))
+                            break
         
         return atom_starts
     
     def getMatchingAtoms(self,pobj, resno,chain, res,atom, geo_atom):
         
+        need_same_residue = True
         atom_matches = []
         criteria = ""
 
-        if "[" in geo_atom[0] and "]" in geo_atom[0]:
-            al = geo_atom[0].split("[")
-            geo_atom[0] = al[0]
-            criteria = al[1][:-1]
+        #if "[" in geo_atom[0] and "]" in geo_atom[0]:
+        #    al = geo_atom[0].split("[")
+        #    geo_atom[0] = al[0]
+        criteria = geo_atom[2]
 
         nearest = 0
+        farthest = 0
         if "{" in geo_atom[0] and "}" in geo_atom[0]:
             atom_list = geo_atom[0][1:-1]
-            if "@" in atom_list:                        
-                ats = atom_list.split('@')                
+            
+            need_same_residue = False
+            if "@" in atom_list:
+                ats = atom_list.split('@')#the nearest this number away, eg nearest but 1, nearest but 2
                 atom_list = ats[0]
-                nearest = ats[1]                    
+                nearest = ats[1]
+            if "&" in atom_list:
+                ats = atom_list.split('&')#the nearest that is this number of residues away at least
+                atom_list = ats[0]
+                farthest = int(ats[1])
             #print(atom_list)
             atom_list = atom_list.split(",")
         else:
@@ -512,14 +521,14 @@ class GeometryMaker:
             
             for chain,resdic in pobj.chains.items():
                 for no,res in resdic.items():
-                    if res.rid == res_match:
-                        for attype,atm in res.atoms.items():
-                            if atom_type != "" and atm.atom_type == atom_type:
-                                atom_matches.append(atm)
-                            elif atom_name != "" and atm.atom_name == atom_name:
-                                atom_matches.append(atm)
-                        break
-            
+                    if need_same_residue and res.rid == res_match or not need_same_residue:
+                        if farthest == 0 or (farthest > 0 and abs(res.rid-res_match) >= farthest):
+                            for attype,atm in res.atoms.items():
+                                if atom_type != "" and atm.atom_type == atom_type:
+                                    atom_matches.append(atm)                                    
+                                elif atom_name != "" and atm.atom_name == atom_name:
+                                    atom_matches.append(atm)
+                                                
         return atom_matches, nearest,criteria
 
     def getNearestAtomMatch(self, pobj, atom, candidate_atoms, nearest,criteria):             
@@ -529,7 +538,7 @@ class GeometryMaker:
         for atom_m in candidate_atoms:            
             vc = v3.VectorThree(float(atom_m.x),float(atom_m.y),float(atom_m.z))            
             val = va.distance(vc)            
-            if atom_m.matchesCriteria(atom_m.chain,atom_m.res,criteria):
+            if atom_m.matchesCriteria(criteria,dis=val):
                 disses.append((atom_m,val))
         
         # now sort on the values
