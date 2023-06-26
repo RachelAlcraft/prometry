@@ -162,6 +162,7 @@ class ReportMaker:
         plt.title(title)
         plt.xlim([minx, maxx])
         plt.ylim([miny, maxy])
+        plt.xticks(rotation=45)   
         #Having plotted we now need to get the image data from the plt
         if not overlay:
             encoded = self.getPlotImage(self.fig, self.ax)
@@ -257,7 +258,7 @@ class ReportMaker:
             self.HTMLIncrement()
             self.html_string += '<td width=' + str(int(100 / self.cols)) + '%>' + htmlstring + '</td>\n'
 
-    def addPlotPi(self, data,geo_x,hue,title='',colors=[],overlay=False,alpha=1,percent=False):
+    def addPlotPi(self, data,geo_x,hue,title='',colors = [],overlay=False,percent=False):
         self.incrementOverlay(overlay)
         if colors == []:
             if percent:
@@ -266,9 +267,9 @@ class ReportMaker:
                 plt.pie(data[geo_x],labels=data[hue])
         else:
             if percent:
-                plt.pie(data[geo_x], labels=data[hue],colors=colors,alpha=alpha, autopct='%1.1f%%')
+                plt.pie(data[geo_x], labels=data[hue],colors=colors,autopct='%1.1f%%')
             else:
-                plt.pie(data[geo_x], labels=data[hue],colors=colors,alpha=alpha)
+                plt.pie(data[geo_x], labels=data[hue],colors=colors)        
         plt.title(title)
         # Having plotted we now need to get the image data from the plt
         if not overlay:
