@@ -13,15 +13,23 @@ from . import pdbobject as po
 
 """~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"""
 class PdbLoader(object):
-    def __init__(self, pdb_code, directory="", cif=False):        
+    def __init__(self, pdb_code, directory="", cif=False,source="ebi"):        
         self.pdb_code = pdb_code
         self.directory = directory        
         self.cif = cif
         self.pobj = po.PdbObject(pdb_code)                
-        self.cif_filepath = f"{directory}{pdb_code}.cif"
-        self.cif_url = f"https://www.ebi.ac.uk/pdbe/entry-files/download/{pdb_code}.cif"        
-        self.pdb_filepath = f"{directory}{pdb_code}.pdb"
-        self.pdb_url = f"https://www.ebi.ac.uk/pdbe/entry-files/download/pdb{pdb_code}.ent"
+        if source == "ebi":
+            self.cif_filepath = f"{directory}{pdb_code}.cif"
+            self.cif_url = f"https://www.ebi.ac.uk/pdbe/entry-files/download/{pdb_code}.cif"        
+            self.pdb_filepath = f"{directory}{pdb_code}.pdb"
+            self.pdb_url = f"https://www.ebi.ac.uk/pdbe/entry-files/download/pdb{pdb_code}.ent"
+        elif source == "alphafold":
+            #https://alphafold.ebi.ac.uk/files/AF-Q8CGX5-F1-model_v4.pdb
+            #https://alphafold.ebi.ac.uk/files/AF-Q8CGX5-F1-model_v4.cif
+            self.cif_filepath = f"{directory}{pdb_code}.cif"
+            self.cif_url = f"https://alphafold.ebi.ac.uk/files/{pdb_code}.cif"
+            self.pdb_filepath = f"{directory}{pdb_code}.pdb"
+            self.pdb_url = f"https://alphafold.ebi.ac.uk/files/{pdb_code}.pdb"
     """~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"""
     def exists_pdb(self):
         if exists(self._filepath):

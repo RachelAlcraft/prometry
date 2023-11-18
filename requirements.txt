@@ -8,3 +8,5 @@ scipy
 ruff
 pytest
 twine
+build
+urllib3==1.26.6
