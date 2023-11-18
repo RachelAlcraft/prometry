@@ -108,7 +108,7 @@ class ReportMaker:
         if plottype == 'scatter':
             g = self.ax.scatter(data[geo_x], data[geo_y], c=data[hue], cmap=palette, edgecolor='silver', alpha=alpha, linewidth=0.5, s=20,vmin=cmin,vmax=cmax)
             cb = plt.colorbar(g)
-            cb.set_label(hue)
+            cb.set_label(hue) 
         elif plottype == 'seaborn':
             huedata = data.sort_values(by=hue, ascending=True)[hue].unique()
             im = sns.scatterplot(x=geo_x, y=geo_y, hue=hue, data=data, alpha=alpha, legend='brief',palette=palette, edgecolor='silver', linewidth=0.5,hue_order=huedata)
