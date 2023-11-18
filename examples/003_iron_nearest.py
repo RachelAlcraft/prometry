@@ -13,8 +13,8 @@ CODEDIR = str(Path(__file__).resolve().parent.parent )+ "/src/"
 sys.path.append(CODEDIR)
 DATADIR = str(Path(__file__).resolve().parent )+ "/data/"
 
-from leuci_geo import pdbloader as pl
-from leuci_geo import pdbgeometry as pg
+from prometry import pdbloader as pl
+from prometry import pdbgeometry as pg
 
 pdbs = ["5d8v"]
 pdbs = ['4u9h','5jsk','6rk0']

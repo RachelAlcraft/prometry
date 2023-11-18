@@ -4,7 +4,7 @@ from pathlib import Path
 CODEDIR = str(Path(__file__).resolve().parent.parent )+ "/src/"
 sys.path.append(CODEDIR)
 DATADIR = str(Path(__file__).resolve().parent )+ "/data/"
-from leuci_geo import pdbloader as pl
+from prometry import pdbloader as pl
 
 pdbs = ["1ejg","6eex","7uly","3nir"]
 

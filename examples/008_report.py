@@ -7,9 +7,9 @@ sys.path.append(CODEDIR)
 DATADIR = str(Path(__file__).resolve().parent )+ "/data/"
 RESDIR = str(Path(__file__).resolve().parent )+ "/results/"
 
-from leuci_geo import pdbloader as pl
-from leuci_geo import pdbgeometry as pg
-from leuci_geo import reportmaker as rm
+from prometry import pdbloader as pl
+from prometry import pdbgeometry as pg
+from prometry import reportmaker as rm
 import numpy as np
 
 pdbs =  ['6zx4','3u7z','6vb2']

@@ -5,3 +5,6 @@ pandas
 matplotlib
 seaborn
 scipy
+ruff
+pytest
+twine
