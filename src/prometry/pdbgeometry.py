@@ -451,6 +451,7 @@ class GeometryMaker:
         need_same_residue = True
         atom_matches = []
         criteria = ""
+        element = False 
 
         #if "[" in geo_atom[0] and "]" in geo_atom[0]:
         #    al = geo_atom[0].split("[")
@@ -460,27 +461,38 @@ class GeometryMaker:
         nearest = 0
         farthest = 0
         if "{" in geo_atom[0] and "}" in geo_atom[0]:
-            atom_list = geo_atom[0][1:-1]
-            
+            atom_list = geo_atom[0][1:-1]            
             need_same_residue = False
             if "@" in atom_list:
                 ats = atom_list.split('@')#the nearest this number away, eg nearest but 1, nearest but 2
                 atom_list = ats[0]
-                nearest = ats[1]
+                nearest = int(ats[1])
             if "&" in atom_list:
                 ats = atom_list.split('&')#the nearest that is this number of residues away at least
                 atom_list = ats[0]
-                farthest = int(ats[1])
-            #print(atom_list)
+                farthest = int(ats[1])            
+            atom_list = atom_list.split(",")
+        elif "(" in geo_atom[0] and ")" in geo_atom[0]:
+            element = True
+            atom_list = geo_atom[0][1:-1]            
+            need_same_residue = False
+            if "@" in atom_list:
+                ats = atom_list.split('@')#the nearest this number away, eg nearest but 1, nearest but 2
+                atom_list = ats[0]
+                nearest = int(ats[1])
+            if "&" in atom_list:
+                ats = atom_list.split('&')#the nearest that is this number of residues away at least
+                atom_list = ats[0]
+                farthest = int(ats[1])            
             atom_list = atom_list.split(",")
         else:
-            atom_list = [geo_atom[0]]
+            atom_list = [geo_atom]
         
         for geo_a in atom_list:
             atom_type = ""
             atom_name = ""
-            if "(" in geo_a and ")" in geo_a:
-                atom_type = geo_a[1]
+            if element:
+                atom_type = geo_a
             else:
                 atom_name = geo_a
             
