@@ -15,7 +15,7 @@ Use of the library is demonstrated at [ra-box|prometry](https://ra-box.streamlit
 
 Github page: https://github.com/RachelAlcraft/prometry
 
-Please Raise issues: https://github.com/RachelAlcraft/prometry/issues
+Please raise issues: https://github.com/RachelAlcraft/prometry/issues
 
 ---
 
