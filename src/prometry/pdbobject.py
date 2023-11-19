@@ -106,7 +106,7 @@ class PdbObject(object):
                     'chain':atm.chain,'aa':res.amino_acid,'rid':res.rid,'ridx':res.ridx,                    
                     'atom':atm.atom_name, 'atomNo':atm.atom_no,'element':atm.atom_type,
                     'bfactor':atm.bfactor, 'occupancy':atm.occupancy,
-                    'x':atm.x, 'y':atm.y, 'z':atm.x}
+                    'x':atm.x, 'y':atm.y, 'z':atm.z}
                     dicdfs.append(dic)
         return pd.DataFrame.from_dict(dicdfs)
 
