@@ -486,7 +486,7 @@ class GeometryMaker:
                 farthest = int(ats[1])            
             atom_list = atom_list.split(",")
         else:
-            atom_list = [geo_atom]
+            atom_list = [geo_atom[0]]
         
         for geo_a in atom_list:
             atom_type = ""

@@ -8,11 +8,11 @@ from prometry import pdbgeometry as pg
 import pandas as pd
 
 DATADIR = "tests/data/"
-ls_structures = ['6eex']
+ls_structures = ['1ejg']
 
     
-def test_n():    
-    ls_geos = ['N:{N}','N:{N@1}','N:{N&1}','N:(N)','N:(N&1)']
+def test_aa():    
+    ls_geos = ['N:CA[aa|GLY]']
     pobjs = []
     for pdb in ls_structures:            
         pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
@@ -36,6 +36,6 @@ def test_no():
 
 
 if __name__ == "__main__":
-    #test_n()
+    test_aa()
     test_no()
     
