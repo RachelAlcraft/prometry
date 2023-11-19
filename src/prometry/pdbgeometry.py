@@ -182,45 +182,12 @@ class GeometryMaker:
         :param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
         :returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
         """
-
-        vals = []
-        count = 1
-        used_hues = []
-        for geopdb in self.bio_strucs:
-            pdb = geopdb.pdb_code
-            if log > 0:
-                print('leuci-geo(1) df calc for ' + pdb, count,'/',len(self.bio_strucs))
-                count += 1
-            reso = geopdb.resolution
-
-            for chain, res in geopdb.chains.items():
-                for rid, resd in res.items():
-                    aa = resd.amino_acid
-                    for nm,atm in resd.atoms.items():
-                        tuplerow = []
-                        all_hues = {}
-                        all_hues['pdb_code'] =pdb
-                        all_hues['resolution'] =reso
-                        all_hues['chain'] = chain
-                        all_hues['aa'] =aa
-                        all_hues['rid'] = resd.rid
-                        all_hues['ridx'] =resd.ridx
-                        all_hues['atom_no'] = atm.atom_no
-                        all_hues['atom_name'] = atm.atom_name
-                        all_hues['element'] = atm.atom_type
-                        all_hues['bfactor'] =atm.bfactor
-                        all_hues['occupancy'] =atm.occupancy
-                        all_hues['x'] = atm.x
-                        all_hues['y'] = atm.y
-                        all_hues['z'] = atm.z
-                        used_hues = []
-                        for hue in hues:
-                            if hue in all_hues:
-                                used_hues.append(hue)
-                                tuplerow.append(all_hues[hue])
-                        vals.append(tuplerow)
-        df = pd.DataFrame(vals,columns=used_hues)
-        return df
+        dfs = []        
+        for geopdb in self.pobjs:
+            df = geopdb.dataFrame()
+            dfs.append(df)            
+        vdf = pd.concat(dfs, axis=0)
+        return vdf
 
     def filterDataFrame(self,data, inclusions={},exclusions={}):
         df = data

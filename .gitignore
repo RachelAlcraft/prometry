@@ -166,3 +166,6 @@ instructions/*
 # skip data and results files
 examples/data/*
 examples/results/*
+
+*.pdb
+*.cif

@@ -9,7 +9,7 @@ To install from [pypi](https://pypi.org/project/prometry/) please run
 
 ---
 
-Use of the library is demonstrated at [ra-box|prometry](https://ra-box.streamlit.app/prometry)
+Use of the library is demonstrated at [ra-box/prometry](https://ra-box.streamlit.app/prometry)
 
 ---
 

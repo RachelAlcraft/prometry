@@ -5,6 +5,7 @@ https://pynative.com/make-python-class-json-serializable/#:~:text=Use%20toJSON()
 """
 
 from leuci_xyz import vectorthree as v3
+import pandas as pd
 
 class PdbObject(object):
     def __init__(self, pdb_code):
@@ -95,8 +96,21 @@ class PdbObject(object):
                 return True, atm
         return False, None
 
-    
 
+    def dataFrame(self):        
+        dicdfs = []        
+        for chain,resdic in self.chains.items():
+            for no,res in resdic.items():
+                for attype,atm in res.atoms.items():     
+                    dic={'pdbCode':self.pdb_code,'resolution':self.resolution,
+                    'chain':atm.chain,'aa':res.amino_acid,'rid':res.rid,'ridx':res.ridx,                    
+                    'atom':atm.atom_name, 'atomNo':atm.atom_no,'element':atm.atom_type,
+                    'bfactor':atm.bfactor, 'occupancy':atm.occupancy,
+                    'x':atm.x, 'y':atm.y, 'z':atm.x}
+                    dicdfs.append(dic)
+        return pd.DataFrame.from_dict(dicdfs)
+
+    
 ###################################################################################################################
 class PdbResidue:
     """Class for a single residue
