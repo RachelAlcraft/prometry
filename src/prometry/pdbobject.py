@@ -180,7 +180,7 @@ class PdbAtom:
         delim = "|"
         return f"({self.chain}{delim}{self.res.infoResd()}{delim}{self.atom_name}{delim}{self.atom_no})"
 
-    def matchesCriteria(self, criteria,dis=0):
+    def matchesCriteria(self, criteria,dis=-1):
         if criteria == "":
             return True
         crits = criteria.split(",")
@@ -191,12 +191,12 @@ class PdbAtom:
                     pass
                 else:
                     return False
-            elif cri[0].lower() == "dis" and dis != 0:
+            elif cri[0].lower() == "dis" and dis != -1:
                 if "><" in cri[1]:
                     crits = cri[1].split('>')
                     crit_dis1 = float(crits[0])
                     crit_dis2 = float(crits[1][1:])
-                    if dis < crit_dis1 and dis > crit_dis2:
+                    if dis <= crit_dis1 and dis >= crit_dis2:
                         pass
                     else:
                         return False
@@ -204,19 +204,19 @@ class PdbAtom:
                     crits = cri[1].split('<')
                     crit_dis1 = float(crits[0])
                     crit_dis2 = float(crits[1][1:])
-                    if dis > crit_dis1 and dis < crit_dis2:
+                    if dis >= crit_dis1 and dis <= crit_dis2:
                         pass
                     else:
                         return False
                 elif "<" in cri[1]:
                     crit_dis = cri[1][1:]
-                    if float(dis) < float(crit_dis):
+                    if float(dis) <= float(crit_dis):
                         pass
                     else:
                         return False            
                 elif ">" in cri[1]:
                     crit_dis = cri[1][1:]
-                    if float(dis) > float(crit_dis):
+                    if float(dis) >= float(crit_dis):
                         pass
                     else:
                         return False
@@ -230,13 +230,13 @@ class PdbAtom:
                         return False            
                 elif "<" in cri[1]:
                     crit_occ = cri[1][1:]
-                    if float(self.occupancy) < float(crit_occ):
+                    if float(self.occupancy) <= float(crit_occ):
                         pass
                     else:
                         return False            
                 elif ">" in cri[1]:
                     crit_occ = cri[1][1:]
-                    if float(self.occupancy) > float(crit_occ):
+                    if float(self.occupancy) >= float(crit_occ):
                         pass
                     else:
                         return False

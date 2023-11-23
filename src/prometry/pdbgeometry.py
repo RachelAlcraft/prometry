@@ -349,10 +349,10 @@ class GeometryMaker:
         atom_groups = []
 
         first_atoms = self.getMatchingStartAtoms(pobj, chain, resno,geo_atoms[0])        
-        #print(len(first_atoms))
+        #print(len(first_atoms))                
         for chain, residue,atom in first_atoms:
-            atom_group = []
-            atom_group.append(atom)
+            atom_row = []
+            atom_row.append([atom])
             #print("FIRST ATOM=",chain,residue,atom)
             for i in range(1,len(geo_atoms)):                
                 candidate_atoms, nearest,criteria = self.getMatchingAtoms(pobj, resno, chain, residue,atom, geo_atoms[i])
@@ -361,45 +361,77 @@ class GeometryMaker:
                     best_atom = self.getNearestAtomMatch(pobj, atom, candidate_atoms, nearest,criteria)
                     #for chain_m, residue_m,atom_m in candidate_atoms:
                     #    print("CANDIDATE=",chain_m, residue_m,atom_m)
-                    if len(best_atom) > 0:
-                        if self.log > 0:
-                            print("leuci-geo(1) BEST=",chain, residue,str(best_atom[0]))
-                        atom_group.append(best_atom[0])
+                    if len(best_atom) > 1:                        
+                        atom_row.append(best_atom)
+                    elif len(best_atom) == 1:
+                        atom_row.append(best_atom)
                     else:
-                        continue
+                        atom_row.append([])
                 else:
-                    continue
-            if len(atom_group) == len(geo_atoms):
-                atom_groups.append(atom_group)
+                    atom_row.append([])
+            atom_groups.append(atom_row)
+                
+        
+
         
         
         for atoms in atom_groups:
-            info = self.infoAtoms(atoms)
+            ats0, ats1,ats2,ats3 = [],[],[],[]
+            if len(atoms) >= 2:
+                ats0 = atoms[0]
+                ats1 = atoms[1]
+            if len(atoms) >= 3:
+                ats2 = atoms[2]                
+            if len(atoms) >= 4:
+                ats3 = atoms[3]                            
             val = 0
-            if len(atoms) in [2,3,4]:
-                if len(atoms) == 2:                
-                    val = calc.getDistance(atoms[0].x, atoms[0].y, atoms[0].z,
-                                            atoms[1].x, atoms[1].y, atoms[1].z)
+            if len(atoms) in [2,3,4]:                                
+                if len(atoms) == 2:  
+                    for at0 in ats0:
+                        for at1 in ats1:
+                            print(at0,at1)
+                            val = calc.getDistance(at0.x, at0.y, at0.z,at1.x, at1.y, at1.z)
+                            total_bfactor = 0                
+                            total_occupancy = 0
+                            info = self.infoAtoms([at0,at1])
+                            for atm in [at0,at1]:
+                                total_bfactor += atm.bfactor
+                                total_occupancy  += atm.occupancy
+                            total_occupancy = total_occupancy / 2
+                            total_bfactor = total_bfactor / 2
+                            nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info))
+                
                 elif len(atoms) == 3:
-                    val = calc.getAngle(atoms[0].x, atoms[0].y, atoms[0].z,
-                                        atoms[1].x, atoms[1].y, atoms[1].z,
-                                        atoms[2].x, atoms[2].y, atoms[2].z)
+                    for at0 in ats0:
+                        for at1 in ats1:
+                            for at2 in ats2:
+                                val = calc.getAngle(at0.x, at0.y, at0.z,
+                                                    at1.x, at1.y, at1.z,
+                                                    at2.x, at2.y, at2.z)
+                                info = self.infoAtoms([at0,at1,at2])
+                                for atm in [at0,at1,at2]:
+                                    total_bfactor += atm.bfactor
+                                    total_occupancy  += atm.occupancy
+                                total_occupancy = total_occupancy / 3
+                                total_bfactor = total_bfactor / 3
+                                nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info))
+                
                 elif len(atoms) == 4:
-                    val = calc.getDihedral(atoms[0].x, atoms[0].y, atoms[0].z,
-                                        atoms[1].x, atoms[1].y, atoms[1].z,
-                                        atoms[2].x, atoms[2].y, atoms[2].z,
-                                        atoms[3].x, atoms[3].y, atoms[3].z)
-            
-                total_bfactor = 0                
-                total_occupancy = 0
-                for atm in atoms:                    
-                    total_bfactor += atm.bfactor
-                    total_occupancy  += atm.occupancy
-
-                total_occupancy = total_occupancy / len(atoms)
-                total_bfactor = total_bfactor / len(atoms)
-
-                nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info))
+                    for at0 in ats0:
+                        for at1 in ats1:
+                            for at2 in ats2:
+                                for at3 in ats3:
+                                    info = self.infoAtoms([at0,at1,at2,at3])
+                                    val = calc.getDihedral(at0.x, at0.y, at0.z,
+                                                            at1.x, at1.y, at1.z,
+                                                            at2.x, at2.y, at2.z,
+                                                            at3.x, at3.y, at3.z)
+                                    for atm in [at0,at1,at2,at3]:
+                                        total_bfactor += atm.bfactor
+                                        total_occupancy  += atm.occupancy
+                                    total_occupancy = total_occupancy / 4
+                                    total_bfactor = total_bfactor / 4                            
+                                    nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info))
             
         return nonempty_return
         
@@ -409,6 +441,7 @@ class GeometryMaker:
         
         atom_starts = []
         criteria = ""
+        atm_typ = False
 
         #if "[" in geo_atom[0] and "]" in geo_atom[0]:
         #    al = geo_atom[0].split("[")
@@ -416,9 +449,12 @@ class GeometryMaker:
         criteria = geo_atom[2]
 
         if "{" in geo_atom[0] and "}" in geo_atom[0]:
-            atom_list = geo_atom[0][1:-1]
-            #print(atom_list)
+            atom_list = geo_atom[0][1:-1]            
             atom_list = atom_list.split(",")
+        elif "(" in geo_atom[0] and ")" in geo_atom[0]:
+            atom_list = geo_atom[0][1:-1]            
+            atom_list = atom_list.split(",")
+            atm_typ = True
         else:
             atom_list = [geo_atom[0]]
 
@@ -426,8 +462,8 @@ class GeometryMaker:
         
             atom_type = ""
             atom_name = ""
-            if "(" in geo_a and ")" in geo_a:
-                atom_type = geo_a[1]
+            if atm_typ:            
+                atom_type = geo_a
             else:
                 atom_name = geo_a
             res_match = resno + geo_atom[1]
@@ -466,7 +502,10 @@ class GeometryMaker:
             if "@" in atom_list:
                 ats = atom_list.split('@')#the nearest this number away, eg nearest but 1, nearest but 2
                 atom_list = ats[0]
-                nearest = int(ats[1])
+                if ats[1] == "i":
+                    nearest = -1
+                else:
+                    nearest = int(ats[1])
             if "&" in atom_list:
                 ats = atom_list.split('&')#the nearest that is this number of residues away at least
                 atom_list = ats[0]
@@ -522,8 +561,13 @@ class GeometryMaker:
         
         # now sort on the values
         sorted_disses = sorted(disses,key=itemgetter(1))
-        if int(nearest) < len(sorted_disses):
-            return sorted_disses[int(nearest)]
+        if int(nearest) == -1:
+            ret = []
+            for at,ds in sorted_disses:
+                ret.append(at)
+            return ret
+        elif int(nearest) < len(sorted_disses):
+            return [sorted_disses[int(nearest)][0]]
         else:
             return []#sorted_disses[-1]
 
