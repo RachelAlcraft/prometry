@@ -10,9 +10,9 @@ import pandas as pd
 DATADIR = "tests/data/"
 ls_structures = ['6eex']
 
-   
-def test_nn():    
-    ls_geos = ['N:{N@i}[dis|0.0<>10.0]']
+    
+def test_one():
+    ls_geos = ['N:CA+1','N:CA-1','N:CA+3']
     pobjs = []
     for pdb in ls_structures:            
         pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
@@ -21,10 +21,8 @@ def test_nn():
     gm = pg.GeometryMaker(pobjs)
     df = gm.calculateGeometry(ls_geos)
     print(df)
-    
 
 
 if __name__ == "__main__":
-    test_nn()
-    
+    test_one()
     

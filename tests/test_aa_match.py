@@ -8,11 +8,11 @@ from prometry import pdbgeometry as pg
 import pandas as pd
 
 DATADIR = "tests/data/"
-ls_structures = ['6eex']
+ls_structures = ['5nqo']
 
-   
-def test_nn():    
-    ls_geos = ['N:{N@i}[dis|0.0<>10.0]']
+    
+def test_gly():
+    ls_geos = ['N:(O)[aa|HOH]']
     pobjs = []
     for pdb in ls_structures:            
         pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
@@ -21,10 +21,20 @@ def test_nn():
     gm = pg.GeometryMaker(pobjs)
     df = gm.calculateGeometry(ls_geos)
     print(df)
-    
+
+def test_glynot():
+    ls_geos = ['N:(O)[~aa|HOH]']
+    pobjs = []
+    for pdb in ls_structures:            
+        pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
+        po = pla.load_pdb()
+        pobjs.append(po)
+    gm = pg.GeometryMaker(pobjs)
+    df = gm.calculateGeometry(ls_geos)
+    print(df)
 
 
 if __name__ == "__main__":
-    test_nn()
-    
+    test_gly()
+    test_glynot()
     

@@ -191,6 +191,11 @@ class PdbAtom:
                     pass
                 else:
                     return False
+            if cri[0].lower() == "~aa":
+                if self.res.amino_acid.upper() == cri[1].upper():
+                    return False
+                else:
+                    pass
             elif cri[0].lower() == "dis" and dis != -1:
                 if "><" in cri[1]:
                     crits = cri[1].split('>')

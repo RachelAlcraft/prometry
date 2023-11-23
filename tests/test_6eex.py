@@ -22,7 +22,7 @@ def test_atoms():
     print(df.to_csv())
     
 def test_backbone():
-    ls_geos = ['N:CA', 'N:CA:C', 'N:CA:C:N+1']    
+    ls_geos = ['N:CA', 'N:CA:C', 'N:CA:C:N+1']        
     pobjs = []
     for pdb in ls_structures:            
         pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
