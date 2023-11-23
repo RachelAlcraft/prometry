@@ -12,7 +12,7 @@ ls_structures = ['5nqo']
 
     
 def test_gly():
-    ls_geos = ['N:(O)[aa|HOH]']
+    ls_geos = ['N:(O@i)[aa|HOH,dis|<5]']
     pobjs = []
     for pdb in ls_structures:            
         pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
@@ -36,5 +36,5 @@ def test_glynot():
 
 if __name__ == "__main__":
     test_gly()
-    test_glynot()
+    #test_glynot()
     

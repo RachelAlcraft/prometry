@@ -433,7 +433,10 @@ class GeometryMaker:
             if "@" in atom_list:
                 ats = atom_list.split('@')#the nearest this number away, eg nearest but 1, nearest but 2
                 atom_list = ats[0]
-                nearest = int(ats[1])
+                if ats[1] == "i":
+                    nearest = -1
+                else:
+                    nearest = int(ats[1])
             if "&" in atom_list:
                 ats = atom_list.split('&')#the nearest that is this number of residues away at least
                 atom_list = ats[0]
