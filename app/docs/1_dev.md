@@ -8,7 +8,7 @@ pip install --upgrade pip
 pip install -r requirements.txt --upgrade
 
 # run app
-streamlit run app/home.py
+streamlit run app/Home.py
 
 # distribute to streamlit
 This will be automatically distributed to streamlit on push to main  
