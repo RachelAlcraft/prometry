@@ -19,6 +19,8 @@ Please raise issues: https://github.com/RachelAlcraft/prometry/issues
 
 ---
 
+An demonstration of usage of this library is hosted on streamlit: https://prometry.streamlit.app
+
 
 
 

@@ -8,10 +8,10 @@ https://packaging.python.org/en/latest/tutorials/packaging-projects/
 https://realpython.com/pytest-python-testing/
 
 # Create dev environment
+**NAVIGATE TO the folder**  ```library```
 ```python3 -m venv .venv```
-
 # Load dev environment
-source .venv/bin/activate  
+```source .venv/bin/activate``` (deactivate to exit venv)
 ```pip install --upgrade pip```  
 ```pip install -r requirements.txt --upgrade```  
 

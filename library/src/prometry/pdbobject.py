@@ -73,7 +73,9 @@ class PdbObject(object):
                                         disordered = 'Y'
                                         if atom.disordered_has_id("A"):
                                             atom.disordered_select("A")
-                                    if atom.get_occupancy() < 1:
+                                    if atom.get_occupancy() == None:
+                                        disordered = 'Y'
+                                    elif atom.get_occupancy() < 1:
                                         disordered = 'Y'
                                     atomNo += 1
                                     atom_name = atom.get_name()
