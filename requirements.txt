@@ -1,0 +1,14 @@
+streamlit
+streamlit_extras
+ra-interp
+ruff
+prometry
+plotly
+biopython
+numpy
+biopython
+leuci-xyz
+pandas
+matplotlib
+seaborn
+scipy
