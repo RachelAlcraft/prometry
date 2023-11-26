@@ -30,14 +30,14 @@ with cols[1]:
 
          All the code for the website is given on a "code" tab on each page so you can replicate all of the results here in python yourself easily and build on it.  
          
-         Though no need for code, you can make use of this website to create all your data - all the plots and dataframes are downloadable.
+         You can also make use of this website directly to create all your data - all the plots and dataframes are downloadable.
     """)
     
 st.write("""                      
          
          Prometry has a defined geoemtric-search language described in the [help pages](https://prometry.streamlit.app/Help). 
-         It looks more complicated than it is! It can find distances, angles or dihedrals by describing 2,3 or 4 atoms respectively using the standard atom names for proteins.
-         The 20 standard amina acids and their atoms can be [viewed here](https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/).
+         It can find distances, angles or dihedrals by describing 2,3 or 4 atoms respectively using the standard atom names for proteins.
+         The 20 standard amino acids and their atoms can be [viewed here](https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/).
 
          Additionally criteria can be described to expand or decrease the search space such as distance criteria and amioa acid restrictions. 
          This means the library can create dataframes for uses as diverse as contact maps, nearest neighbours, possible hydrogen bonds or a simple correlation such as the Ramachandran plot.
