@@ -10,8 +10,9 @@ st.set_page_config(
         page_title="prometry",
         page_icon="app/static/plot.png",
         layout="wide",
-    )
+)
 
+st.header("Prometry - example and playsheet")
 
 code_string = "from prometry import pdbloader as pl\n"
 code_string += "from prometry import pdbgeometry as pg\n"
@@ -20,8 +21,7 @@ code_string += f"DATADIR = '{DATADIR}'\n"
 
 code_string2 = ""
 
-st.header("PROMETRY")
-st.write("#### A library to calculate geometric parameters of protein structures and perform criteria search")
+
 
 tabDemo,tabCode = st.tabs(["demo","code"])
 
@@ -34,8 +34,7 @@ with tabDemo:
     if 'code_df' not in st.session_state:
         st.session_state['code_df'] = ""
         st.session_state['code_df2'] = ""
-        st.session_state['code_df3'] = ""
-
+        
     data_samples = {}
     data_samples["crambin resolution"] = ("1crn 1ejg 3u7t 2fd7 1cbn 1cnr 3nir 1ab1 2fd9 1jxy 1jxu 1jxx 1jxw 1jxt",
                                 "N:CA CA:C C:O C:N+1",
@@ -123,22 +122,17 @@ with tabDemo:
     ls_geos = geos.split(" ")
 
 
-    df_geos = pd.DataFrame({'A' : []})
-    df_atoms = pd.DataFrame({'A' : []})
+    df_geos = pd.DataFrame({'A' : []})    
     if 'data' not in st.session_state:
-        st.session_state['data'] = df_geos
-        st.session_state['atoms'] = df_atoms
+        st.session_state['data'] = df_geos        
     else:
         if st.session_state['pdbs'] != structures or st.session_state['geos'] != geos:
-            st.session_state['data'] = df_geos
-            st.session_state['atoms'] = df_atoms
+            st.session_state['data'] = df_geos            
             st.session_state['pdbs'] = structures
             st.session_state['geos'] = geos
         else:
             df_geos = st.session_state['data']
-            df_atoms = st.session_state['atoms']
-
-    
+                
     st.write("---")
     st.write("##### 3) Calculate dataframe")
     if st.button("Calculate dataframe"):
@@ -166,20 +160,20 @@ with tabDemo:
             else:
                 source = "ebi"
                 pdb = pdb.lower()
-            pla = pl.PdbLoader(pdb,DATADIR,cif=False,source=source)        
-            po = pla.load_pdb()
-            pobjs.append(po)
+            try:
+                pla = pl.PdbLoader(pdb,DATADIR,cif=False,source=source)        
+                po = pla.load_pdb()
+                pobjs.append(po)
+            except Exception as e:
+                st.error(e)
         
         gm = pg.GeometryMaker(pobjs)
         df_geos = gm.calculateGeometry(ls_geos)
-        df_atoms = gm.calculateData()
-
+        
         code_string += "\ngm = pg.GeometryMaker(pobjs)\n"
         code_string += "df_geos = gm.calculateGeometry(ls_geos)\n"
-        code_string += "df_atoms = gm.calculateData()\n"
-            
-        st.session_state['data'] = df_geos
-        st.session_state['atoms'] = df_atoms
+                    
+        st.session_state['data'] = df_geos        
         st.session_state['code_df'] = code_string
                 
     if len(df_geos.index) > 0:
@@ -187,13 +181,7 @@ with tabDemo:
         st.write("##### 4) View calculated data")
         with st.expander("Expand geometric dataframe"):
             st.dataframe(df_geos)
-            st.download_button("Download geometric promerty file",df_geos.to_csv(),"promerty_geos.csv","text/csv",key='geos-csv')
-        
-        with st.expander("Expand atomic dataframe"):
-            st.dataframe(df_atoms)
-            st.download_button("Download atomic promerty file",df_atoms.to_csv(),"promerty_atoms.csv","text/csv",key='atoms-csv')
-
-                
+                                            
         ax_cols = list(df_geos.columns)
         iidx1,iidy1,iidz1,iidx2,iidy2,iidz2 = 0,0,0,0,0,0
         try:
@@ -239,57 +227,7 @@ with tabDemo:
             st.session_state['code_df2'] = code_string2
                                                                            
             
-        
-        st.write("---")
-        st.write("##### 6) Plot spatial data")
-        aax_cols = list(df_atoms.columns)
-        aiidh1,aiidh2 = 0,0
-        try:            
-            aiidh1 = aax_cols.index("bfactor")            
-            aiidh2 = aax_cols.index("element")
-        except:
-            pass
-
-        pdbs = list(df_atoms["pdbCode"].unique())
-                
-        ax_ax1 = "x"        
-        ay_ax1 = "y"
-        az_ax1 = "z"
-        ax_ax2 = "x"        
-        ay_ax2 = "y"
-        az_ax2 = "z"
-                
-        cols = st.columns(3)
-        with cols[0]:
-            pdb = st.selectbox("pdbcode", pdbs,index=0)        
-        with cols[1]:
-            ah_ax1 = st.selectbox("hue 1",aax_cols,index=aiidh1)        
-        with cols[2]:
-            ah_ax2 = st.selectbox("hue 2",aax_cols,index=aiidh2)
-        if st.button("Calculate atom plot"):
-            st.write("Spatial info")
-            cols = st.columns(2)
-            with cols[0]:                
-                fig = px.scatter_3d(df_atoms[df_atoms['pdbCode'] == pdb], x=ax_ax1, y=ay_ax1, z=az_ax1, color=ah_ax1,title="",
-                    width=500, height=500, opacity=0.5,color_continuous_scale=px.colors.sequential.Viridis)
-                fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))
-                st.plotly_chart(fig, use_container_width=False)
-            with cols[1]:                
-                fig = px.scatter_3d(df_atoms[df_atoms['pdbCode'] == pdb], x=ax_ax2, y=ay_ax2, z=az_ax2, color=ah_ax2,title="",
-                    width=500, height=500, opacity=0.5,color_continuous_scale=px.colors.sequential.Viridis)
-                fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))
-                st.plotly_chart(fig, use_container_width=False)
-
-            code_string3 = "import plotly.express as px\n"
-            code_string3 += f"fig = px.scatter_3d(df_atoms, x='x', y='y', z='z',color='{ah_ax1}',title='',\n"
-            code_string3 += "    width=500, height=500, opacity=0.5, color_continuous_scale=px.colors.sequential.Viridis))\n"
-            code_string3 += "fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))\n"
-            code_string3 += "fig.show() #or preferred method, e.g. fig.write_html('path/to/file.html')\n"
-            st.session_state['code_df3'] = code_string3
-
-        
-
+                        
 with tabCode:
     st.code(st.session_state['code_df'])
     st.code(st.session_state['code_df2'])
-    st.code(st.session_state['code_df3'])

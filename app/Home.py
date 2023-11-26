@@ -8,6 +8,7 @@ st.set_page_config(
     )
 
 st.header("PROMETRY")
+st.write("#### A library to calculate geometric parameters of protein structures and perform criteria search.")
 #tabHi, tabCV, tabAc,tabTeach,TabCom,tabPubs = st.tabs(["Welcome","Career","Academic","Teaching","Community","Publications"])
 #with tabHi:
 st.write("""                      
@@ -33,7 +34,7 @@ st.write("""
          All the source code for the library and this application is made freely availabe by me to you in the sprit of open science.
 
          If you make use of anything from this application (dataframe data, plots, python code, scientific ideas...)
-         please follow the guidance on the citing page.                     
+         please follow the guidance on the [Citing](https://prometry.streamlit.app/Citing) page.                     
 
          ---  
         

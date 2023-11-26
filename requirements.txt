@@ -12,3 +12,5 @@ pandas
 matplotlib
 seaborn
 scipy
+requests
+urllib3==1.26.6
