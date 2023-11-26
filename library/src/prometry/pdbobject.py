@@ -7,6 +7,7 @@ https://pynative.com/make-python-class-json-serializable/#:~:text=Use%20toJSON()
 from leuci_xyz import vectorthree as v3
 import pandas as pd
 
+amino_acids = ["ala","arg","asn","asp","cys","gln","glu","gly","his","ile","leu","lys","met","phe","pro","ser","thr","trp","tyr","val"]
 class PdbObject(object):
     def __init__(self, pdb_code):
         # PUBLIC INTERFACE        
@@ -41,56 +42,61 @@ class PdbObject(object):
                 self.chains[chain.id] = {} ####  a chain is a dictionary of residue number to GeoResidue ############################################################
                 for residue in chain:
                     aa = residue.get_resname()
-                    rid = residue.get_full_id()[3][1]
+                    rid = residue.get_full_id()[3][1]                    
                     resd = PdbResidue(aa,rid,ridx)
-                    chain = residue.get_full_id()[2]
+                    chain = residue.get_full_id()[2]                    
                     hetatm = residue.get_full_id()[3][0]
                     aah = residue.get_full_id()
-                    mutation = aah[3][2]                                                                                
-                    #if rid == 59: #debug line
-                    #    print(rid)
-                    this_bad = chain + "_" + str(rid)
-                    if this_bad != last_bad:                                    
-                        if rid in self.chains[chain] and self.exc_hetatm:                          
-                            # if it is already there something is wrong so lets remove it
-                            del self.chains[chain][rid]
-                        elif mutation[0] != " " and self.exc_hetatm:                          
-                            # if there are mutation insertions they cause us geoemtry problems and we will remove them                        
-                            last_bad = chain + "_" + str(rid)
-                            if rid in self.chains[chain]: #we know this has alreadybeen checked, it is just a line of code to stop it adding
+                    mutation = aah[3][2] #these are alternative conformations where mutations could occur do not add
+                    # in fact remove any that area lready there
+                    if mutation.strip() != "":
+                        #self.chains[chain][rid] = resd
+                        if chain in self.chains:
+                            if rid in self.chains[chain]:
+                                self.chains[chain].pop(rid)
+                    elif mutation.strip() == "":
+                        this_bad = chain + "_" + str(rid)
+                        if this_bad != last_bad:                                    
+                            if rid in self.chains[chain] and self.exc_hetatm:                          
+                                # if it is already there something is wrong so lets remove it
                                 del self.chains[chain][rid]
-                        else:                        
-                            if str(hetatm[0:2]) == "H_" and self.exc_hetatm:
-                                if False:
-                                    print("HETATM",rid)
-                            else:
-                                # only proceed if we explicitly want hetatms                        
-                                ridx = ridx + 1
+                            elif mutation[0] != " " and self.exc_hetatm:                          
+                                # if there are mutation insertions they cause us geoemtry problems and we will remove them                        
+                                last_bad = chain + "_" + str(rid)
+                                if rid in self.chains[chain]: #we know this has alreadybeen checked, it is just a line of code to stop it adding
+                                    del self.chains[chain][rid]
+                            else:                        
+                                if str(hetatm[0:2]) == "H_" and self.exc_hetatm:
+                                    if False:
+                                        print("HETATM",rid)
+                                else:
+                                    # only proceed if we explicitly want hetatms                        
+                                    ridx = ridx + 1
 
-                                for atom in residue:
-                                    disordered = 'N'
-                                    if atom.is_disordered():
-                                        disordered = 'Y'
-                                        if atom.disordered_has_id("A"):
-                                            atom.disordered_select("A")
-                                    if atom.get_occupancy() == None:
-                                        disordered = 'Y'
-                                    elif atom.get_occupancy() < 1:
-                                        disordered = 'Y'
-                                    atomNo += 1
-                                    atom_name = atom.get_name()
-                                    occupant = atom.get_full_id()[4][1]
-                                    if occupant == ' ':
-                                        occupant = 'A'
-                                    x = atom.get_vector()[0]
-                                    y = atom.get_vector()[1]
-                                    z = atom.get_vector()[2]
-                                    bfactor = atom.get_bfactor()
-                                    occupancy = atom.get_occupancy()
-                                    one_atom = PdbAtom(chain,resd,atom_name[0],atom_name,atomNo,disordered,occupancy,bfactor,x,y,z)
-                                    resd.atoms[atom_name] = one_atom
-                                self.chains[chain][rid] = resd
-                                last_bad = ""
+                                    for atom in residue:
+                                        disordered = 'N'
+                                        if atom.is_disordered():
+                                            disordered = 'Y'
+                                            if atom.disordered_has_id("A"):
+                                                atom.disordered_select("A")
+                                        if atom.get_occupancy() == None:
+                                            disordered = 'Y'
+                                        elif atom.get_occupancy() < 1:
+                                            disordered = 'Y'
+                                        atomNo += 1
+                                        atom_name = atom.get_name()
+                                        occupant = atom.get_full_id()[4][1]
+                                        if occupant == ' ':
+                                            occupant = 'A'
+                                        x = atom.get_vector()[0]
+                                        y = atom.get_vector()[1]
+                                        z = atom.get_vector()[2]
+                                        bfactor = atom.get_bfactor()
+                                        occupancy = atom.get_occupancy()
+                                        one_atom = PdbAtom(chain,resd,atom_name[0],atom_name,atomNo,disordered,occupancy,bfactor,x,y,z)
+                                        resd.atoms[atom_name] = one_atom
+                                    self.chains[chain][rid] = resd
+                                    last_bad = ""
 
     def elementInList(self,element, atomlist):
         for atm in atomlist:
@@ -182,14 +188,16 @@ class PdbAtom:
         delim = "|"
         return f"({self.chain}{delim}{self.res.infoResd()}{delim}{self.atom_name}{delim}{self.atom_no})"
 
-    def matchesCriteria(self, criteria,dis=-1):
+    def matchesCriteria(self, criteria,dis=-1):        
+        if self.disordered == "Y":
+            return False
         if criteria == "":
             return True
         crits = criteria.split(",")
         for crit in crits:
             cri = crit.split("|")
             if cri[0].lower() == "aa":
-                if self.res.amino_acid.upper() == cri[1].upper():
+                if self.res.amino_acid.upper() == cri[1].upper() or (cri[1].upper()=="20" and self.res.amino_acid.lower() in amino_acids) :
                     pass
                 else:
                     return False

@@ -7,13 +7,15 @@ https://packaging.python.org/en/latest/tutorials/packaging-projects/
 # Testing
 https://realpython.com/pytest-python-testing/
 
-# Create dev environment
-**NAVIGATE TO the folder**  ```library```
-```python3 -m venv .venv```
+# Use the .libenv, from the library dir
+```python3 -m venv .libenv```
+```source .libenv/bin/activate``` (deactivate to exit venv)
+Then navigate to library to install
 # Load dev environment
-```source .venv/bin/activate``` (deactivate to exit venv)
-```pip install --upgrade pip```  
+```pip install --upgrade pip```
 ```pip install -r requirements.txt --upgrade```  
+
+This means that libs for the library need to be also put in the app requirements, such as build and wheel
 
 # release to pypi
 Increment the version in setup.cfg in the project IMPORTANT  

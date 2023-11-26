@@ -34,9 +34,17 @@ with cols[1]:
     """)
     
 st.write("""                      
+         
+         Promerty has a defined geoemtric-search language described in the [help pages](https://prometry.streamlit.app/Help). 
+         It looks more complicated than it is! It can find distances, angles or dihedrals by describing 2,3 or 4 atoms respectively using the standard atom names for proteins.
+         The 20 standard amina acids and their atoms can be [viewed here](https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/).
+
+         Additionally criteria can be described to expand or decrease the search space such as distance criteria and amioa acid restrictions. 
+         This means the library can create dataframes for uses as diverse as contact maps, nearest neighbours, possible hydrogen bonds or a simple correlation such as the Ramachandran plot.
+
          ---           
 
-         **The application is freely available by streamlit at no cost to me or you.**  
+         **The application is made freely available by streamlit at no cost to me or you.**  
 
          ---  
          
@@ -44,17 +52,12 @@ st.write("""
 
          If you make use of anything from this application (dataframe data, plots, python code, scientific ideas...)
          please follow the guidance on the [Citing](https://prometry.streamlit.app/Citing) page.                     
-
-         ---  
-
-         This application has been developed by [Rachel Alcraft](mailto:rachelalcraft@gmail.com) as an offshoot of a PhD at Birkbeck, University of London (C) 2023
-
-         ---  
-
-         This site is distributed by continuous deployment from the main branch of the github repo
-         https://github.com/RachelAlcraft/prometry
-         
+                 
+         Please raise any requests or problems as a [github issue](https://github.com/RachelAlcraft/prometry/issues)
+                     
          ---  
                  
         """)
 
+#st.caption(" This site is distributed by continuous deployment from the main branch of the [github repo](https://github.com/RachelAlcraft/prometry)")
+st.caption("This application has been developed by [Rachel Alcraft](mailto:rachelalcraft@gmail.com) as an offshoot of a PhD at Birkbeck, University of London &copy; Rachel Alcraft (2023). Supervisor Dr. Mark A. Williams.")

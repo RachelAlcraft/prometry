@@ -11,6 +11,12 @@ st.set_page_config(
         page_icon="app/static/plot.png",
         layout="wide",
 )
+st.header("Atoms in 3d space ")
+st.caption('''
+"Here we shall use the term 'protein structure' in an entirely different sense - indeed, there is very little common ground between the two articles. 
+Whereas Anfinsen and Redfield have concerned themselves with the amino acid sequence and topological interconnections of the polypeptide chains, 
+we shall consider mainly the geometrical aspects - the arrangement of the atoms in space."(Crick&Kendrew, 1957)
+''')
 
 code_string = "from prometry import pdbloader as pl\n"
 code_string += "from prometry import pdbgeometry as pg\n"
@@ -19,7 +25,7 @@ code_string += f"DATADIR = '{DATADIR}'\n"
 
 code_string2 = ""
 
-st.header("Atoms in 3d space ")
+
 
 tabDemo,tabCode = st.tabs(["demo","code"])
 
@@ -36,7 +42,7 @@ with tabDemo:
     
     st.write("##### Edit/enter structures")
 
-    structures = "4rek"
+    structures = "AF-P04637-F1-model_v4"
             
     cols = st.columns([1,1])
     with cols[0]:
@@ -148,4 +154,8 @@ with tabDemo:
 with tabCode:
     st.code(st.session_state['code_df'])
     st.code(st.session_state['code_df2'])
+
+st.divider()
+st.caption("Crick, F. H. C., & Kendrew, J. C. (1957). X-Ray Analysis and Protein Structure. In Advances in Protein Chemistry (Vol. 12, pp. 133–214). Elsevier. https://doi.org/10.1016/S0065-3233(08)60116-3")
+
         

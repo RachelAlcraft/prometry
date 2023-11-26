@@ -7,6 +7,15 @@ st.set_page_config(
         layout="wide",
     )
 
+st.write("### Restrictions")
+st.write("""
+        The data is restricted to only those atoms that make a reasonable contribution to the protein geoemtriry. 
+        Atoms with occupancy less than 1 and atoms that are part of a set of possible mutation locations are excluded automatically.
+
+        The data is not automatically restricted to standard amino acids - HOH HM8 and any other HETAMS are included by default. 
+        HETATMs can be excluded explicitly, or the 20 stabndard amino acids can be specified explicitly with the criterion aa|20
+        """)
+
 st.code("""
         ---------------------------------------------------------------------       
         Examples

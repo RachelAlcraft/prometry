@@ -49,7 +49,7 @@ class GeometryMaker:
                     for geo in geos:                        
                         geo_col += 1
                         geo_cols[geo_col] = []
-                        geo_as_atoms = self.geoToAtoms(geo)
+                        geo_as_atoms = self.geoToAtoms(geo)                        
                         ret = self.calculateOneGeometry(geopdb,chain,rid,geo_as_atoms,log)
                         for row in ret:#we will need to cross product each of the matches against all others                                                        
                             if self.log > 1:
@@ -175,9 +175,6 @@ class GeometryMaker:
         for geo in geos:  
             geos2.append("rid4_" + geo)
         
-            
-        
-        
         df = pd.DataFrame(vals,columns=geos2)
         return df
 
@@ -194,7 +191,6 @@ class GeometryMaker:
                 gl = g.split("[")
                 g = gl[0]
                 criterion = gl[1][:-1]
-
             if '+' in g:
                 g_split = g.split('+')
                 g_atom = g_split[0]
@@ -297,6 +293,8 @@ class GeometryMaker:
                         for at1 in ats1:
                             #print(at0,at1)
                             val = calc.getDistance(at0.x, at0.y, at0.z,at1.x, at1.y, at1.z)
+                            #print(chain,at0.res.rid,at0.x, at0.y, at0.z)
+                            #print(chain,at1.res.rid,at1.x, at1.y, at1.z)
                             total_bfactor = 0                
                             total_occupancy = 0
                             info = self.infoAtoms([at0,at1])
@@ -455,15 +453,16 @@ class GeometryMaker:
             
             res_match = resno + geo_atom[1]
             
-            for chain,resdic in pobj.chains.items():
-                for no,res in resdic.items():
-                    if need_same_residue and res.rid == res_match or not need_same_residue:
-                        if farthest == 0 or (farthest > 0 and abs(res.rid-res_match) >= farthest):
-                            for attype,atm in res.atoms.items():
-                                if atom_type != "" and atm.atom_type == atom_type:
-                                    atom_matches.append(atm)                                    
-                                elif atom_name != "" and atm.atom_name == atom_name:
-                                    atom_matches.append(atm)
+            for thischain,resdic in pobj.chains.items():
+                if thischain == chain: #must be the same chain
+                    for no,res in resdic.items():
+                        if need_same_residue and res.rid == res_match or not need_same_residue:
+                            if farthest == 0 or (farthest > 0 and abs(res.rid-res_match) >= farthest):
+                                for attype,atm in res.atoms.items():
+                                    if atom_type != "" and atm.atom_type == atom_type:
+                                        atom_matches.append(atm)                                    
+                                    elif atom_name != "" and atm.atom_name == atom_name:
+                                        atom_matches.append(atm)
                                                 
         return atom_matches, nearest,criteria
 
