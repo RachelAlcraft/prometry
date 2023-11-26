@@ -87,24 +87,32 @@ print(pdbs)
 
 
                 
-    if accession != "":
-        cols = st.columns(3)
-        with cols[0]:
-            st.text_input("AplhaFold structure", f"AF-{accession}-F1-model_v4")
-        with cols[1]:
-            st.write(".")
-            st.write(f"[AlphaFold {accession}](https://alphafold.ebi.ac.uk/entry/{accession})")
-        st.text_input("PDB Structures", pdbs[:-1])
-        st.write("PDB Links")        
-        cols = st.columns(6)
-        for i in range(len(pdbls)):
-            pdb = pdbls[i]
-            with cols[i%4]:
-                st.write(f"[{pdb}](https://www.ebi.ac.uk/pdbe/entry/pdb/{pdb})")
+    cols = st.columns(3)    
+    for acc in accessions:        
+        af_pdb = f"AF-{accession}-F1-model_v4"
+        af_url = f"https://alphafold.ebi.ac.uk/files/{af_pdb}.pdb"
+        response = requests.get(af_url)
+        if response.status_code == 200:
+            with cols[0]:
+                st.text_input("AplhaFold structure", af_pdb)
+            with cols[1]:
+                st.write(".")
+                st.write(f"[AlphaFold {accession}](https://alphafold.ebi.ac.uk/entry/{accession})")                            
+                break
+        else:
+            st.warning(f'{af_url} does not exist')
+    with st.expander("Expand accessions"):
+        st.write(accessions)
+        
+    st.text_input("PDB Structures", pdbs[:-1])
+    st.write("PDB Links")        
+    cols = st.columns(6)
+    for i in range(len(pdbls)):
+        pdb = pdbls[i]
+        with cols[i%4]:
+            st.write(f"[{pdb}](https://www.ebi.ac.uk/pdbe/entry/pdb/{pdb})")
             
-    else:
-        st.write("No accession code found")
-    
+        
     st.session_state['code_gene'] = code_string
 
 with tabCode:

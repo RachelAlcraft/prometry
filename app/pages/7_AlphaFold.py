@@ -16,9 +16,6 @@ st.set_page_config(
 
 st.header("Prometry - AlphaFold structures")
 st.caption('''
-"Proteins are essential to life, and understanding their structure can facilitate a mechanistic understanding of their function."(Jumper et al, 2021)
-''')
-st.caption('''
 "As AlphaFold predictions can differ substantially from corresponding experimental models, 
 straightforward methods to estimate coordinate uncertainties of these predictions would be useful."(Terwilliger et al, 2022)
 ''')
@@ -33,7 +30,6 @@ id2s = ("rid","CA:{CA&1}","aa")
 plot2.plot_sheet(af_structure,structures, geos, id1s,id2s)
 
 st.divider()
-st.caption("Jumper, J., Evans, R., Pritzel, A., Green, T., Figurnov, M., Ronneberger, O., Tunyasuvunakool, K., Bates, R., Žídek, A., Potapenko, A., Bridgland, A., Meyer, C., Kohl, S. A. A., Ballard, A. J., Cowie, A., Romera-Paredes, B., Nikolov, S., Jain, R., Adler, J.,Hassabis, D. (2021). Highly accurate protein structure prediction with AlphaFold. Nature, 596(7873), 583–589. https://doi.org/10.1038/s41586-021-03819-2")
 st.caption("Terwilliger, T. C., Liebschner, D., Croll, T. I., Williams, C. J., McCoy, A. J., Poon, B. K., Afonine, P. V., Oeffner, R. D., Richardson, J. S., Read, R. J., & Adams, P. D. (2022). AlphaFold predictions are valuable hypotheses, and accelerate but do not replace experimental structure determination [Preprint]. Biochemistry. https://doi.org/10.1101/2022.11.21.517405")
 
 
