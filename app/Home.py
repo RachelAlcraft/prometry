@@ -28,9 +28,9 @@ with cols[1]:
 
          Rather, this application guides you through the assorted variety of uses. It is intended to spark links and inspiration for your own ideas.
 
-         All the code for the website ios given on a "code" tab on each page so you can replicate all of the results here in python yourself easily and build on it.  
+         All the code for the website is given on a "code" tab on each page so you can replicate all of the results here in python yourself easily and build on it.  
          
-         You can also make use of this website to create all your data if you prefer - all the plots and dataframes are downloadable.
+         Though no need for code, You can make use of this website to create all your data - all the plots and dataframes are downloadable.
     """)
     
 st.write("""                      
