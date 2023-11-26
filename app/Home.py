@@ -27,6 +27,10 @@ with cols[1]:
           generating and using the data in machine learning applications, although the dataframes and contact maps would be very suitable for such applications.
 
          Rather, this application guides you through the assorted variety of uses. It is intended to spark links and inspiration for your own ideas.
+
+         All the code for the website ios given on a "code" tab on each page so you can replicate all of the results here in python yourself easily and build on it.  
+         
+         You can also make use of this website to create all your data if you prefer - all the plots and dataframes are downloadable.
     """)
     
 st.write("""                      
