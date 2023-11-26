@@ -18,28 +18,25 @@ with cols[0]:
     st.image(image, caption='BRCA1 AlphaFold structure plotted in 3d')
 with cols[1]:
     st.write("""                               
+         
+         
          Prometry is a python library to calculate the geoemtric parameters of protein structures.                    
          
-         This website gives a brief demonstration of some of the ways the prometry can be used.
-         As a publicly hosted web application this does not include calculation-time or memory-intense uses such as
-          generating and using the data in machine learning applications which the dataframes and contact maps would be suitable for.
+         This website gives a brief demonstration of some of the ways that prometry can be used.
+         As a publicly hosted web application this does not include time and memory-intense uses such as
+          generating and using the data in machine learning applications, although the dataframes and contact maps would be very suitable for such applications.
 
-         Rather, this application guides you through a variety of uses and is intended to give you ideas and inspiration for your own uses.           
+         Rather, this application guides you through the assorted variety of uses. It is intended to spark links and inspiration for your own ideas.
     """)
     
 st.write("""                      
-         ---  
-
-         This site is distributed by continuous deployment from the main branch of the github repo
-         https://github.com/RachelAlcraft/prometry
-         
-         ---  
+         ---           
 
          **The application is freely available by streamlit at no cost to me or you.**  
 
          ---  
          
-         All the source code for the library and this application is made freely availabe by me to you in the sprit of open science.
+         All the source code for the library and this application is made freely available by me to you in the sprit of open science.
 
          If you make use of anything from this application (dataframe data, plots, python code, scientific ideas...)
          please follow the guidance on the [Citing](https://prometry.streamlit.app/Citing) page.                     
@@ -47,6 +44,13 @@ st.write("""
          ---  
 
          This application has been developed by [Rachel Alcraft](mailto:rachelalcraft@gmail.com) as an offshoot of a PhD at Birkbeck, University of London (C) 2023
+
+         ---  
+
+         This site is distributed by continuous deployment from the main branch of the github repo
+         https://github.com/RachelAlcraft/prometry
+         
+         ---  
                  
         """)
 
