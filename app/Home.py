@@ -35,7 +35,7 @@ with cols[1]:
     
 st.write("""                      
          
-         Promerty has a defined geoemtric-search language described in the [help pages](https://prometry.streamlit.app/Help). 
+         Prometry has a defined geoemtric-search language described in the [help pages](https://prometry.streamlit.app/Help). 
          It looks more complicated than it is! It can find distances, angles or dihedrals by describing 2,3 or 4 atoms respectively using the standard atom names for proteins.
          The 20 standard amina acids and their atoms can be [viewed here](https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/).
 
