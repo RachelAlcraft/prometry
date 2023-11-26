@@ -16,7 +16,7 @@ st.header("Prometry - contact maps")
 st.caption("""
 "One approach is using protein contact maps to better understand proteins' properties."(Molkenthin et al, 2022)
 """)
-st.write("We can use the distance search for a classic CA-CA contact map, or we could use N:(O@i) for a distance seach on N:O.")
+st.write("We can use the distance search for a classic CA-CA contact map, or we could use N:(O@i) for a distance seach on NO.")
 
 code_string = "from prometry import pdbloader as pl\n"
 code_string += "from prometry import pdbgeometry as pg\n"
