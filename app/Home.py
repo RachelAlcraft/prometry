@@ -48,7 +48,7 @@ st.write("""
 
          ---  
          
-         All the source code for the library and this application is made freely available by me to you in the sprit of open science.
+         All the source code for the library and this application is made freely available by me to you in the spirit of open science.
 
          If you make use of anything from this application (dataframe data, plots, python code, scientific ideas...)
          please follow the guidance on the [Citing](https://prometry.streamlit.app/Citing) page.                     
