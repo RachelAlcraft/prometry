@@ -1,8 +1,4 @@
 import streamlit as st
-from prometry import pdbloader as pl
-from prometry import pdbgeometry as pg
-import pandas as pd
-import plotly.express as px
 import requests
 
 DATADIR = "app/data/"
@@ -14,14 +10,12 @@ st.set_page_config(
 )
 
 st.header("Prometry - structure search")
-st.write("This tool finds solved or predicted structures for a given gene in the human taxon 9606")
-st.write("It is intended to simplify the use of this webapp by making it easier to obtain structures")
+st.write("""
+This tool finds solved or predicted structures for a given gene in the human taxon 9606.  
+It simplifies the use of this webapp by making it easier to obtain structures (but you can type in any that you like).  
+""")
 
-code_string = "from prometry import pdbloader as pl\n"
-code_string += "from prometry import pdbgeometry as pg\n"
-code_string += "import pandas as pd\n"
-code_string += "import requests\n"
-code_string += f"DATADIR = '{DATADIR}'\n"
+code_string = "import requests\n"
 
 code_string2 = ""
 
@@ -38,10 +32,10 @@ with tabDemo:
 
     cols = st.columns([1,1,1])
     with cols[0]:
-        gene = st.text_input("Gene", value="BRCA1")                    
+        gene = st.text_input("Gene", value="BRCA2")                    
         url = f"https://rest.uniprot.org/uniprotkb/search?query=reviewed:true+AND+organism_id:{9606}+AND+gene_exact:{gene}"
-    with cols[1]:
-        # https://www.uniprot.org/uniprotkb?query=(reviewed:true)%20AND%20(organism_id:9606)%20AND%20(gene:BRCA1)        
+    with cols[1]:        
+        st.write(".")
         st.write(f"[Uniprot api call]({url})")
         
     code_string += f"ra = requests.get(url='{url}')"
@@ -62,11 +56,14 @@ for x in res:
     pdb = x["id"]
     if db == "PDB":
         pdbs.append(pdb)
+print(accessions)
+print(pdbs)
         """
 
     accessions = []
     accession = ""
     pdbs = ""
+    pdbls = []
 
     ra = requests.get(url=url)
     data = ra.json()
@@ -82,12 +79,25 @@ for x in res:
             pdb = x["id"]
             if db == "PDB":
                 pdbs += pdb + " "
+                pdbls.append(pdb)
 
 
                 
     if accession != "":
-        st.text_input("AplhaFold structure", f"AF-{accession}-F1-model_v4")
+        cols = st.columns(3)
+        with cols[0]:
+            st.text_input("AplhaFold structure", f"AF-{accession}-F1-model_v4")
+        with cols[1]:
+            st.write(".")
+            st.write(f"[AlphaFold {accession}](https://alphafold.ebi.ac.uk/entry/{accession})")
         st.text_input("PDB Structures", pdbs[:-1])
+        st.write("PDB Links")        
+        cols = st.columns(6)
+        for i in range(len(pdbls)):
+            pdb = pdbls[i]
+            with cols[i%4]:
+                st.write(f"[{pdb}](https://www.ebi.ac.uk/pdbe/entry/pdb/{pdb})")
+            
     else:
         st.write("No accession code found")
     
