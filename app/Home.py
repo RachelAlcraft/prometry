@@ -20,7 +20,7 @@ with cols[1]:
     st.write("""                               
          
          
-         Prometry is a python library to calculate the geoemtric parameters of protein structures.                    
+         Prometry is a python library to calculate the geometric parameters of protein structures.                    
          
          This website gives a brief demonstration of some of the ways that prometry can be used.
          As a publicly hosted web application this does not include time and memory-intense uses such as
