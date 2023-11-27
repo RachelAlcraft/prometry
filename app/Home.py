@@ -15,7 +15,7 @@ st.write("#### A library to calculate geometric parameters of protein structures
 cols = st.columns([1,3])
 with cols[0]:
     image = Image.open('app/static/plot.png')
-    st.image(image, caption='BRCA1 AlphaFold structure plotted in 3d')
+    st.image(image, caption='AlphaFold 3d structure plotted against plDDT')
 with cols[1]:
     st.write("""                               
          
