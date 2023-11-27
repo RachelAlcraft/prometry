@@ -89,7 +89,7 @@ print(pdbs)
                 
     cols = st.columns(3)    
     for acc in accessions:        
-        af_pdb = f"AF-{accession}-F1-model_v4"
+        af_pdb = f"AF-{acc}-F1-model_v4"
         af_url = f"https://alphafold.ebi.ac.uk/files/{af_pdb}.pdb"
         response = requests.get(af_url)
         if response.status_code == 200:
@@ -97,7 +97,7 @@ print(pdbs)
                 st.text_input("AplhaFold structure", af_pdb)
             with cols[1]:
                 st.write(".")
-                st.write(f"[AlphaFold {accession}](https://alphafold.ebi.ac.uk/entry/{accession})")                            
+                st.write(f"[AlphaFold {acc}](https://alphafold.ebi.ac.uk/entry/{acc})")                            
                 break
         else:
             st.warning(f'{af_url} does not exist')
