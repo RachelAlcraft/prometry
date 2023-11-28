@@ -4,8 +4,6 @@
 
 #### A library to calculate geometric parameters of protein structures and perform criteria search.
                                           
-Prometry is a python library to calculate the geometric parameters of protein structures.                    
-
 This website gives a brief demonstration of some of the ways that prometry can be used.
 As a publicly hosted web application this does not include time and memory-intense uses such as
 generating and using the data in machine learning applications, although the dataframes and contact maps would be very suitable for such applications.
