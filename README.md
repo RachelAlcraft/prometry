@@ -1,9 +1,5 @@
 <img width="110" alt="plot" src="https://github.com/RachelAlcraft/prometry/assets/4478957/544d2d75-fd31-469b-ab41-bedfe2a7e973">
-
-Distrubuted on the streamlit free cloud service at: https://prometry.streamlit.app
-
 # PROMETRY 
-
 #### A library to calculate geometric parameters of protein structures and perform criteria search.
                                           
 Prometry is a python library to calculate the geometric parameters of protein structures.                    
@@ -27,7 +23,7 @@ This means the library can create dataframes for uses as diverse as contact maps
 
 ---           
 
-**The application is made freely available by streamlit at no cost to me or you.**  
+**The application is made freely available by streamlit at no cost to me or you at: [PROMETRY](https://prometry.streamlit.app)**  
 
 ---  
 
