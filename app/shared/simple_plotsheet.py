@@ -150,7 +150,11 @@ def plot_sheet(structures, geos, id1s,id2s):
                     st.plotly_chart(fig, use_container_width=False)
                 
                 code_string2 = "import plotly.express as px\n"
-                code_string2 += f"fig = px.scatter(df_geos, x='{x_ax1}', y='{y_ax1}', color='{z_ax1}',title="",width=500, height=500, opacity=0.7, color_continuous_scale=px.colors.sequential.Viridis))\n"
+                if z_ax1 == "Probability density plot":
+                    code_string2 += f'fig = px.density_contour(df_geos, x={x_ax2}, y={y_ax2}, title="",width=500, height=500)'
+                    code_string2 += f'fig.update_traces(contours_coloring="fill", contours_showlabels = True)'
+                else:
+                    code_string2 += f"fig = px.scatter(df_geos, x='{x_ax1}', y='{y_ax1}', color='{z_ax1}',title="",width=500, height=500, opacity=0.7, color_continuous_scale=px.colors.sequential.Viridis))\n"
                 code_string2 += "fig.show() #or preferred method, e.g. fig.write_html('path/to/file.html')"
                 st.session_state['code_df2'] = code_string2
                                                                                                                         

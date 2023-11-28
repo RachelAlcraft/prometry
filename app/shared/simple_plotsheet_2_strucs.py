@@ -166,7 +166,7 @@ def plot_sheet(structuresA,structuresB, geos, id1s,id2s):
                     st.plotly_chart(figB, use_container_width=False)
                 
                 code_string2 = "import plotly.express as px\n"
-                code_string2 += "# Choose the dataframe you want to look at, df_geos or df_geosB"
+                code_string2 += "# Choose the dataframe you want to look at, df_geos or df_geosB\n"
                 code_string2 += f"fig = px.scatter(df_geos, x='{x_ax1}', y='{y_ax1}', color='{z_ax1}',title="",width=500, height=500, opacity=0.7, color_continuous_scale=px.colors.sequential.Viridis))\n"
                 code_string2 += "fig.show() #or preferred method, e.g. fig.write_html('path/to/file.html')"
                 st.session_state['code_df2'] = code_string2
