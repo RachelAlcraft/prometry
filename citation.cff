@@ -1,0 +1,14 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Alcraft"
+  given-names: "Rachel"
+  orcid: "https://orcid.org/0000-0003-2674-6321"
+- family-names: "Williams"
+  given-names: "Mark Antony"
+  orcid: "https://orcid.org/0000-0002-1645-2189"
+title: "PROMETRY: a python package for protein geometry"
+version: 1.0.0
+doi: xxx
+date-released: xxx
+url: "https://github.com/RachelAlcraft/prometry"
