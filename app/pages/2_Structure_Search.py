@@ -9,7 +9,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Prometry - structure search")
+st.header("Prometry - Structure Search")
 st.caption('''
 "UniProt data are published via a website (https://www.uniprot.org/uniprot) and distributed in multiple serialization formats, 
 including a custom text format, XML, RDF/XML and FASTA. In addition, 

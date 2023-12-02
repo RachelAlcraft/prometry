@@ -12,7 +12,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Prometry - contact maps")
+st.header("Prometry - Contact Maps")
 st.caption("""
 "One approach is using protein contact maps to better understand proteins' properties."(Molkenthin et al, 2022)
 """)
