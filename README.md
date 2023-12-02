@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/645503177.svg)](https://zenodo.org/doi/10.5281/zenodo.10251231)
 <img width="110" alt="plot" src="https://github.com/RachelAlcraft/prometry/assets/4478957/544d2d75-fd31-469b-ab41-bedfe2a7e973">
 
 # PROMETRY 
