@@ -7,4 +7,4 @@ st.set_page_config(
 )
 
 st.write("While waiting for paper submission please cite:")
-st.caption("Alcraft, R., & Williams, M. A. PROMETRY: a python package for protein geometry (Version 1.0.0) [Computer software]. https://doi.org/xxx")
+st.caption("Alcraft, R., & Williams, M. A. (2023). PROMETRY: A library to calculate geometric parameters of protein structures and perform criteria search. (Version 0.1.0) [Computer software]. https://doi.org/10.5281/zenodo.10251232")
