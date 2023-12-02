@@ -7,6 +7,8 @@ st.set_page_config(
         layout="wide",
     )
 
+st.header("Prometry - Documentation and help")
+
 st.write("### Restrictions")
 st.write("""
         The data is restricted to only those atoms that make a reasonable contribution to the protein geoemtriry. 
@@ -16,6 +18,7 @@ st.write("""
         HETATMs can be excluded explicitly, or the 20 stabndard amino acids can be specified explicitly with the criterion aa|20
         """)
 
+st.write("### Geo definitions")
 st.code("""
         ---------------------------------------------------------------------       
         Examples
@@ -41,8 +44,10 @@ st.code("""
 
         +/- look for neighbouring residues
         C:N+1 - looks for the C in a residue and the N in the next residue  
-        C-1:N - as per above but the previous residue to the current   
-        ---------------------------------------------------------------------  
+        C-1:N - as per above but the previous residue to the current""")
+        
+st.write("### Criteria and searches")
+st.code("""---------------------------------------------------------------------  
         () brackets symbolise element rather than atom type, eg N can mean NZ, NE1 etc, and this starts a 
         nearest lookup if it is not the first item, or a cross product if it is
         (N):N - means any type N, and the N in the same residue - there can be more than 1 per residue
