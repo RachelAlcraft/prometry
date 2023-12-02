@@ -11,7 +11,7 @@ st.set_page_config(
         page_icon="app/static/plot.png",
         layout="wide",
 )
-st.header("Atoms in 3d space ")
+st.header("Prometry - Atoms in 3d space ")
 st.caption('''
 "Here we shall use the term 'protein structure' in an entirely different sense... Whereas Anfinsen and Redfield have concerned themselves 
 with the amino acid sequence and topological interconnections of the polypeptide chains, we shall consider mainly the geometrical 
