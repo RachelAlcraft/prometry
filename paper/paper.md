@@ -32,6 +32,11 @@ PROMETRY is tested by github actions on repository commit.
 
 The documentation for PROMETRY can be found [here]().
 
+All the code for PROMETRY is given on the accompanying website.
+
+All the code in on tabs
+Everythong is completely reproduceable by that code
+
 
 # Statement of need and main contributions
 
