@@ -17,6 +17,10 @@ st.caption('''
 with the amino acid sequence and topological interconnections of the polypeptide chains, we shall consider mainly the geometrical 
 aspects - the arrangement of the atoms in space."(Crick&Kendrew, 1957)
 ''')
+st.write("""
+The AlphaFold TP53 predicted structure is the default, showing the characteristic predictive format of a high plDDT core 
+where there are solved structures, with hightly uncertain regions at the edges.
+""")
 
 code_string = "from prometry import pdbloader as pl\n"
 code_string += "from prometry import pdbgeometry as pg\n"
