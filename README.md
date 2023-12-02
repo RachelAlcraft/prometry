@@ -10,7 +10,7 @@ Prometry has a defined geoemtric-search language described in the [help pages](h
 It can find distances, angles or dihedrals by describing 2,3 or 4 atoms respectively using the standard atom names for proteins.
 The 20 standard amino acids and their atoms can be [viewed here](https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/).
 
-Additionally criteria can be described to expand or decrease the search space such as distance criteria and amioa acid restrictions. 
+Additionally criteria can be described to expand or decrease the search space such as distance criteria and amino acid restrictions. 
 This means the library can create dataframes for uses as diverse as contact maps, nearest neighbours, possible hydrogen bonds or a simple correlation such as the Ramachandran plot.
 
 ---           
