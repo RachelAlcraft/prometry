@@ -11,9 +11,11 @@ st.set_page_config(
 
 st.header("Prometry - Structure Search")
 st.caption('''
-"UniProt data are published via a website (https://www.uniprot.org/uniprot) and distributed in multiple serialization formats, 
-including a custom text format, XML, RDF/XML and FASTA. In addition, 
-we also provide Application Programming Interfaces (API)s and File Transfer Protocol (FTP) downloads."(Garcia et al, 2019)
+
+“...protein structures are generally solved not to build a statistically optimized protein database, 
+but to discover biophysical functional mechanisms.” (Engh & Huber, 2006)."
+
+Searches use Uniprot API (Garcia et al, 2019)
 ''')
 st.write("""
 This tool finds solved or predicted structures for a given gene in the human taxon 9606.  It simplifies the use of this webapp by making it easier to obtain structures (but you can type in any that you like).  
@@ -120,5 +122,6 @@ with tabCode:
 
 
 st.divider()
+st.caption("Engh, R. A., & Huber, R. (2006). 18.3. Structure quality and target parameters. International Tables for Crystallography, F, 382–392. http://dx.doi.org/10.1107/97809553602060000695")
 st.caption("Garcia, L., Bolleman, J., Gehant, S., Redaschi, N., Martin, M., UniProt Consortium, Bateman, A., Magrane, M., Martin, M., Orchard, S., Raj, S., Ahmad, S., Alpi, E., Bowler, E., Britto, R., Bursteinas, B., Bye-A-Jee, H., Dogan, T., Garcia, L., … Zhang, J. (2019). FAIR adoption, assessment and challenges at UniProt. Scientific Data, 6(1), 175. https://doi.org/10.1038/s41597-019-0180-9")
     
