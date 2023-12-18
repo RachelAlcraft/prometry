@@ -41,10 +41,20 @@ st.code("""
         With no brackets or symbols, the simple case is that you are looking for atom types within a residue  
         N:CA - is looking for all atoms of type N and the CA in the same residue, for the distance  
         N:CA:C - is looking for all atoms of types N, CA and C in the same residue and the angle  
+        N:CA:C:N+1 - is looking for the dihedral angle between N, CA, C and N+1 - aka psi
 
         +/- look for neighbouring residues
         C:N+1 - looks for the C in a residue and the N in the next residue  
-        C-1:N - as per above but the previous residue to the current""")
+        C-1:N - as per above but the previous residue to the current
+
+        MIN/MAX DIS
+        Instead of the angle or dihedral, the minimum or maxim pairwise distance between an atom group is found by
+        MINDIS|CA-1:CA:CA+1
+        MAXDIS|CA:{CA@i}[rid|>1]:{CA@i}[rid|>1]
+        
+        """)
+
+        
         
 st.write("### Criteria and searches")
 st.code("""---------------------------------------------------------------------  
@@ -67,10 +77,11 @@ st.code("""---------------------------------------------------------------------
         [] after a geo specify a comma delim list of criteria
         aa - amino acid of the residue
         dis - distance from the first atom where
-        < less than
-        > greater than
-        <> between
-        >< extremes
+        rid - abs value distance between all atoms
+        < less than or =
+        > greater than or =
+        >< between or =
+        <> extremes or =        
         occ - occupancy, with just =, < or >
         ---------------------------------------------------------------------  
     """)

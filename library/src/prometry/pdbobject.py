@@ -188,7 +188,7 @@ class PdbAtom:
         delim = "|"
         return f"({self.chain}{delim}{self.res.infoResd()}{delim}{self.atom_name}{delim}{self.atom_no})"
 
-    def matchesCriteria(self, criteria,dis=-1):        
+    def matchesCriteria(self, criteria,rids=[],dis=-1):        
         if self.disordered == "Y":
             return False
         if criteria == "":
@@ -206,20 +206,55 @@ class PdbAtom:
                     return False
                 else:
                     pass
-            elif cri[0].lower() == "dis" and dis != -1:
-                if "><" in cri[1]:
+            
+            elif cri[0].lower() == "rid" and len(rids) > 0:
+                if "><" in cri[1]: # this is between the values
                     crits = cri[1].split('>')
                     crit_dis1 = float(crits[0])
                     crit_dis2 = float(crits[1][1:])
-                    if dis <= crit_dis1 and dis >= crit_dis2:
-                        pass
-                    else:
-                        return False
-                elif "<>" in cri[1]:
+                    for rid in rids:
+                        if abs(int(rid)-int(self.res.rid)) >= int(crit_dis1) and abs(int(rid)-int(self.res.rid)) <= int(crit_dis2):
+                            pass
+                        else:
+                            return False
+                elif "<>" in cri[1]: # these are at the extremes
                     crits = cri[1].split('<')
                     crit_dis1 = float(crits[0])
                     crit_dis2 = float(crits[1][1:])
+                    for rid in rids:
+                        if abs(int(rid)-int(self.res.rid)) <= int(crit_dis1) or abs(int(rid)-int(self.res.rid)) >= int(crit_dis2):
+                            pass
+                        else:
+                            return False
+                elif ">" in cri[1]:
+                    crit_dis = cri[1][1:]
+                    for rid in rids:
+                        if abs(int(rid)-int(self.res.rid)) >= int(crit_dis):
+                            pass
+                        else:
+                            return False
+                elif "<" in cri[1]:
+                    crit_dis = cri[1][1:]
+                    for rid in rids:
+                        if abs(int(rid)-int(self.res.rid)) <= int(crit_dis):
+                            pass
+                        else:
+                            return False
+
+            elif cri[0].lower() == "dis" and dis != -1:
+                if "><" in cri[1]: #betweem
+                    crits = cri[1].split('>')
+                    crit_dis1 = float(crits[0])
+                    crit_dis2 = float(crits[1][1:])
                     if dis >= crit_dis1 and dis <= crit_dis2:
+                        pass
+                    else:
+                        return False
+                elif "<>" in cri[1]: #extremes
+                    crits = cri[1].split('<')
+                    crit_dis1 = float(crits[0])
+                    crit_dis2 = float(crits[1][1:])
+                    if dis <= crit_dis1 or dis >= crit_dis2:
                         pass
                     else:
                         return False

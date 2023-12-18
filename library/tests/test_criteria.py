@@ -22,7 +22,7 @@ def test_aa():
     df = gm.calculateGeometry(ls_geos)
     print(df.T)
 
-def test_no():    
+def test_no():
     ls_geos = ['N:{N,O}','N:{N,O@1}','N:{N,O&1}','N:{N,O&1}','N:(N,O)','N:(N,O@1)','N:(N,O&1)','N:(N,O&2)']
     #ls_geos = ['N:(N,O&1)']
     pobjs = []
@@ -33,6 +33,8 @@ def test_no():
     gm = pg.GeometryMaker(pobjs)
     df = gm.calculateGeometry(ls_geos)
     print(df.T)
+
+
 
 
 if __name__ == "__main__":

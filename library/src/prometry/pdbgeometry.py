@@ -46,11 +46,21 @@ class GeometryMaker:
                     hue_aa = resd.amino_acid
                     geo_cols = {}
                     geo_col = -1
-                    for geo in geos:                        
+                    for geo in geos:
+                        # we can ask for a maxdis or mindis instead of the angle or dihedral
+                        geo_kind="normal"
+                        if geo[:7].upper() == "MAXDIS|":
+                            geo_kind = "max"
+                            geo = geo[7:]
+                        elif geo[:7].upper() == "MINDIS|":
+                            geo_kind = "min"
+                            geo = geo[7:]
+
+
                         geo_col += 1
                         geo_cols[geo_col] = []
                         geo_as_atoms = self.geoToAtoms(geo)                        
-                        ret = self.calculateOneGeometry(geopdb,chain,rid,geo_as_atoms,log)
+                        ret = self.calculateOneGeometry(geopdb,chain,rid,geo_as_atoms,geo_kind,log)
                         for row in ret:#we will need to cross product each of the matches against all others                                                        
                             if self.log > 1:
                                 print("leuci-geo(2)",row)
@@ -230,7 +240,7 @@ class GeometryMaker:
     
     
     ###### MODICFIED VERSION ########
-    def calculateOneGeometry(self,pobj, chain, resno, geo_atoms,log=0):
+    def calculateOneGeometry(self,pobj, chain, resno, geo_atoms,geo_type,log=0):
         """Creates the geoemtry from the structure in the class for 1 geo
 
         :param chain: The chain id
@@ -252,7 +262,7 @@ class GeometryMaker:
         #print(len(first_atoms))                
         for chain, residue,atom in first_atoms:
             atom_row = []
-            atom_row.append([atom])
+            atom_row.append([atom])            
             #print("FIRST ATOM=",chain,residue,atom)
             for i in range(1,len(geo_atoms)):                
                 candidate_atoms, nearest,criteria = self.getMatchingAtoms(pobj, resno, chain, residue,atom, geo_atoms[i])
@@ -261,6 +271,7 @@ class GeometryMaker:
                     best_atom = self.getNearestAtomMatch(pobj, atom, candidate_atoms, nearest,criteria)
                     #for chain_m, residue_m,atom_m in candidate_atoms:
                     #    print("CANDIDATE=",chain_m, residue_m,atom_m)
+                                        
                     if len(best_atom) > 1:                        
                         atom_row.append(best_atom)
                     elif len(best_atom) == 1:
@@ -312,39 +323,72 @@ class GeometryMaker:
                     for at0 in ats0:
                         for at1 in ats1:
                             for at2 in ats2:
-                                val = calc.getAngle(at0.x, at0.y, at0.z,
-                                                    at1.x, at1.y, at1.z,
-                                                    at2.x, at2.y, at2.z)
-                                info = self.infoAtoms([at0,at1,at2])
-                                for atm in [at0,at1,at2]:
-                                    total_bfactor += atm.bfactor
-                                    total_occupancy  += atm.occupancy
-                                total_occupancy = total_occupancy / 3
-                                total_bfactor = total_bfactor / 3
-                                rid2 = at1.res.rid
-                                rid3 = at2.res.rid
-                                rid4 = 0
-                                nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info,rid2,rid3,rid4))
+                                if at0.matchesCriteria(criteria,rids=[at1.res.rid,at2.res.rid],dis=val):
+                                    if at1.matchesCriteria(criteria,rids=[at0.res.rid,at2.res.rid],dis=val):
+                                        if at2.matchesCriteria(criteria,rids=[at1.res.rid,at0.res.rid],dis=val):
+                                            val = 0
+                                            if geo_type == "normal":
+                                                val = calc.getAngle(at0.x, at0.y, at0.z,
+                                                                    at1.x, at1.y, at1.z,
+                                                                    at2.x, at2.y, at2.z)
+                                            elif geo_type == "max" or geo_type == "min":
+                                                vala = calc.getDistance(at0.x, at0.y, at0.z,at1.x, at1.y, at1.z)
+                                                valb = calc.getDistance(at0.x, at0.y, at0.z,at2.x, at2.y, at2.z)
+                                                valc = calc.getDistance(at1.x, at1.y, at1.z,at2.x, at2.y, at2.z)
+                                                if geo_type == "max":
+                                                    val = max(vala,valb,valc)
+                                                elif geo_type == "min":
+                                                    val = min(vala,valb,valc)
+
+                                            info = self.infoAtoms([at0,at1,at2])
+                                            for atm in [at0,at1,at2]:
+                                                total_bfactor += atm.bfactor
+                                                total_occupancy  += atm.occupancy
+                                            total_occupancy = total_occupancy / 3
+                                            total_bfactor = total_bfactor / 3
+                                            rid2 = at1.res.rid
+                                            rid3 = at2.res.rid
+                                            rid4 = 0
+                                            nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info,rid2,rid3,rid4))
                 
                 elif len(atoms) == 4:
                     for at0 in ats0:
                         for at1 in ats1:
                             for at2 in ats2:
                                 for at3 in ats3:
-                                    info = self.infoAtoms([at0,at1,at2,at3])
-                                    val = calc.getDihedral(at0.x, at0.y, at0.z,
-                                                            at1.x, at1.y, at1.z,
-                                                            at2.x, at2.y, at2.z,
-                                                            at3.x, at3.y, at3.z)
-                                    for atm in [at0,at1,at2,at3]:
-                                        total_bfactor += atm.bfactor
-                                        total_occupancy  += atm.occupancy
-                                    total_occupancy = total_occupancy / 4
-                                    total_bfactor = total_bfactor / 4                                                                
-                                    rid2 = at1.res.rid
-                                    rid3 = at2.res.rid
-                                    rid4 = at3.res.rid
-                                    nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info,rid2,rid3,rid4))
+                                    if at0.matchesCriteria(criteria,rids=[at1.res.rid,at2.res.rid,at3.res.rid],dis=val):
+                                        if at1.matchesCriteria(criteria,rids=[at0.res.rid,at2.res.rid,at3.res.rid],dis=val):
+                                            if at2.matchesCriteria(criteria,rids=[at1.res.rid,at0.res.rid,at3.res.rid],dis=val):
+                                                if at3.matchesCriteria(criteria,rids=[at1.res.rid,at2.res.rid,at0.res.rid],dis=val):
+                                                    val = 0
+                                                    info = self.infoAtoms([at0,at1,at2,at3])
+                                                    if geo_type == "normal":
+                                                        val = calc.getDihedral(at0.x, at0.y, at0.z,
+                                                                            at1.x, at1.y, at1.z,
+                                                                            at2.x, at2.y, at2.z,
+                                                                            at3.x, at3.y, at3.z)
+                                                    elif geo_type == "max" or geo_type == "min":
+                                                        vala = calc.getDistance(at0.x, at0.y, at0.z,at1.x, at1.y, at1.z)
+                                                        valb = calc.getDistance(at0.x, at0.y, at0.z,at2.x, at2.y, at2.z)
+                                                        valc = calc.getDistance(at0.x, at0.y, at0.z,at3.x, at3.y, at3.z)
+                                                        vald = calc.getDistance(at1.x, at1.y, at1.z,at2.x, at2.y, at2.z)
+                                                        vale = calc.getDistance(at1.x, at1.y, at1.z,at3.x, at3.y, at3.z)
+                                                        valf = calc.getDistance(at2.x, at2.y, at2.z,at3.x, at3.y, at3.z)
+                                                        if geo_type == "max":
+                                                            val = max(vala,valb,valc,vald,vale,valf)
+                                                        elif geo_type == "min":
+                                                            val = min(vala,valb,valc,vald,vale,valf)
+
+                                                        
+                                                    for atm in [at0,at1,at2,at3]:
+                                                        total_bfactor += atm.bfactor
+                                                        total_occupancy  += atm.occupancy
+                                                    total_occupancy = total_occupancy / 4
+                                                    total_bfactor = total_bfactor / 4                                                                
+                                                    rid2 = at1.res.rid
+                                                    rid3 = at2.res.rid
+                                                    rid4 = at3.res.rid
+                                                    nonempty_return.append((val,total_bfactor,total_occupancy,total_rid,total_ridx,len(atoms),info,rid2,rid3,rid4))
             
         return nonempty_return
         
@@ -469,12 +513,13 @@ class GeometryMaker:
     def getNearestAtomMatch(self, pobj, atom, candidate_atoms, nearest,criteria):             
         disses = []
         va = v3.VectorThree(float(atom.x),float(atom.y),float(atom.z))
-                
-        for atom_m in candidate_atoms:            
+                        
+        rids = [atom.res.rid]
+        for atom_m in candidate_atoms:
             vc = v3.VectorThree(float(atom_m.x),float(atom_m.y),float(atom_m.z))            
             val = va.distance(vc)            
-            if atom_m.matchesCriteria(criteria,dis=val):
-                disses.append((atom_m,val))
+            if atom_m.matchesCriteria(criteria,rids=rids,dis=val):
+                disses.append((atom_m,val))                
         
         # now sort on the values
         sorted_disses = sorted(disses,key=itemgetter(1))

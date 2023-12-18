@@ -14,9 +14,9 @@ st.set_page_config(
 
 st.header("Prometry - Contact Maps")
 st.caption("""
-"One approach is using protein contact maps to better understand proteins' properties."(Molkenthin et al, 2022)
+"NEED A QUOTE
 """)
-st.write("We can use the distance search for a classic CA-CA contact map, or we could use N:(O@i) for a distance seach on NO.")
+st.write("We can look at all possible pairings of 3 CAs for a more accurate vision of the structural contacts.")
 
 code_string = "from prometry import pdbloader as pl\n"
 code_string += "from prometry import pdbgeometry as pg\n"
@@ -41,13 +41,12 @@ with tabDemo:
 
 
     structures = "5nqo"
-    geos = "CA:{CA@i}[dis|0.5<>10]"    
+    geo = "MINDIS|CA:{CA@i}[dis|<10,rid|>1]:{CA@i}[dis|<10,rid|>1]"
+    geos = geo
     idx1 = "rid"
-    idy1 = "rid2_CA:{CA@i}[dis|0.5<>10]"
-    idz1 =  "CA:{CA@i}[dis|0.5<>10]"
-    idx2 = "rid"
-    idy2 = "rid2_CA:{CA@i}[dis|0.5<>10]"
-    idz2 = "bf_CA:{CA@i}[dis|0.5<>10]"
+    idy1 = f"rid2_{geo}"    
+    idz1 = f"rid3_{geo}"
+    idhue = geo
                              
     st.write("##### Edit/enter structures and geos")
         
@@ -117,14 +116,12 @@ with tabDemo:
             st.dataframe(df_geos)
                                             
         ax_cols = list(df_geos.columns)
-        iidx1,iidy1,iidz1,iidx2,iidy2,iidz2 = 0,0,0,0,0,0
+        iidx1,iidy1,iidz1,iidhue = 0,0,0,0
         try:
             iidx1 = ax_cols.index(idx1)
             iidy1 = ax_cols.index(idy1)
             iidz1 = ax_cols.index(idz1)
-            iidx2 = ax_cols.index(idx2)
-            iidy2 = ax_cols.index(idy2)
-            iidz2 = ax_cols.index(idz2)
+            iidhue = ax_cols.index(idhue)            
         except:
             pass
 
@@ -132,28 +129,32 @@ with tabDemo:
 
         st.write("---")
         st.write("##### 5) Plot geometric data")
-        cols = st.columns(6)
+        cols = st.columns(4)
         with cols[0]:
-            x_ax1 = st.selectbox("x-axis 1", ax_cols,index=iidx1)
+            x_ax1 = st.selectbox("x-axis", ax_cols,index=iidx1)
         with cols[1]:
-            y_ax1 = st.selectbox("y-axis 1",ax_cols,index=iidy1)
+            y_ax1 = st.selectbox("y-axis",ax_cols,index=iidy1)
         with cols[2]:
-            z_ax1 = st.selectbox("z-axis (hue) 1",ax_cols,index=iidz1)
+            z_ax1 = st.selectbox("z-axis",ax_cols,index=iidz1)        
         with cols[3]:
-            x_ax2 = st.selectbox("x-axis 2", ax_cols,index=iidx2)
-        with cols[4]:
-            y_ax2 = st.selectbox("y-axis 2",ax_cols,index=iidy2)
-        with cols[5]:
-            z_ax2 = st.selectbox("z-axis (hue) 2",ax_cols,index=iidz2)
+            z_axhue = st.selectbox("hue",ax_cols,index=iidhue)
+
+
+        # rename colums
+        df_use = df_geos[[x_ax1,y_ax1,z_ax1,z_axhue]]
+        print(df_use.columns)
+        cols = list(df_use.columns)
+        cols[3] = "hue"
+        df_use.columns = cols
         
         if st.button("Calculate geo plot"):
-            cols = st.columns(2)
+            cols = st.columns(1)
             with cols[0]:
-                fig = px.scatter(df_geos, x=x_ax1, y=y_ax1, color=z_ax1,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)
+                fig = px.scatter_3d(df_use, x=x_ax1, y=y_ax1, z=z_ax1, color="hue",title="", #width=500, 
+                height=500, opacity=0.5,color_continuous_scale=px.colors.sequential.Viridis)
+                fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))
                 st.plotly_chart(fig, use_container_width=False)
-            with cols[1]:
-                fig = px.scatter(df_geos, x=x_ax2, y=y_ax2, color=z_ax2,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)
-                st.plotly_chart(fig, use_container_width=False)
+            
             
             code_string2 = "import plotly.express as px\n"
             code_string2 += f"fig = px.scatter(df_geos, x='{x_ax1}', y='{y_ax1}', color='{z_ax1}',title="",width=500, height=500, opacity=0.7, color_continuous_scale=px.colors.sequential.Viridis))\n"

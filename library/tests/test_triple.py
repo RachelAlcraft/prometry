@@ -7,12 +7,13 @@ from prometry import pdbgeometry as pg
 
 import pandas as pd
 
-DATADIR = "tests/data/"
+DATADIR = "tests/data/" 
 ls_structures = ['6eex']
 
    
-def test_nn():    
-    ls_geos = ['N:{N@i}[dis|0.0<>10.0,rid|>2]']
+def test_i_rid():
+    ls_geos = ["MINDIS|CA:{CA@i}[rid|>1]:{CA@i}[rid|>1]"]
+    #ls_geos = ["MAXDIS|N:CA:C","MINDIS|N:CA:C"]
     pobjs = []
     for pdb in ls_structures:            
         pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
@@ -20,13 +21,12 @@ def test_nn():
         pobjs.append(po)
     gm = pg.GeometryMaker(pobjs)
     df = gm.calculateGeometry(ls_geos)
+    print("rows=",len(df.index))
     print(df)
-
- 
-
-
-if __name__ == "__main__":
-    test_nn()
     
 
+
+if __name__ == "__main__":   
+    test_i_rid()
+    
     
