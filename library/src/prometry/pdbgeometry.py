@@ -55,8 +55,10 @@ class GeometryMaker:
                         elif geo[:7].upper() == "MINDIS|":
                             geo_kind = "min"
                             geo = geo[7:]
-
-
+                        elif geo[:7].upper() == "SUMDIS|":  
+                            geo_kind = "sum"
+                            geo = geo[7:]
+                            
                         geo_col += 1
                         geo_cols[geo_col] = []
                         geo_as_atoms = self.geoToAtoms(geo)                        
@@ -331,7 +333,7 @@ class GeometryMaker:
                                                 val = calc.getAngle(at0.x, at0.y, at0.z,
                                                                     at1.x, at1.y, at1.z,
                                                                     at2.x, at2.y, at2.z)
-                                            elif geo_type == "max" or geo_type == "min":
+                                            elif geo_type in ["max","min","sum"]:
                                                 vala = calc.getDistance(at0.x, at0.y, at0.z,at1.x, at1.y, at1.z)
                                                 valb = calc.getDistance(at0.x, at0.y, at0.z,at2.x, at2.y, at2.z)
                                                 valc = calc.getDistance(at1.x, at1.y, at1.z,at2.x, at2.y, at2.z)
@@ -339,6 +341,8 @@ class GeometryMaker:
                                                     val = max(vala,valb,valc)
                                                 elif geo_type == "min":
                                                     val = min(vala,valb,valc)
+                                                elif geo_type == "sum":
+                                                    val = vala + valb + valc
 
                                             info = self.infoAtoms([at0,at1,at2])
                                             for atm in [at0,at1,at2]:
@@ -367,7 +371,7 @@ class GeometryMaker:
                                                                             at1.x, at1.y, at1.z,
                                                                             at2.x, at2.y, at2.z,
                                                                             at3.x, at3.y, at3.z)
-                                                    elif geo_type == "max" or geo_type == "min":
+                                                    elif geo_type in ["max","min","sum"]:
                                                         vala = calc.getDistance(at0.x, at0.y, at0.z,at1.x, at1.y, at1.z)
                                                         valb = calc.getDistance(at0.x, at0.y, at0.z,at2.x, at2.y, at2.z)
                                                         valc = calc.getDistance(at0.x, at0.y, at0.z,at3.x, at3.y, at3.z)
@@ -378,6 +382,8 @@ class GeometryMaker:
                                                             val = max(vala,valb,valc,vald,vale,valf)
                                                         elif geo_type == "min":
                                                             val = min(vala,valb,valc,vald,vale,valf)
+                                                        elif geo_type == "sum":
+                                                            val = vala + valb + valc + vald+ vale + valf
 
                                                         
                                                     for atm in [at0,at1,at2,at3]:

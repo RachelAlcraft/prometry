@@ -12,7 +12,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Prometry - Contact Maps")
+st.header("Prometry - 3d Contact Maps")
 st.caption("""
 "NEED A QUOTE
 """)
@@ -41,12 +41,8 @@ with tabDemo:
 
 
     structures = "5nqo"
-    geo = "MINDIS|CA:{CA@i}[dis|<10,rid|>1]:{CA@i}[dis|<10,rid|>1]"
+    geo = "SUMDIS|CA:{CA@i}[dis|<25,rid|>1]:{CA@i}[dis|<25,rid|>1]"
     geos = geo
-    idx1 = "rid"
-    idy1 = f"rid2_{geo}"    
-    idz1 = f"rid3_{geo}"
-    idhue = geo
                              
     st.write("##### Edit/enter structures and geos")
         
@@ -58,6 +54,12 @@ with tabDemo:
 
     ls_structures = structures.split(" ")
     ls_geos = geos.split(" ")
+    
+    geo = ls_geos[0]
+    idx1 = "rid"
+    idy1 = f"rid2_{geo}"    
+    idz1 = f"rid3_{geo}"
+    idhue = geo
 
     df_geos = pd.DataFrame({'A' : []})    
     if 'data' not in st.session_state:
@@ -73,7 +75,7 @@ with tabDemo:
     st.write("---")
     st.write("##### Calculate dataframe")
     if st.button("Calculate dataframe"):
-
+        
         code_string += f"ls_structures = {ls_structures}\n"
         code_string += f"ls_geos = {ls_geos}\n"
         
@@ -102,6 +104,7 @@ with tabDemo:
         
         gm = pg.GeometryMaker(pobjs)
         df_geos = gm.calculateGeometry(ls_geos)
+        print(df_geos)
         
         code_string += "\ngm = pg.GeometryMaker(pobjs)\n"
         code_string += "df_geos = gm.calculateGeometry(ls_geos)\n"
@@ -151,10 +154,18 @@ with tabDemo:
             cols = st.columns(1)
             with cols[0]:
                 fig = px.scatter_3d(df_use, x=x_ax1, y=y_ax1, z=z_ax1, color="hue",title="", #width=500, 
-                height=500, opacity=0.5,color_continuous_scale=px.colors.sequential.Viridis)
+                height=500, opacity=0.3,color_continuous_scale=px.colors.sequential.Viridis)
                 fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))
                 st.plotly_chart(fig, use_container_width=False)
             
+            
+            
+            
+            code_string2 = "import plotly.express as px\n"
+            code_string2 += f"fig = px.scatter_3d(df_atoms, x='{x_ax1}', y='{y_ax1}', z='{z_ax1}',color='{z_axhue}',title='',\n"
+            code_string2 += "    width=500, height=500, opacity=0.5, color_continuous_scale=px.colors.sequential.Viridis))\n"
+            code_string2 += "fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))\n"
+            code_string2 += "fig.show() #or preferred method, e.g. fig.write_html('path/to/file.html')\n"
             
             code_string2 = "import plotly.express as px\n"
             code_string2 += f"fig = px.scatter(df_geos, x='{x_ax1}', y='{y_ax1}', color='{z_ax1}',title="",width=500, height=500, opacity=0.7, color_continuous_scale=px.colors.sequential.Viridis))\n"
