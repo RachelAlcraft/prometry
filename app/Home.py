@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+from shared import config as cfg
 
 
 st.set_page_config(
@@ -10,6 +11,22 @@ st.set_page_config(
 
 st.header("PROMETRY")
 st.write("#### A library to calculate geometric parameters of protein structures and perform criteria search.")
+
+
+cfg.init()
+
+if 'pdbs' not in st.session_state:
+    st.session_state['pdbs'] = ""
+if 'geos' not in st.session_state:
+    st.session_state['geos'] = ""
+
+
+
+if 'code_df' not in st.session_state:
+    st.session_state['code_df'] = ""
+    st.session_state['code_df2'] = ""
+if 'data' not in st.session_state:
+    st.session_state['data'] = None
 
 
 cols = st.columns([1,3])

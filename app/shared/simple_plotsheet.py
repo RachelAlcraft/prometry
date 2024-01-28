@@ -3,12 +3,12 @@ from prometry import pdbloader as pl
 from prometry import pdbgeometry as pg
 import pandas as pd
 import plotly.express as px
+from shared import config as cfg
 
-DATADIR = "app/data/"
+DATADIR = cfg.DATADIR
 
 
 def plot_sheet(structures, geos, id1s,id2s):
-
     code_string = "from prometry import pdbloader as pl\n"
     code_string += "from prometry import pdbgeometry as pg\n"
     code_string += "import pandas as pd\n"
