@@ -38,8 +38,7 @@ with tabDemo:
                 #gp.geo_plot_underlying(df,df_extra)
         else:
                 gp.val_plot(df,ls_geos[0])
-        st.write("---")
-
+        
 with tabCode:
         st.write("not implemented")
 

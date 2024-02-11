@@ -14,7 +14,8 @@ st.set_page_config(
 
 st.header("Prometry - Geometry playsheet")
 st.caption("""
-"One approach is using protein contact maps to better understand proteins' properties."(Molkenthin et al, 2022)
+"Contact maps do not only contain the information needed for protein structure prediction, 
+but they also are potential tools to describe the fundamentals of protein folding. (Bittrich et al, 2019)"
 """)
 
 st.write("""
@@ -34,13 +35,12 @@ with tabDemo:
         df = dm.maker_geos(ls_structures,ls_geos)
         st.write("---")
         gp.contact_plot(df)
-        st.write("---")
-
+        
 with tabCode:
         st.write("not implemented")
 
 st.divider()
 st.caption("""
-Molkenthin, N., Güven, J. J., Mühle, S., & Mey, A. S. J. S. (2022). 
-What geometrically constrained folding models can tell us about real-world protein contact maps (arXiv:2205.09074). arXiv. http://arxiv.org/abs/2205.09074
+Bittrich, S., Schroeder, M. & Labudde, D. StructureDistiller: 
+Structural relevance scoring identifies the most informative entries of a contact map. Sci Rep 9, 18517 (2019). https://doi.org/10.1038/s41598-019-55047-4
 """)

@@ -36,8 +36,7 @@ with tabDemo:
         df = dm.maker_atoms(ls_structures)
         st.write("---")
         gp.space_plot(df)
-        st.write("---")
-
+        
 with tabCode:
         st.write("not implemented")
 

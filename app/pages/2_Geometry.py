@@ -28,8 +28,7 @@ with tabDemo:
         df = dm.maker_geos(ls_structures, ls_geos)                        
         st.write("---")
         gp.geo_plot(df)
-        st.write("---")
-
+        
 with tabCode:
         st.write("not implemented")
 

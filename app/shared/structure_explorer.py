@@ -79,8 +79,8 @@ def explorer(use_geos="ordinary"):
     st.session_state['str_structures'] = str_struc
     st.session_state['ls_structures'] = ls_structures
     
-    if use_geos != "contacts":
-        st.session_state['ls_geos'] = ls_geos
+    #if use_geos != "contacts":
+    st.session_state['ls_geos'] = ls_geos
     
     return ls_structures,ls_geos
 
