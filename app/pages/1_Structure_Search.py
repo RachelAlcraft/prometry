@@ -10,17 +10,20 @@ st.set_page_config(
         layout="wide",
 )
 
+
+
+
+
 st.header("Prometry - Structure Search")
 st.caption('''
-
-“...protein structures are generally solved not to build a statistically optimized protein database, 
-but to discover biophysical functional mechanisms.” (Engh & Huber, 2006)."
-
-Searches use Uniprot API (Garcia et al, 2019)
+"For certain types of important digital objects, there are well-curated, deeply-integrated, special-purpose repositories such as Genbank3, 
+Worldwide Protein Data Bank (wwPDB4), and UniProt5 in the life sciences ... These foundational and critical core resources are continuously 
+curating and capturing high-value reference datasets and fine-tuning them to enhance scholarly output, provide support for both 
+human and mechanical users, and provide extensive tooling to access their content in rich, dynamic ways."(Wilkinson et al, 2016)
 ''')
 st.write("""
-This tool finds solved or predicted structures for a given gene, taxon (human is 9606). 
-It simplifies the use of this webapp by making it easier to obtain structures (but you can type in any that you like).  
+This tool finds solved or predicted structures for a given gene and taxon (human is 9606). 
+It facilitates further use of this webapp by making it easier to obtain structures (but you can type in any that you like).  
 """)
 
 code_string = "import requests\n"
@@ -80,6 +83,7 @@ print(pdbs)
         #pdb_dict["index"] = []
         pdb_dict["pdb"] = []
         pdb_dict["link"] = []
+        #pdb_dict["jmol_link"] = []
         pdb_dict["method"] = []
         pdb_dict["resolution"] = []
         pdb_dict["chains"] =  []
@@ -117,6 +121,7 @@ print(pdbs)
                     #pdb_dict["index"].append(count)
                     pdb_dict["pdb"].append(pdb)
                     pdb_dict["link"].append(f"https://www.ebi.ac.uk/pdbe/entry/pdb/{pdb}")
+                    #pdb_dict["jmol_link"].append(f"https://proteopedia.org/wiki/fgij/fg.htm?mol={pdb}")                    
                     pdb_dict["method"].append(method)
                     pdb_dict["resolution"].append(str(reso))
                     pdb_dict["chains"].append(chains)
@@ -164,6 +169,11 @@ with tabCode:
 
 
 st.divider()
-st.caption("Engh, R. A., & Huber, R. (2006). 18.3. Structure quality and target parameters. International Tables for Crystallography, F, 382–392. http://dx.doi.org/10.1107/97809553602060000695")
-st.caption("Garcia, L., Bolleman, J., Gehant, S., Redaschi, N., Martin, M., UniProt Consortium, Bateman, A., Magrane, M., Martin, M., Orchard, S., Raj, S., Ahmad, S., Alpi, E., Bowler, E., Britto, R., Bursteinas, B., Bye-A-Jee, H., Dogan, T., Garcia, L., … Zhang, J. (2019). FAIR adoption, assessment and challenges at UniProt. Scientific Data, 6(1), 175. https://doi.org/10.1038/s41597-019-0180-9")
-    
+st.caption("""Garcia, L., Bolleman, J., Gehant, S., Redaschi, N., Martin, M., UniProt Consortium, Bateman, A., 
+Magrane, M., Martin, M., Orchard, S., Raj, S., Ahmad, S., Alpi, E., Bowler, E., Britto, R., 
+Bursteinas, B., Bye-A-Jee, H., Dogan, T., Garcia, L., … Zhang, J. (2019). 
+FAIR adoption, assessment and challenges at UniProt. Scientific Data, 6(1), 175. https://doi.org/10.1038/s41597-019-0180-9""")
+
+st.caption("""Wilkinson, M. D., Dumontier, M., Aalbersberg, Ij. J., Appleton, G., Axton, M., Baak, A., Blomberg, N., Boiten, J.-W., da Silva Santos, 
+L. B., Bourne, P. E., Bouwman, J., Brookes, A. J., Clark, T., Crosas, M., Dillo, I., Dumon, O., Edmunds, S., Evelo, C. T., Finkers, R., … Mons, B. (2016). 
+The FAIR Guiding Principles for scientific data management and stewardship. Scientific Data, 3(1), 160018. https://doi.org/10.1038/sdata.2016.18""")

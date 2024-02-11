@@ -29,7 +29,7 @@ geos = "N:CA:C:N+1 C-1:N:CA:C N:O N:N+1 N:CA:C"
 tabDemo,tabCode = st.tabs(["demo","code"])
 
 with tabDemo:        
-        ls_structures, ls_geos = se.explorer(no_geos=False,show_contacts=True)
+        ls_structures, ls_geos = se.explorer(use_geos="contacts")
         st.write("---")
         df = dm.maker_geos(ls_structures,ls_geos)
         st.write("---")
@@ -40,4 +40,7 @@ with tabCode:
         st.write("not implemented")
 
 st.divider()
-st.caption("Molkenthin, N., Güven, J. J., Mühle, S., & Mey, A. S. J. S. (2022). What geometrically constrained folding models can tell us about real-world protein contact maps (arXiv:2205.09074). arXiv. http://arxiv.org/abs/2205.09074")
+st.caption("""
+Molkenthin, N., Güven, J. J., Mühle, S., & Mey, A. S. J. S. (2022). 
+What geometrically constrained folding models can tell us about real-world protein contact maps (arXiv:2205.09074). arXiv. http://arxiv.org/abs/2205.09074
+""")

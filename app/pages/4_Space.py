@@ -31,7 +31,7 @@ geos = "N:CA:C:N+1 C-1:N:CA:C N:O N:N+1 N:CA:C"
 tabDemo,tabCode = st.tabs(["demo","code"])
 
 with tabDemo:        
-        ls_structures, ls_geos = se.explorer(no_geos=True)
+        ls_structures, ls_geos = se.explorer(use_geos="no")
         st.write("---")
         df = dm.maker_atoms(ls_structures)
         st.write("---")

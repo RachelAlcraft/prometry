@@ -4,6 +4,7 @@ from prometry import pdbgeometry as pg
 from shared import config as cfg
 
 DATADIR = "app/data/"
+PERFECT_PDB = "4rek"
 
 #--------------------------------------------------------------------
 def load_pdbs(ls_structures):
@@ -27,9 +28,10 @@ def load_pdbs(ls_structures):
             st.error(str(e))
     return pobjs
 #--------------------------------------------------------------------
-def maker_geos(ls_structures, ls_geos):
+def maker_geos(ls_structures, ls_geos, extra_underlying=False):
     cfg.init()
     df_geos = st.session_state['df_geos']
+    df_geos_xtra = st.session_state['df_geos_xtra']
     if len(ls_structures) == 0 or len(ls_geos) == 0 or len(ls_structures[0]) == 0:
         st.write("No structures entered")
     else:        
@@ -38,12 +40,19 @@ def maker_geos(ls_structures, ls_geos):
             pobjs = load_pdbs(ls_structures)                        
             gm = pg.GeometryMaker(pobjs)
             df_geos = gm.calculateGeometry(ls_geos)
-                                                                                 
+            if extra_underlying:
+                pobjs_xtra = load_pdbs([PERFECT_PDB])
+                gm_xtra = pg.GeometryMaker(pobjs_xtra)
+                df_geos_xtra = gm_xtra.calculateGeometry(ls_geos)                                                                                 
+                st.session_state['df_geos_xtra'] = df_geos_xtra
         if df_geos is not None and len(df_geos.index) > 0:                            
             with st.expander("Expand geometric dataframe"):
                 st.dataframe(df_geos)
-    st.session_state['df_geos'] = df_geos
-    return df_geos
+    st.session_state['df_geos'] = df_geos    
+    if extra_underlying:
+        return df_geos,df_geos_xtra
+    else:
+        return df_geos
 #--------------------------------------------------------------------
 def maker_atoms(ls_structures):
     cfg.init()
