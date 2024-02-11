@@ -86,7 +86,7 @@ def geo_plot_ramachandran(df_geos):
                             mode = 'markers',
                             marker = dict(
                                 color = 'crimson',
-                                size = 3
+                                size = 4
                             )
                         ))                    
                     fig.update_layout(
