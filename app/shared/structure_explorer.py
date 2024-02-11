@@ -13,9 +13,11 @@ def explorer(use_geos="ordinary"):
     cfg.init()
     ls_structures = st.session_state['ls_structures']
     ls_geos = st.session_state['ls_geos']
+    ls_contacts = st.session_state['ls_contacts']
         
     str_struc = " ".join(ls_structures)
     str_geo = " ".join(ls_geos)
+    str_contacts = " ".join(ls_contacts)
     
     st.write("### Selection")
     sources = ["keep selection", "enter pdbcodes","user uploaded","new upload"]
@@ -59,21 +61,27 @@ def explorer(use_geos="ordinary"):
         if str_geo == "Ramachandran":
             str_geo = "C-1:N:CA:C N:CA:C:N+1"
     elif use_geos == "contacts":
-        str_contacts = st.text_input("Enter 2 contacts atoms",value="CA CA",help="space delim, 2 or 3 atoms - see help", key="ctcs")
-        ls_cs = str_contacts.split(" ")
-        str_geo = ls_cs[0] + "[aa|20]:{" + ls_cs[1] + "@i}[dis|0.5><10,rid|>1,aa|20]"
+        cols = st.columns(2)
+        with cols[0]:
+            str_contacts = st.text_input("Enter 2 contacts atoms",value="CA CA",help="space delim, 2 or 3 atoms - see help", key="ctcs")
+            ls_cs = str_contacts.split(" ")
+            str_geo = ls_cs[0] + "[aa|20]:{" + ls_cs[1] + "@i}[dis|0.5><10,rid|>1,aa|20]"
+        with cols[1]:
+            str_geo = st.text_input("Translated to geos =",value=str_geo,help="space delim, 2, 3 or 4 atoms - see help", key="geo")    
     
     ls_structures = str_struc.split(" ")
     ls_geos = str_geo.split(" ")
 
-    if ls_geos != st.session_state['ls_geos']:
+    if ls_geos != st.session_state['ls_geos']:        
         st.session_state['df_geos'] = None
 
 
     st.session_state['str_structures'] = str_struc
     st.session_state['ls_structures'] = ls_structures
-    st.session_state['ls_geos'] = ls_geos
-
+    
+    if use_geos != "contacts":
+        st.session_state['ls_geos'] = ls_geos
+    
     return ls_structures,ls_geos
 
 def explorer_code():

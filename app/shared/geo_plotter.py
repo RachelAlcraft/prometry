@@ -33,127 +33,43 @@ def geo_plot(df_geos):
                         fig.update_traces(contours_coloring="fill", contours_showlabels = True)
                     else:
                         print("HERE")
-                        fig = px.scatter(df_geos, x=x_ax1, y=y_ax1, color=z_ax1,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)                        
+                        fig = px.scatter(df_geos, x=x_ax1, y=y_ax1, color=z_ax1,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)
                     st.plotly_chart(fig, use_container_width=False)     
                 
 def geo_plot_ramachandran(df_geos):
     from PIL import Image    
-    img = Image.open("app/static/rama_all.png")
-
-#def geo_plot_underlying2(df_geos, df_xtra):
-#    cfg.init()
+    img1 = Image.open("app/static/rama_all.png")
+    img2 = Image.open("app/static/rama_pro.png")
+    img3 = Image.open("app/static/rama_gly.png")
     if df_geos is not None:        
         if len(df_geos.index) > 0:
-            st.write("### Visualisation")
-            ax_cols = list(df_geos.columns)
-            ax_colsZ = list(df_geos.columns)
-            ax_colsZ.insert(0,"Probability density plot")        
-                                                    
-            
-            cols = st.columns([1,2,2,2,1])
+            st.write("### Overlay Ramachandran")            
+            ax_colsZ = list(df_geos.columns)[2:7] + ["bf_C-1:N:CA:C","bf_N:CA:C:N+1"]
+            x_ax1 = "C-1:N:CA:C"
+            y_ax1 = "N:CA:C:N+1"
+            cols = st.columns([1,2,5])
+            with cols[0]:
+                st.write("hue:")
             with cols[1]:
-                x_ax1 = st.selectbox("x-axis", ax_cols,index=0)
-            with cols[2]:
-                y_ax1 = st.selectbox("y-axis",ax_cols,index=1)
-            with cols[3]:
-                z_ax1 = st.selectbox("z-axis (hue)",ax_colsZ,index=3)
+                z_ax1 = st.selectbox("z-axis (hue)",ax_colsZ,index=0,label_visibility="collapsed")
                     
             if st.button("Calculate geo plot"):                    
-                cols = st.columns([1,5,1])                
-                with cols[1]:       
-                                                            
-                    x = df_geos[x_ax1]
-                    y = df_geos[y_ax1]
-                    #x2 = df_xtra[x_ax1]
-                    #y2 = df_xtra[y_ax1]
-
-                    fig = go.Figure()
-                    #fig.add_trace(go.Histogram2dContour(
-                    #        x = x2,
-                    #        y = y2,
-                    #        colorscale = 'Blues',
-                    #        reversescale = False,
-                    #        xaxis = 'x',
-                    #        yaxis = 'y',
-                    #        opacity=0.85,
-                    #        contours_size=20
-                    #    ))
-                    fig.add_trace(go.Scatter(
-                            x = x,
-                            y = y,
-                            xaxis = 'x',
-                            yaxis = 'y',
-                            mode = 'markers',
-                            marker = dict(
-                                color = 'crimson',
-                                size = 4
-                            )
-                        ))                    
-                    fig.update_layout(
-                        autosize = False,
-                        xaxis = dict(
-                            zeroline = False,
-                            domain = [0,0.85],
-                            showgrid = False,
-                            range=[-180,180]
-                        ),
-                        yaxis = dict(
-                            zeroline = False,
-                            domain = [0,0.85],
-                            showgrid = False,
-                            range=[-180,180]
-                        ),
-                        #xaxis2 = dict(
-                        #    zeroline = False,
-                        #    domain = [0.85,1],
-                        #    showgrid = False
-                        #),
-                        #yaxis2 = dict(
-                        #    zeroline = False,
-                        #    domain = [0.85,1],
-                        #    showgrid = False
-                        #),
-                        height = 600,
-                        width = 600,
-                        bargap = 0,
-                        hovermode = 'closest',
-                        showlegend = False
-                    )  
-
-                    fig.add_layout_image(dict(
-                        source=img,
-                        xref="x",
-                        yref="y",
-                        x=0,
-                        y=180,
-                        xanchor="center",
-                        sizex=360,
-                        sizey=360,
-                        sizing="stretch",
-                        opacity=0.35,
-                        layer="below"))                   
-                    
-                    
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    st.plotly_chart(fig, use_container_width=False)     
+                cols = st.columns([1,7,7,7,1])                                
+                plots_obj = []
+                plots_obj.append((1,"exc PRO&GLY",img1,df_geos[df_geos.aa != "PRO"][df_geos.aa != "GLY"]))
+                plots_obj.append((2,", PRO",img2,df_geos[df_geos.aa == "PRO"]))
+                plots_obj.append((3,", GLY",img3,df_geos[df_geos.aa == "GLY"]))
+                for col,aa,img,df in plots_obj:                          
+                    with cols[col]:                        
+                        fig = px.scatter(df, x=x_ax1, y=y_ax1, color=z_ax1,title="", opacity=0.6,color_continuous_scale="temps")
+                        fig.update_layout(title=f"Ramachandran {aa} ({len(df.index)})",autosize = False,
+                            xaxis = dict(zeroline = False, domain = [0,0.85],showgrid = False,range=[-180,180]),
+                            yaxis = dict(zeroline = False, domain = [0,0.85],showgrid = False,range=[-180,180]),                        
+                            height = 500, width = 500,  
+                            bargap = 0,  hovermode = 'closest',  showlegend = True
+                        )  
+                        fig.add_layout_image(dict(source=img, xref="x", yref="y", x=0,y=180, xanchor="center", sizex=360, sizey=360, sizing="stretch", opacity=0.35, layer="below"))                                                                                       
+                        st.plotly_chart(fig, use_container_width=False)     
 
 def space_plot(df_atoms):
     cfg.init()
@@ -221,13 +137,19 @@ def contact_plot(df_geo):
             cols = st.columns([1,5,1])
             with cols[1]:                
                 if dim == "2d":
-                    fig = px.scatter(df_use, x=rid1, y=rid2, color=h_ax1,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)                        
-                    st.plotly_chart(fig, use_container_width=False)
+                    fig = px.scatter(df_use, x=rid1, y=rid2, color=h_ax1,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)                                            
                 else:
                     fig = px.scatter_3d(df_use, x=rid1, y=rid2, z=rid3, color=h_ax1,title="",
                         width=500, height=500, opacity=0.5,color_continuous_scale=px.colors.sequential.Viridis)
                     fig.update_traces(marker=dict(size=5,line=dict(width=0,color='silver')),selector=dict(mode='markers'))
-                    st.plotly_chart(fig, use_container_width=False)
+                
+                fig.update_layout(title=f"Contact map",autosize = False,
+                        xaxis = dict(zeroline = False, domain = [0,0.85],showgrid = False,range=[-180,180]),
+                        yaxis = dict(zeroline = False, domain = [0,0.85],showgrid = False,range=[-180,180]),                        
+                        height = 800, width = 800,  
+                        bargap = 0,  hovermode = 'closest',  showlegend = True
+                    ) 
+                st.plotly_chart(fig, use_container_width=False)
 
 # taken from 18.3. STRUCTURE QUALITY AND TARGET PARAMETERS
 # Table 18.3.2.3. Bond lengths (  ̊ A) and angles (°) of peptide backbone fragments
@@ -260,7 +182,7 @@ def val_plot(df_geos,geo):
             if st.button("Calculate geo plot"):                    
                 cols = st.columns([1,5,5,5,1])
                 pdbs = set(df_geos["pdb_code"])
-                if len(pdbs) > 0:
+                if len(pdbs) > 1:
                     # first summarise
                     plots_obj = []
                     plots_obj.append((1,"exc PRO&GLY",val_lines[0],df_geos[df_geos.aa != "PRO"][df_geos.aa != "GLY"]))

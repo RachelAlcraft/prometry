@@ -44,6 +44,6 @@ with tabCode:
         st.write("not implemented")
 
 st.divider()
-st.write("Plots underlayed with ideal Ramachandran from Lovell, 2003")
+st.write("Plots underlayed with Ramachandran images from Lovell, 2003.")
 st.caption("Engh, R. A., & Huber, R. (2006). 18.3. Structure quality and target parameters. International Tables for Crystallography, F, 382–392. http://dx.doi.org/10.1107/97809553602060000695")
 st.caption("Lovell, S. C., Davis, I. W., Arendall, W. B., De Bakker, P. I. W., Word, J. M., Prisant, M. G., Richardson, J. S., & Richardson, D. C. (2003). Structure validation by Cα geometry: ϕ,ψ and Cβ deviation. Proteins: Structure, Function, and Bioinformatics, 50(3), 437–450. https://doi.org/10.1002/prot.10286")

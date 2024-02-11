@@ -127,9 +127,7 @@ print(pdbs)
                     pdb_dict["chains"].append(chains)
                     pdb_dict["residues"].append(residues)
                     count += 1
-
-
-                    
+                                    
         if len(accession) > 0:
             cols = st.columns(3)    
             for acc in accessions:        
@@ -150,7 +148,9 @@ print(pdbs)
                 
             st.text_input("PDB Structures", pdbs[:-1])
 
-            df = pd.DataFrame.from_dict(pdb_dict)
+            df = pd.DataFrame()
+            if count > 0:
+                df = pd.DataFrame.from_dict(pdb_dict)
             st.data_editor(
             df,
             column_config={
