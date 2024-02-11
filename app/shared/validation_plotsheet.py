@@ -8,26 +8,17 @@ from shared import config as cfg
 DATADIR = cfg.DATADIR
 
 
-def plot_sheet(structures, geos, id1s,id2s):
-    code_string = "from prometry import pdbloader as pl\n"
-    code_string += "from prometry import pdbgeometry as pg\n"
-    code_string += "import pandas as pd\n"
-    code_string += f"DATADIR = '{DATADIR}'\n"
-
-    code_string2 = ""
-
+def plot_sheet(structures):
+    
     tabDemo,tabCode = st.tabs(["demo","code"])
 
     with tabDemo:
 
+        param = st.selectbox("Choose paramater",["N:CA","CA:C","C:O"])
+
         if 'pdbs' not in st.session_state:
-            st.session_state['pdbs'] = ""
-        if 'geos' not in st.session_state:
-            st.session_state['geos'] = ""
-        if 'code_df' not in st.session_state:
-            st.session_state['code_df'] = ""
-            st.session_state['code_df2'] = ""
-        
+            st.session_state['pdbs'] = ""        
+                
         idx1, idy1,idz1 = id1s
         idx2, idy2,idz2 = id2s        
                                 
