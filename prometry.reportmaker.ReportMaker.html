@@ -1,0 +1,1662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>prometry.reportmaker.ReportMaker</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          prometry <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</nav>
+    
+    <div class="container-fluid">
+
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="prometry.reportmaker.ReportMaker.html" class="internal-link" title="This class"><wbr></wbr>Report<wbr></wbr>Maker</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="prometry.reportmaker.ReportMaker.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addBoxComment" class="internal-link" title="prometry.reportmaker.ReportMaker.addBoxComment">add<wbr></wbr>Box<wbr></wbr>Comment</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addContours" class="internal-link" title="prometry.reportmaker.ReportMaker.addContours">add<wbr></wbr>Contours</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addDataFrame" class="internal-link" title="prometry.reportmaker.ReportMaker.addDataFrame">add<wbr></wbr>Data<wbr></wbr>Frame</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addLineComment" class="internal-link" title="prometry.reportmaker.ReportMaker.addLineComment">add<wbr></wbr>Line<wbr></wbr>Comment</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addPlot1d" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlot1d">add<wbr></wbr>Plot1d</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addPlot2d" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlot2d">add<wbr></wbr>Plot2d</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addPlotOnly" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlotOnly">add<wbr></wbr>Plot<wbr></wbr>Only</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addPlotPi" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlotPi">add<wbr></wbr>Plot<wbr></wbr>Pi</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addPoints2d" class="internal-link" title="prometry.reportmaker.ReportMaker.addPoints2d">add<wbr></wbr>Points2d</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addSeries" class="internal-link" title="prometry.reportmaker.ReportMaker.addSeries">add<wbr></wbr>Series</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addSeries_Not" class="internal-link" title="prometry.reportmaker.ReportMaker.addSeries_Not">add<wbr></wbr>Series_<wbr></wbr>Not</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addSeries_Transposed" class="internal-link" title="prometry.reportmaker.ReportMaker.addSeries_Transposed">add<wbr></wbr>Series_<wbr></wbr>Transposed</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#addSurface" class="internal-link" title="prometry.reportmaker.ReportMaker.addSurface">add<wbr></wbr>Surface</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#changeColNumber" class="internal-link" title="prometry.reportmaker.ReportMaker.changeColNumber">change<wbr></wbr>Col<wbr></wbr>Number</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#getFooterString" class="internal-link" title="prometry.reportmaker.ReportMaker.getFooterString">get<wbr></wbr>Footer<wbr></wbr>String</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#getHeaderString" class="internal-link" title="prometry.reportmaker.ReportMaker.getHeaderString">get<wbr></wbr>Header<wbr></wbr>String</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#getPlotImage" class="internal-link" title="prometry.reportmaker.ReportMaker.getPlotImage">get<wbr></wbr>Plot<wbr></wbr>Image</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#HTMLIncrement" class="internal-link" title="prometry.reportmaker.ReportMaker.HTMLIncrement"><wbr></wbr>HTMLIncrement</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#incrementOverlay" class="internal-link" title="prometry.reportmaker.ReportMaker.incrementOverlay">increment<wbr></wbr>Overlay</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#mtxCap" class="internal-link" title="prometry.reportmaker.ReportMaker.mtxCap">mtx<wbr></wbr>Cap</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#mtxCapMin" class="internal-link" title="prometry.reportmaker.ReportMaker.mtxCapMin">mtx<wbr></wbr>Cap<wbr></wbr>Min</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#printReport" class="internal-link" title="prometry.reportmaker.ReportMaker.printReport">print<wbr></wbr>Report</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#ax" class="internal-link" title="prometry.reportmaker.ReportMaker.ax">ax</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#clr_background" class="internal-link" title="prometry.reportmaker.ReportMaker.clr_background">clr<wbr></wbr>_background</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#clr_behindplot" class="internal-link" title="prometry.reportmaker.ReportMaker.clr_behindplot">clr<wbr></wbr>_behindplot</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#clr_header" class="internal-link" title="prometry.reportmaker.ReportMaker.clr_header">clr<wbr></wbr>_header</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#cols" class="internal-link" title="prometry.reportmaker.ReportMaker.cols">cols</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#fig" class="internal-link" title="prometry.reportmaker.ReportMaker.fig">fig</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#html_string" class="internal-link" title="prometry.reportmaker.ReportMaker.html_string">html<wbr></wbr>_string</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#num_col" class="internal-link" title="prometry.reportmaker.ReportMaker.num_col">num<wbr></wbr>_col</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#outpath" class="internal-link" title="prometry.reportmaker.ReportMaker.outpath">outpath</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#overlay_open" class="internal-link" title="prometry.reportmaker.ReportMaker.overlay_open">overlay<wbr></wbr>_open</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#table_open" class="internal-link" title="prometry.reportmaker.ReportMaker.table_open">table<wbr></wbr>_open</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#title" class="internal-link" title="prometry.reportmaker.ReportMaker.title">title</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="prometry.reportmaker.html" class="internal-link" title="The parent of this class">reportmaker</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="prometry.reportmaker.ReportMaker.html" class="internal-link" title="prometry.reportmaker.ReportMaker"><wbr></wbr>Report<wbr></wbr>Maker</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
+      </div>
+
+      <div id="main" class="">
+        
+
+        
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">prometry</a></code><wbr></wbr>.<code><a href="prometry.reportmaker.html" class="internal-link" title="prometry.reportmaker">reportmaker</a></code><wbr></wbr>.<code><a href="prometry.reportmaker.ReportMaker.html" class="internal-link" title="prometry.reportmaker.ReportMaker">ReportMaker</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">ReportMaker</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="prometry.reportmaker.ReportMaker.__init__">ReportMaker(title, outpath, cols, remove_strip, ...)</a></code></p>
+          <p><a href="classIndex.html#prometry.reportmaker.ReportMaker">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Class for a single atom</p>
+<p>:data html_string: :data outpath: :data title:</p>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id13">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="prometry.reportmaker.ReportMaker.__init__">__init__</a></code></td>
+    <td>Initialises a GeoPdb with a biopython structure</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addBoxComment" class="internal-link" title="prometry.reportmaker.ReportMaker.addBoxComment">add<wbr></wbr>Box<wbr></wbr>Comment</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addContours" class="internal-link" title="prometry.reportmaker.ReportMaker.addContours">add<wbr></wbr>Contours</a></code></td>
+    <td>:param mtx: :param title: :param style: Can be filled, lines or both :param label: label the contours :param levels: can be number or cohosen list :param centres: sets 0 as the middle in the colours (use divergent colour map) :param palette: :param alpha: :param overlay: :return:...</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addDataFrame" class="internal-link" title="prometry.reportmaker.ReportMaker.addDataFrame">add<wbr></wbr>Data<wbr></wbr>Frame</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addLineComment" class="internal-link" title="prometry.reportmaker.ReportMaker.addLineComment">add<wbr></wbr>Line<wbr></wbr>Comment</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addPlot1d" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlot1d">add<wbr></wbr>Plot1d</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addPlot2d" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlot2d">add<wbr></wbr>Plot2d</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addPlotOnly" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlotOnly">add<wbr></wbr>Plot<wbr></wbr>Only</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addPlotPi" class="internal-link" title="prometry.reportmaker.ReportMaker.addPlotPi">add<wbr></wbr>Plot<wbr></wbr>Pi</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addPoints2d" class="internal-link" title="prometry.reportmaker.ReportMaker.addPoints2d">add<wbr></wbr>Points2d</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addSeries" class="internal-link" title="prometry.reportmaker.ReportMaker.addSeries">add<wbr></wbr>Series</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addSeries_Not" class="internal-link" title="prometry.reportmaker.ReportMaker.addSeries_Not">add<wbr></wbr>Series_<wbr></wbr>Not</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addSeries_Transposed" class="internal-link" title="prometry.reportmaker.ReportMaker.addSeries_Transposed">add<wbr></wbr>Series_<wbr></wbr>Transposed</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#addSurface" class="internal-link" title="prometry.reportmaker.ReportMaker.addSurface">add<wbr></wbr>Surface</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#changeColNumber" class="internal-link" title="prometry.reportmaker.ReportMaker.changeColNumber">change<wbr></wbr>Col<wbr></wbr>Number</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#getFooterString" class="internal-link" title="prometry.reportmaker.ReportMaker.getFooterString">get<wbr></wbr>Footer<wbr></wbr>String</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#getHeaderString" class="internal-link" title="prometry.reportmaker.ReportMaker.getHeaderString">get<wbr></wbr>Header<wbr></wbr>String</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#getPlotImage" class="internal-link" title="prometry.reportmaker.ReportMaker.getPlotImage">get<wbr></wbr>Plot<wbr></wbr>Image</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#HTMLIncrement" class="internal-link" title="prometry.reportmaker.ReportMaker.HTMLIncrement"><wbr></wbr>HTMLIncrement</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#incrementOverlay" class="internal-link" title="prometry.reportmaker.ReportMaker.incrementOverlay">increment<wbr></wbr>Overlay</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#mtxCap" class="internal-link" title="prometry.reportmaker.ReportMaker.mtxCap">mtx<wbr></wbr>Cap</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#mtxCapMin" class="internal-link" title="prometry.reportmaker.ReportMaker.mtxCapMin">mtx<wbr></wbr>Cap<wbr></wbr>Min</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#printReport" class="internal-link" title="prometry.reportmaker.ReportMaker.printReport">print<wbr></wbr>Report</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#ax" class="internal-link" title="prometry.reportmaker.ReportMaker.ax">ax</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#clr_background" class="internal-link" title="prometry.reportmaker.ReportMaker.clr_background">clr<wbr></wbr>_background</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#clr_behindplot" class="internal-link" title="prometry.reportmaker.ReportMaker.clr_behindplot">clr<wbr></wbr>_behindplot</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#clr_header" class="internal-link" title="prometry.reportmaker.ReportMaker.clr_header">clr<wbr></wbr>_header</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#cols" class="internal-link" title="prometry.reportmaker.ReportMaker.cols">cols</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#fig" class="internal-link" title="prometry.reportmaker.ReportMaker.fig">fig</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#html_string" class="internal-link" title="prometry.reportmaker.ReportMaker.html_string">html<wbr></wbr>_string</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#num_col" class="internal-link" title="prometry.reportmaker.ReportMaker.num_col">num<wbr></wbr>_col</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#outpath" class="internal-link" title="prometry.reportmaker.ReportMaker.outpath">outpath</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#overlay_open" class="internal-link" title="prometry.reportmaker.ReportMaker.overlay_open">overlay<wbr></wbr>_open</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#table_open" class="internal-link" title="prometry.reportmaker.ReportMaker.table_open">table<wbr></wbr>_open</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#title" class="internal-link" title="prometry.reportmaker.ReportMaker.title">title</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, title, outpath, cols=3, remove_strip=False, clr_header=<span class="rst-variable-quote">'</span><span class="rst-variable-string">lightsteelblue</span><span class="rst-variable-quote">'</span>, clr_background=<span class="rst-variable-quote">'</span><span class="rst-variable-string">lightblue</span><span class="rst-variable-quote">'</span>, clr_behindplot=<span class="rst-variable-quote">'</span><span class="rst-variable-string">seashell</span><span class="rst-variable-quote">'</span>)</span>:
+    
+    <a class="headerLink" href="#__init__" title="prometry.reportmaker.ReportMaker.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Initialises a GeoPdb with a biopython structure</p>
+<p>:param biopython_structure: A list of structures that has been created from biopython</p>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addBoxComment">
+    
+  </a>
+  <a name="addBoxComment">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addBoxComment</span><span class="function-signature">(self, comment)</span>:
+    
+    <a class="headerLink" href="#addBoxComment" title="prometry.reportmaker.ReportMaker.addBoxComment">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addContours">
+    
+  </a>
+  <a name="addContours">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addContours</span><span class="function-signature">(self, mtx, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, style=<span class="rst-variable-quote">'</span><span class="rst-variable-string">filled</span><span class="rst-variable-quote">'</span>, contourlabel=False, levels=10, centred=False, palette=<span class="rst-variable-quote">'</span><span class="rst-variable-string">inferno</span><span class="rst-variable-quote">'</span>, alpha=0.9, colourbar=True, overlay=False, cmin=None, cmax=None, cap=0, linewidth=None)</span>:
+    
+    <a class="headerLink" href="#addContours" title="prometry.reportmaker.ReportMaker.addContours">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>:param mtx: :param title: :param style: Can be filled, lines or both :param label: label the contours :param levels: can be number or cohosen list :param centres: sets 0 as the middle in the colours (use divergent colour map) :param palette: :param alpha: :param overlay: :return:</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addDataFrame">
+    
+  </a>
+  <a name="addDataFrame">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addDataFrame</span><span class="function-signature">(self, data, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</span>:
+    
+    <a class="headerLink" href="#addDataFrame" title="prometry.reportmaker.ReportMaker.addDataFrame">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addLineComment">
+    
+  </a>
+  <a name="addLineComment">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addLineComment</span><span class="function-signature">(self, comment)</span>:
+    
+    <a class="headerLink" href="#addLineComment" title="prometry.reportmaker.ReportMaker.addLineComment">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addPlot1d">
+    
+  </a>
+  <a name="addPlot1d">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addPlot1d</span><span class="function-signature">(self, data, plottype, geo_x, hue=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, palette=<span class="rst-variable-quote">'</span><span class="rst-variable-string">crimson</span><span class="rst-variable-quote">'</span>, overlay=False, alpha=1, xrange=[<wbr></wbr>None, <wbr></wbr>None], cumulative=False, density=False, bins=20)</span>:
+    
+    <a class="headerLink" href="#addPlot1d" title="prometry.reportmaker.ReportMaker.addPlot1d">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addPlot2d">
+    
+  </a>
+  <a name="addPlot2d">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addPlot2d</span><span class="function-signature">(self, data, plottype, geo_x, geo_y, hue, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, palette=<span class="rst-variable-quote">'</span><span class="rst-variable-string">viridis</span><span class="rst-variable-quote">'</span>, overlay=False, alpha=1, xrange=[<wbr></wbr>None, <wbr></wbr>None], yrange=[<wbr></wbr>None, <wbr></wbr>None], crange=[<wbr></wbr>None, <wbr></wbr>None])</span>:
+    
+    <a class="headerLink" href="#addPlot2d" title="prometry.reportmaker.ReportMaker.addPlot2d">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addPlotOnly">
+    
+  </a>
+  <a name="addPlotOnly">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addPlotOnly</span><span class="function-signature">(self, fig, ax)</span>:
+    
+    <a class="headerLink" href="#addPlotOnly" title="prometry.reportmaker.ReportMaker.addPlotOnly">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addPlotPi">
+    
+  </a>
+  <a name="addPlotPi">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addPlotPi</span><span class="function-signature">(self, data, geo_x, hue, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, colors=[], overlay=False, percent=False)</span>:
+    
+    <a class="headerLink" href="#addPlotPi" title="prometry.reportmaker.ReportMaker.addPlotPi">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addPoints2d">
+    
+  </a>
+  <a name="addPoints2d">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addPoints2d</span><span class="function-signature">(self, points, hue=<span class="rst-variable-quote">'</span><span class="rst-variable-string">yellow</span><span class="rst-variable-quote">'</span>, overlay=False)</span>:
+    
+    <a class="headerLink" href="#addPoints2d" title="prometry.reportmaker.ReportMaker.addPoints2d">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addSeries">
+    
+  </a>
+  <a name="addSeries">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addSeries</span><span class="function-signature">(self, data, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, transpose=False)</span>:
+    
+    <a class="headerLink" href="#addSeries" title="prometry.reportmaker.ReportMaker.addSeries">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addSeries_Not">
+    
+  </a>
+  <a name="addSeries_Not">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addSeries_Not</span><span class="function-signature">(self, data, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</span>:
+    
+    <a class="headerLink" href="#addSeries_Not" title="prometry.reportmaker.ReportMaker.addSeries_Not">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addSeries_Transposed">
+    
+  </a>
+  <a name="addSeries_Transposed">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addSeries_Transposed</span><span class="function-signature">(self, data, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</span>:
+    
+    <a class="headerLink" href="#addSeries_Transposed" title="prometry.reportmaker.ReportMaker.addSeries_Transposed">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.addSurface">
+    
+  </a>
+  <a name="addSurface">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">addSurface</span><span class="function-signature">(self, mtx, title=<span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, palette=<span class="rst-variable-quote">'</span><span class="rst-variable-string">inferno</span><span class="rst-variable-quote">'</span>, alpha=0.9, overlay=False, cmin=None, cmax=None, cap=0, colourbar=False, centred=False)</span>:
+    
+    <a class="headerLink" href="#addSurface" title="prometry.reportmaker.ReportMaker.addSurface">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.changeColNumber">
+    
+  </a>
+  <a name="changeColNumber">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">changeColNumber</span><span class="function-signature">(self, cols)</span>:
+    
+    <a class="headerLink" href="#changeColNumber" title="prometry.reportmaker.ReportMaker.changeColNumber">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.getFooterString">
+    
+  </a>
+  <a name="getFooterString">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">getFooterString</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#getFooterString" title="prometry.reportmaker.ReportMaker.getFooterString">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.getHeaderString">
+    
+  </a>
+  <a name="getHeaderString">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">getHeaderString</span><span class="function-signature">(self, title, remove_strip)</span>:
+    
+    <a class="headerLink" href="#getHeaderString" title="prometry.reportmaker.ReportMaker.getHeaderString">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.getPlotImage">
+    
+  </a>
+  <a name="getPlotImage">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">getPlotImage</span><span class="function-signature">(self, fig, ax)</span>:
+    
+    <a class="headerLink" href="#getPlotImage" title="prometry.reportmaker.ReportMaker.getPlotImage">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.HTMLIncrement">
+    
+  </a>
+  <a name="HTMLIncrement">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">HTMLIncrement</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#HTMLIncrement" title="prometry.reportmaker.ReportMaker.HTMLIncrement">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.incrementOverlay">
+    
+  </a>
+  <a name="incrementOverlay">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">incrementOverlay</span><span class="function-signature">(self, overlay)</span>:
+    
+    <a class="headerLink" href="#incrementOverlay" title="prometry.reportmaker.ReportMaker.incrementOverlay">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.mtxCap">
+    
+  </a>
+  <a name="mtxCap">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">mtxCap</span><span class="function-signature">(self, mtx, cap)</span>:
+    
+    <a class="headerLink" href="#mtxCap" title="prometry.reportmaker.ReportMaker.mtxCap">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.mtxCapMin">
+    
+  </a>
+  <a name="mtxCapMin">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">mtxCapMin</span><span class="function-signature">(self, mtx, cap)</span>:
+    
+    <a class="headerLink" href="#mtxCapMin" title="prometry.reportmaker.ReportMaker.mtxCapMin">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.printReport">
+    
+  </a>
+  <a name="printReport">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">printReport</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#printReport" title="prometry.reportmaker.ReportMaker.printReport">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.ax">
+    
+  </a>
+  <a name="ax">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">ax</span> =
+    
+    <a class="headerLink" href="#ax" title="prometry.reportmaker.ReportMaker.ax">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.clr_background">
+    
+  </a>
+  <a name="clr_background">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">clr_background</span> =
+    
+    <a class="headerLink" href="#clr_background" title="prometry.reportmaker.ReportMaker.clr_background">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.clr_behindplot">
+    
+  </a>
+  <a name="clr_behindplot">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">clr_behindplot</span> =
+    
+    <a class="headerLink" href="#clr_behindplot" title="prometry.reportmaker.ReportMaker.clr_behindplot">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.clr_header">
+    
+  </a>
+  <a name="clr_header">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">clr_header</span> =
+    
+    <a class="headerLink" href="#clr_header" title="prometry.reportmaker.ReportMaker.clr_header">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.cols">
+    
+  </a>
+  <a name="cols">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">cols</span> =
+    
+    <a class="headerLink" href="#cols" title="prometry.reportmaker.ReportMaker.cols">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.fig">
+    
+  </a>
+  <a name="fig">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">fig</span> =
+    
+    <a class="headerLink" href="#fig" title="prometry.reportmaker.ReportMaker.fig">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.html_string">
+    
+  </a>
+  <a name="html_string">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">html_string</span> =
+    
+    <a class="headerLink" href="#html_string" title="prometry.reportmaker.ReportMaker.html_string">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.num_col">
+    
+  </a>
+  <a name="num_col">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">num_col</span>: <code>int</code> =
+    
+    <a class="headerLink" href="#num_col" title="prometry.reportmaker.ReportMaker.num_col">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.outpath">
+    
+  </a>
+  <a name="outpath">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">outpath</span> =
+    
+    <a class="headerLink" href="#outpath" title="prometry.reportmaker.ReportMaker.outpath">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.overlay_open">
+    
+  </a>
+  <a name="overlay_open">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">overlay_open</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#overlay_open" title="prometry.reportmaker.ReportMaker.overlay_open">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.table_open">
+    
+  </a>
+  <a name="table_open">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">table_open</span>: <code>bool</code> =
+    
+    <a class="headerLink" href="#table_open" title="prometry.reportmaker.ReportMaker.table_open">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.reportmaker.ReportMaker.title">
+    
+  </a>
+  <a name="title">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">title</span> =
+    
+    <a class="headerLink" href="#title" title="prometry.reportmaker.ReportMaker.title">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for prometry,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    23.9.1 at 2024-04-02 10:20:15.
+  </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
+</footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>prometry.pdbobject.PdbAtom</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          prometry <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</nav>
+    
+    <div class="container-fluid">
+
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="prometry.pdbobject.PdbAtom.html" class="internal-link" title="This class"><wbr></wbr>Pdb<wbr></wbr>Atom</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="prometry.pdbobject.PdbAtom.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__str__" class="internal-link" title="prometry.pdbobject.PdbAtom.__str__">__str__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#infoAtom" class="internal-link" title="prometry.pdbobject.PdbAtom.infoAtom">info<wbr></wbr>Atom</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#matchesCriteria" class="internal-link" title="prometry.pdbobject.PdbAtom.matchesCriteria">matches<wbr></wbr>Criteria</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#atom_name" class="internal-link" title="prometry.pdbobject.PdbAtom.atom_name">atom<wbr></wbr>_name</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#atom_no" class="internal-link" title="prometry.pdbobject.PdbAtom.atom_no">atom<wbr></wbr>_no</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#atom_type" class="internal-link" title="prometry.pdbobject.PdbAtom.atom_type">atom<wbr></wbr>_type</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#bfactor" class="internal-link" title="prometry.pdbobject.PdbAtom.bfactor">bfactor</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#chain" class="internal-link" title="prometry.pdbobject.PdbAtom.chain">chain</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#disordered" class="internal-link" title="prometry.pdbobject.PdbAtom.disordered">disordered</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#info" class="internal-link" title="prometry.pdbobject.PdbAtom.info">info</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#occupancy" class="internal-link" title="prometry.pdbobject.PdbAtom.occupancy">occupancy</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#res" class="internal-link" title="prometry.pdbobject.PdbAtom.res">res</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#x" class="internal-link" title="prometry.pdbobject.PdbAtom.x">x</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#y" class="internal-link" title="prometry.pdbobject.PdbAtom.y">y</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#z" class="internal-link" title="prometry.pdbobject.PdbAtom.z">z</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="prometry.pdbobject.html" class="internal-link" title="The parent of this class">pdbobject</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="prometry.pdbobject.PdbAtom.html" class="internal-link" title="prometry.pdbobject.PdbAtom"><wbr></wbr>Pdb<wbr></wbr>Atom</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="prometry.pdbobject.PdbObject.html" class="internal-link" title="prometry.pdbobject.PdbObject"><wbr></wbr>Pdb<wbr></wbr>Object</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="prometry.pdbobject.PdbResidue.html" class="internal-link" title="prometry.pdbobject.PdbResidue"><wbr></wbr>Pdb<wbr></wbr>Residue</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="prometry.pdbobject.html#amino_acids" class="internal-link" title="prometry.pdbobject.amino_acids">amino<wbr></wbr>_acids</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
+      </div>
+
+      <div id="main" class="">
+        
+
+        
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">prometry</a></code><wbr></wbr>.<code><a href="prometry.pdbobject.html" class="internal-link" title="prometry.pdbobject">pdbobject</a></code><wbr></wbr>.<code><a href="prometry.pdbobject.PdbAtom.html" class="internal-link" title="prometry.pdbobject.PdbAtom">PdbAtom</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">PdbAtom</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="prometry.pdbobject.PdbAtom.__init__">PdbAtom(chain, res, atom_type, atom_name, ...)</a></code></p>
+          <p><a href="classIndex.html#prometry.pdbobject.PdbAtom">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Class for a single atom</p>
+<p>:data atom_type: :data atom_name: :data x: :data y: :data z: :data disordered: :data occupancy: :data bfactor:</p>
+</div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id11">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="prometry.pdbobject.PdbAtom.__init__">__init__</a></code></td>
+    <td>Initialises a pdb with a biopython structure</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__str__" class="internal-link" title="prometry.pdbobject.PdbAtom.__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#infoAtom" class="internal-link" title="prometry.pdbobject.PdbAtom.infoAtom">info<wbr></wbr>Atom</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#matchesCriteria" class="internal-link" title="prometry.pdbobject.PdbAtom.matchesCriteria">matches<wbr></wbr>Criteria</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#atom_name" class="internal-link" title="prometry.pdbobject.PdbAtom.atom_name">atom<wbr></wbr>_name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#atom_no" class="internal-link" title="prometry.pdbobject.PdbAtom.atom_no">atom<wbr></wbr>_no</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#atom_type" class="internal-link" title="prometry.pdbobject.PdbAtom.atom_type">atom<wbr></wbr>_type</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#bfactor" class="internal-link" title="prometry.pdbobject.PdbAtom.bfactor">bfactor</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#chain" class="internal-link" title="prometry.pdbobject.PdbAtom.chain">chain</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#disordered" class="internal-link" title="prometry.pdbobject.PdbAtom.disordered">disordered</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#info" class="internal-link" title="prometry.pdbobject.PdbAtom.info">info</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#occupancy" class="internal-link" title="prometry.pdbobject.PdbAtom.occupancy">occupancy</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#res" class="internal-link" title="prometry.pdbobject.PdbAtom.res">res</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#x" class="internal-link" title="prometry.pdbobject.PdbAtom.x">x</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#y" class="internal-link" title="prometry.pdbobject.PdbAtom.y">y</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#z" class="internal-link" title="prometry.pdbobject.PdbAtom.z">z</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, chain, res, atom_type, atom_name, atom_no, disordered, occupancy, bfactor, x, y, z)</span>:
+    
+    <a class="headerLink" href="#__init__" title="prometry.pdbobject.PdbAtom.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Initialises a pdb with a biopython structure</p>
+<p>:param biopython_structure: A list of structures that has been created from biopython</p>
+</div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.__str__">
+    
+  </a>
+  <a name="__str__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__str__</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#__str__" title="prometry.pdbobject.PdbAtom.__str__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.infoAtom">
+    
+  </a>
+  <a name="infoAtom">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">infoAtom</span><span class="function-signature">(self)</span>:
+    
+    <a class="headerLink" href="#infoAtom" title="prometry.pdbobject.PdbAtom.infoAtom">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.matchesCriteria">
+    
+  </a>
+  <a name="matchesCriteria">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">matchesCriteria</span><span class="function-signature">(self, criteria, rids=[], dis=-1)</span>:
+    
+    <a class="headerLink" href="#matchesCriteria" title="prometry.pdbobject.PdbAtom.matchesCriteria">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.atom_name">
+    
+  </a>
+  <a name="atom_name">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">atom_name</span> =
+    
+    <a class="headerLink" href="#atom_name" title="prometry.pdbobject.PdbAtom.atom_name">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.atom_no">
+    
+  </a>
+  <a name="atom_no">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">atom_no</span> =
+    
+    <a class="headerLink" href="#atom_no" title="prometry.pdbobject.PdbAtom.atom_no">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.atom_type">
+    
+  </a>
+  <a name="atom_type">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">atom_type</span> =
+    
+    <a class="headerLink" href="#atom_type" title="prometry.pdbobject.PdbAtom.atom_type">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.bfactor">
+    
+  </a>
+  <a name="bfactor">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">bfactor</span> =
+    
+    <a class="headerLink" href="#bfactor" title="prometry.pdbobject.PdbAtom.bfactor">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.chain">
+    
+  </a>
+  <a name="chain">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">chain</span> =
+    
+    <a class="headerLink" href="#chain" title="prometry.pdbobject.PdbAtom.chain">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.disordered">
+    
+  </a>
+  <a name="disordered">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">disordered</span> =
+    
+    <a class="headerLink" href="#disordered" title="prometry.pdbobject.PdbAtom.disordered">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.info">
+    
+  </a>
+  <a name="info">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">info</span>: <code>dict</code> =
+    
+    <a class="headerLink" href="#info" title="prometry.pdbobject.PdbAtom.info">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.occupancy">
+    
+  </a>
+  <a name="occupancy">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">occupancy</span> =
+    
+    <a class="headerLink" href="#occupancy" title="prometry.pdbobject.PdbAtom.occupancy">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.res">
+    
+  </a>
+  <a name="res">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">res</span> =
+    
+    <a class="headerLink" href="#res" title="prometry.pdbobject.PdbAtom.res">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.x">
+    
+  </a>
+  <a name="x">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">x</span> =
+    
+    <a class="headerLink" href="#x" title="prometry.pdbobject.PdbAtom.x">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.y">
+    
+  </a>
+  <a name="y">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">y</span> =
+    
+    <a class="headerLink" href="#y" title="prometry.pdbobject.PdbAtom.y">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="prometry.pdbobject.PdbAtom.z">
+    
+  </a>
+  <a name="z">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">z</span> =
+    
+    <a class="headerLink" href="#z" title="prometry.pdbobject.PdbAtom.z">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for prometry,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    23.9.1 at 2024-04-02 10:20:15.
+  </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
+</footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
