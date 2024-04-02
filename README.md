@@ -2,7 +2,7 @@
 
 <img width="110" alt="plot" src="https://github.com/RachelAlcraft/prometry/assets/4478957/544d2d75-fd31-469b-ab41-bedfe2a7e973">
 
-# PROMETRY 
+# [PROMETRY](https://prometry.streamlit.app)
 
 #### A library to calculate geometric parameters of protein structures and perform criteria search.
                                                       

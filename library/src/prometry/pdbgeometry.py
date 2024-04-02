@@ -24,12 +24,12 @@ class GeometryMaker:
         
               
     def calculateGeometry(self,geos,log=0):
-        """Creates the geoemtry from the structures in the class
+        """Creates the geoemtry from the structures in the class"""
 
-        :param geos: A list of geometric measures to calculate in the format 2,3 or 4 atoms for distance, angle or dihedral, e.g. 'N:CA', 'N:CA:C', or 'N:CA:C:N+1'
-        :param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
-        :returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
-        """                        
+        #:param geos: A list of geometric measures to calculate in the format 2,3 or 4 atoms for distance, angle or dihedral, e.g. 'N:CA', 'N:CA:C', or 'N:CA:C:N+1'
+        #:param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
+        #:returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
+        
         geo2 = ["val","blob"]
         vals = []
         hues=['pdb_code','resolution','aa','chain','rid']#,'rid2','rid3','rid4']
@@ -217,12 +217,12 @@ class GeometryMaker:
         return geo_atoms
 
     def calculateData(self,hues=['pdb_code','resolution','chain','aa','rid','ridx','atom_no','atom_name','element','bfactor','occupancy','x','y','z'],log=0):
-        """Creates the geoemtry from the structures in the class
+        """Creates the geoemtry from the structures in the class"""
 
-        :param geos: A list of geometric measures to calculate in the format 2,3 or 4 atoms for distance, angle or dihedral, e.g. 'N:CA', 'N:CA:C', or 'N:CA:C:N+1'
-        :param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
-        :returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
-        """
+        #:param geos: A list of geometric measures to calculate in the format 2,3 or 4 atoms for distance, angle or dihedral, e.g. 'N:CA', 'N:CA:C', or 'N:CA:C:N+1'
+        #:param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
+        #:returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues        
+        
         dfs = []        
         for geopdb in self.pobjs:
             df = geopdb.dataFrame()
@@ -251,6 +251,7 @@ class GeometryMaker:
 
         :returns: [bool,float,bfactor, occupancy, atoms, GeoAtom] a bool for if it could be calculated, and the value, and the reference atom
         """
+        
         total_rid = 0
         total_ridx = 0
         rid2,rid3,rid4 = 0,0,0

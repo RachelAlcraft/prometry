@@ -20,7 +20,7 @@ def explorer(use_geos="ordinary"):
     str_contacts = " ".join(ls_contacts)
     
     st.write("### Selection")
-    sources = ["keep selection", "enter pdbcodes","user uploaded","new upload"]
+    sources = ["selection","browse user uploaded","new upload"]
     source = st.radio("Structure source", sources, index=0, on_change=change,horizontal=True)
                     
     if source == "new upload":
@@ -34,7 +34,7 @@ def explorer(use_geos="ordinary"):
             string_data = StringIO(uploaded_file.getvalue().decode("utf-8")).read()                        
             with open(f"{cfg.DATADIR}{str_struc}","w") as fw:
                 fw.write(string_data)                                    
-    elif source == "user uploaded":
+    elif source == "browse user uploaded":
         user_files = glob.glob(f"{cfg.DATADIR}user_*")
         list_user = []        
         for uf in user_files:
@@ -45,11 +45,8 @@ def explorer(use_geos="ordinary"):
             str_struc = ""
             for su in selected_users:
                 str_struc += su + " "
-            str_struc = str_struc[:-1]    
-    elif source == "enter pdbcodes":
-        pass
-        #str_struc = ""
-    elif source == "keep selection":
+            str_struc = str_struc[:-1]        
+    elif source == "selection":
         str_struc = st.session_state['str_structures']
     str_struc = st.text_input("Structures", value=str_struc,help="pdb/alphafold/user code",key="struc")
             
