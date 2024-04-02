@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 from shared import config as cfg
 import numpy as np
+import math
 
 
 
@@ -78,31 +79,79 @@ def space_plot(df_atoms):
         ax_cols = list(["x","y","z"])
         ax_colsZ = list(df_atoms.columns)
 
-        dim = st.radio("dimensions",["2d","3d"],index=0)
-                                                                
+        dim = st.radio("dimensions",["1d","2d","3d"],index=1)
+
         cols = st.columns([2,2,2,2,2])
         with cols[0]:
             pdb = st.selectbox("pdb", ["all"] + list(df_atoms["pdb_code"].unique()),index=0)
-        with cols[1]:
-            x_ax1 = st.selectbox("x-axis", ax_cols,index=0)
-        with cols[2]:
-            y_ax1 = st.selectbox("y-axis",ax_cols,index=1)
-        if dim == "3d":
-            with cols[3]:
-                z_ax1 = st.selectbox("z-axis",ax_cols,index=2)
-            with cols[4]:
-                h_ax1 = st.selectbox("hue",ax_colsZ,index=0)
-        else:
-            with cols[3]:
-                h_ax1 = st.selectbox("hue",ax_colsZ,index=0)
+                                                                        
+        if dim == "1d":
+            st.write("Comparitive structures through 1d plots of distance, chain A")
+            cols = st.columns([5,1,5])            
+            min_rid = min(df_atoms.loc[df_atoms['atom'] == "CA"]["rid"])
+            max_rid = max(df_atoms.loc[df_atoms['atom'] == "CA"]["rid"])            
+            with cols[0]:
+                start_rid,end_rid = st.slider('Select start/end residues', min_rid, max_rid, (min_rid, max_rid))
+            with cols[2]:
+                rid_val = st.slider("Residue from which distance calculated",min_value = start_rid,max_value=end_rid,step=1)                                    
+            df_ca = df_atoms.loc[df_atoms['atom'] == "CA"]
+            df_ca = df_ca.loc[df_ca['chain'] == "A"]
+            matching_pdbs = set(df_ca.loc[df_ca["rid"] == rid_val]["pdb_code"].to_list())
+            st.write(matching_pdbs)
+        else:            
+            with cols[1]:
+                x_ax1 = st.selectbox("x-axis", ax_cols,index=0)
+            with cols[2]:
+                y_ax1 = st.selectbox("y-axis",ax_cols,index=1)
+            if dim == "3d":
+                with cols[3]:
+                    z_ax1 = st.selectbox("z-axis",ax_cols,index=2)
+                with cols[4]:
+                    h_ax1 = st.selectbox("hue",ax_colsZ,index=0)        
+            else:
+                with cols[3]:
+                    h_ax1 = st.selectbox("hue",ax_colsZ,index=0)
                 
         df_use = df_atoms
+        df_use = df_use.reset_index()
         if pdb != "all":
             df_use = df_atoms[df_atoms['pdb_code'] == pdb]
         if st.button("Calculate geo plot"):                    
             cols = st.columns([1,5,1])
             with cols[1]:                
-                if dim == "2d":
+                if dim == "1d":
+                    df_ca = df_use.loc[df_use['atom'] == "CA"]
+                    df_ca = df_ca.loc[df_ca['chain'] == "A"]
+                    df_ca = df_ca.loc[df_ca['rid'] >= start_rid]
+                    df_ca = df_ca.loc[df_ca['rid'] <= end_rid]
+                    df_ca = df_ca[df_ca["pdb_code"].isin(matching_pdbs)]
+                    df_ca["magnitude"] = -1
+                    for idx, row in df_ca.iterrows():
+                        this_pdb = row["pdb_code"]                        
+                        if rid_val in list(df_ca.loc[df_ca['pdb_code'] == this_pdb]["rid"]):
+                            try:
+                                df_one = df_ca.loc[df_ca['pdb_code'] == this_pdb]
+                                df_two = df_one.loc[df_one['rid'] == rid_val]
+                                if len(df_two["x"]) > 1:
+                                    print(df_two)             
+                                root_x = float(df_two["x"])
+                                root_y = float(df_two["y"])
+                                root_z = float(df_two["z"])
+                                this_x = float(row["x"])
+                                this_y = float(row["y"])
+                                this_z = float(row["z"])
+                                magnitude = float(math.sqrt((root_x - this_x)*(root_x - this_x)+(root_y - this_y)*(root_y - this_y)+(root_z - this_z)*(root_z - this_z)))
+                                pd.options.mode.chained_assignment = None                                
+                                df_ca.loc[idx, 'magnitude'] = float(magnitude)
+                            except Exception  as e:
+                                print(e)
+                    df_ca = df_ca.loc[df_ca["magnitude"] >= 0]
+                    fig = px.scatter(df_ca, x="rid", y="pdb_code", color="magnitude",title=f"Magnitude from rid {rid_val}",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)                        
+                    fig.add_vline(x=rid_val, line_width=0.5, line_dash="dash", line_color="red")
+                    fig.update_xaxes(tickangle=45)
+                    fig.update_yaxes(tickangle=-15)
+                    st.plotly_chart(fig, use_container_width=False)
+                elif dim == "2d":
                     fig = px.scatter(df_use, x=x_ax1, y=y_ax1, color=h_ax1,title="",width=500, height=500, opacity=0.7,color_continuous_scale=px.colors.sequential.Viridis)                        
                     st.plotly_chart(fig, use_container_width=False)
                 else:
