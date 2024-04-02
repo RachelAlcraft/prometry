@@ -31,7 +31,7 @@
       
       <div class="navlinks">
         <span class="navbar-brand">
-          <a href="https://github.com/RachelAlcraft/prometry" class="projecthome">prometry</a> <a href="index.html">API Documentation</a>
+          prometry <a href="index.html">API Documentation</a>
         </span>
 
         <a href="moduleIndex.html">
@@ -437,12 +437,14 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">PdbAtom</span>: <a href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L151" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="prometry.pdbobject.PdbAtom.__init__">PdbAtom(chain, res, atom_type, atom_name, ...)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">PdbAtom</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="prometry.pdbobject.PdbAtom.__init__">PdbAtom(chain, res, atom_type, atom_name, ...)</a></code></p>
           <p><a href="classIndex.html#prometry.pdbobject.PdbAtom">View In Hierarchy</a></p>
         </div>
 
         <div class="moduleDocstring">
-          <div><p>Class for a single atom</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Unknown Field: data</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">atom<wbr></wbr>_type</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">atom<wbr></wbr>_name</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">x</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">y</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">z</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">disordered</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">occupancy</span></td><td class="fieldArgDesc"></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bfactor</span></td><td class="fieldArgDesc"></td></tr></table></div>
+          <div><p>Class for a single atom</p>
+<p>:data atom_type: :data atom_name: :data x: :data y: :data z: :data disordered: :data occupancy: :data bfactor:</p>
+</div>
         </div>
 
         <div id="splitTables">
@@ -550,10 +552,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, chain, res, atom_type, atom_name, atom_no, disordered, occupancy, bfactor, x, y, z)</span>:
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L164">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#__init__" title="prometry.pdbobject.PdbAtom.__init__">
       
       
@@ -562,7 +561,9 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Initialises a pdb with a biopython structure</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">chain</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">res</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">atom<wbr></wbr>_type</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">atom<wbr></wbr>_name</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">atom<wbr></wbr>_no</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">disordered</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">occupancy</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bfactor</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">x</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">y</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">z</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">biopython<wbr></wbr>_structure</span></td><td class="fieldArgDesc">A list of structures that has been created from biopython</td></tr></table></div>
+    <div><p>Initialises a pdb with a biopython structure</p>
+<p>:param biopython_structure: A list of structures that has been created from biopython</p>
+</div>
   </div>
 </div><div class="basemethod">
   
@@ -577,10 +578,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">__str__</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L183">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#__str__" title="prometry.pdbobject.PdbAtom.__str__">
       
       
@@ -604,10 +602,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">infoAtom</span><span class="function-signature">(self)</span>:
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L187">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#infoAtom" title="prometry.pdbobject.PdbAtom.infoAtom">
       
       
@@ -631,10 +626,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">matchesCriteria</span><span class="function-signature">(self, criteria, rids=[], dis=-1)</span>:
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L191">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#matchesCriteria" title="prometry.pdbobject.PdbAtom.matchesCriteria">
       
       
@@ -657,10 +649,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">atom_name</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L174">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#atom_name" title="prometry.pdbobject.PdbAtom.atom_name">
       
       
@@ -684,10 +673,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">atom_no</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L175">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#atom_no" title="prometry.pdbobject.PdbAtom.atom_no">
       
       
@@ -711,10 +697,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">atom_type</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L173">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#atom_type" title="prometry.pdbobject.PdbAtom.atom_type">
       
       
@@ -738,10 +721,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">bfactor</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L178">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#bfactor" title="prometry.pdbobject.PdbAtom.bfactor">
       
       
@@ -765,10 +745,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">chain</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L171">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#chain" title="prometry.pdbobject.PdbAtom.chain">
       
       
@@ -792,10 +769,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">disordered</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L176">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#disordered" title="prometry.pdbobject.PdbAtom.disordered">
       
       
@@ -818,11 +792,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">info</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L170">
-      
-      (source)
-    </a>
+    <span class="py-defname">info</span>: <code>dict</code> =
+    
     <a class="headerLink" href="#info" title="prometry.pdbobject.PdbAtom.info">
       
       
@@ -846,10 +817,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">occupancy</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L177">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#occupancy" title="prometry.pdbobject.PdbAtom.occupancy">
       
       
@@ -873,10 +841,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">res</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L172">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#res" title="prometry.pdbobject.PdbAtom.res">
       
       
@@ -900,10 +865,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">x</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L179">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#x" title="prometry.pdbobject.PdbAtom.x">
       
       
@@ -927,10 +889,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">y</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L180">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#y" title="prometry.pdbobject.PdbAtom.y">
       
       
@@ -954,10 +913,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">z</span> =
-    <a class="sourceLink" href="https://github.com/RachelAlcraft/prometry/tree/6dbcc44a041274c896666331a0dbbd2843d14ee4/library/src/prometry/pdbobject.py#L181">
-      
-      (source)
-    </a>
+    
     <a class="headerLink" href="#z" title="prometry.pdbobject.PdbAtom.z">
       
       
@@ -979,9 +935,9 @@
 
   
   <div class="container">
-    <a href="index.html">API Documentation</a> for <a href="https://github.com/RachelAlcraft/prometry" class="projecthome">prometry</a>,
+    <a href="index.html">API Documentation</a> for prometry,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    23.9.1 at 2024-04-02 10:24:13.
+    23.9.1 at 2024-04-02 10:37:47.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
