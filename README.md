@@ -4,6 +4,8 @@
 
 # [PROMETRY](https://prometry.streamlit.app)
 
+[Documentation by pydoctor](https://rachelalcraft.github.io/prometry/)
+
 #### A library to calculate geometric parameters of protein structures and perform criteria search.
                                                       
 Prometry has a defined geoemtric-search language described in the [help pages](https://prometry.streamlit.app/Help). 

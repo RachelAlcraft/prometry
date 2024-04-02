@@ -11,6 +11,7 @@ st.set_page_config(
 
 st.header("PROMETRY")
 st.write("#### A library to calculate geometric parameters of protein structures and perform criteria search.")
+st.write("[Documentation by pydoctor](https://rachelalcraft.github.io/prometry/)")
 
 
 cfg.init()
