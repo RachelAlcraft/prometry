@@ -12,7 +12,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Validation - Compare Geometry against Engh&Huber")
+st.header("Validation - against Engh&Huber or Ramchandran")
 st.caption('''
 “...protein structures are generally solved not to build a statistically optimized protein database, 
 but to discover biophysical functional mechanisms.” (Engh & Huber, 2006)."

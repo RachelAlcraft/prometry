@@ -12,7 +12,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Prometry - Geometry playsheet")
+st.header("Prometry - Contact Maps")
 st.caption("""
 "Contact maps do not only contain the information needed for protein structure prediction, 
 but they also are potential tools to describe the fundamentals of protein folding. (Bittrich et al, 2019)"
@@ -30,9 +30,9 @@ geos = "N:CA:C:N+1 C-1:N:CA:C N:O N:N+1 N:CA:C"
 tabDemo,tabCode = st.tabs(["demo","code"])
 
 with tabDemo:        
-        ls_structures, ls_geos = se.explorer(use_geos="contacts")
+        ls_structures, ls_contacts = se.explorer(use_geos="contacts")
         st.write("---")
-        df = dm.maker_geos(ls_structures,ls_geos)
+        df = dm.maker_geos(ls_structures,ls_contacts)
         st.write("---")
         gp.contact_plot(df)
         

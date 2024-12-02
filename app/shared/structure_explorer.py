@@ -19,7 +19,7 @@ def explorer(use_geos="ordinary"):
     str_geo = " ".join(ls_geos)
     str_contacts = " ".join(ls_contacts)
     
-    st.write("### Selection")
+    st.write("### (1/3) Selection")
     sources = ["selection","browse user uploaded","new upload"]
     source = st.radio("Structure source", sources, index=0, on_change=change,horizontal=True)
                     
@@ -76,8 +76,10 @@ def explorer(use_geos="ordinary"):
     st.session_state['str_structures'] = str_struc
     st.session_state['ls_structures'] = ls_structures
     
-    #if use_geos != "contacts":
-    st.session_state['ls_geos'] = ls_geos
+    if use_geos == "contacts":
+        st.session_state['ls_contacts'] = ls_geos
+    else:
+        st.session_state['ls_geos'] = ls_geos
     
     return ls_structures,ls_geos
 

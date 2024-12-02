@@ -12,7 +12,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Prometry - Geometry playsheet")
+st.header("Prometry - atoms in 3d space")
 st.caption(''' 
 "Here we shall use the term 'protein structure' in an entirely different sense... Whereas Anfinsen and Redfield have concerned themselves 
 with the amino acid sequence and topological interconnections of the polypeptide chains, we shall consider mainly the geometrical 
@@ -20,8 +20,8 @@ aspects - the arrangement of the atoms in space."(Crick&Kendrew, 1957)
 ''')
 
 st.write("""
-The plDDT (bfactor) is interesting for AlphFold structures, showing a characteristic predictive format of a high plDDT
-core, a region where there are generally solved structures, with hightly uncertain regions at the edges.
+The plDDT (bfactor) is interesting for AlphaFold structures, showing a characteristic predictive format of a high plDDT
+core - a region where there are generally solved structures - with hightly uncertain regions at the edges.
 """)
 
 

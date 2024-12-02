@@ -35,7 +35,7 @@ def maker_geos(ls_structures, ls_geos, extra_underlying=False):
     if len(ls_structures) == 0 or len(ls_geos) == 0 or len(ls_structures[0]) == 0:
         st.write("No structures entered")
     else:        
-        st.write("### Calculation")        
+        st.write("### (2/3) Calculation")        
         if st.button("Calculate dataframe"):                    
             pobjs = load_pdbs(ls_structures)                        
             gm = pg.GeometryMaker(pobjs)
@@ -60,7 +60,7 @@ def maker_atoms(ls_structures):
     if len(ls_structures) == 0 or len(ls_structures[0]) == 0:
         st.write("No structures entered")
     else:        
-        st.write("### Calculation")        
+        st.write("### (2/3) Calculation")        
         if st.button("Calculate dataframe"):                    
             pobjs = load_pdbs(ls_structures)                        
             gm = pg.GeometryMaker(pobjs)

@@ -58,14 +58,10 @@ st.write("""
 
          Additionally criteria can be described to expand or decrease the search space such as distance criteria and amioa acid restrictions. 
          This means the library can create dataframes for uses as diverse as contact maps, nearest neighbours, possible hydrogen bonds or a simple correlation such as the Ramachandran plot.
-
-         ---           
-
-         **The application is made freely available by streamlit at no cost to me or you.**  
-
-         ---  
-         
-         All the source code for the library and this application is made freely available by me to you in the spirit of open science.
+                  
+         The source code for the library and this application is made freely available at:  
+         - [lib source code](https://github.com/RachelAlcraft/prometry/tree/main/library)
+         - [App source code](https://github.com/RachelAlcraft/prometry)
 
          If you make use of anything from this application (dataframe data, plots, python code, scientific ideas...)
          please follow the guidance on the [Citing](https://prometry.streamlit.app/Citing) page.                     

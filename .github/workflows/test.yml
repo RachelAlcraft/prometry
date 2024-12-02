@@ -1,8 +1,7 @@
 name: pytest
 
 on:
-  push:
-    branches: [ main ]
+  push:    
   pull_request:
     branches: [ main ]
 
@@ -30,7 +29,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt        
+        pip install -r library/requirements.txt        
     - name: Run pytest
       run: | 
+        cd library
         pytest

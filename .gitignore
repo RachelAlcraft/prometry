@@ -166,7 +166,9 @@ cython_debug/
 instructions/*
 
 # skip data and results files
-examples/data/*
+examples/data/*.pdb
+examples/data/*.cif
+
 examples/results/*
 
 *.pdb
