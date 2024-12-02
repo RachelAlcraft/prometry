@@ -12,7 +12,7 @@ st.set_page_config(
         layout="wide",
 )
 
-st.header("Prometry - Geometry playsheet")
+st.header("Prometry - Criteria playsheet")
 st.caption('''
 "Proteins are essential to life, and understanding their structure can facilitate a mechanistic understanding of their function."(Jumper et al, 2021)
 ''')

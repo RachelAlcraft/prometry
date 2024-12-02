@@ -47,11 +47,16 @@ with tabDemo:
     with cols[1]:
         taxon = st.text_input("Taxon", value="9606") 
         url = f"https://rest.uniprot.org/uniprotkb/search?query=reviewed:true+AND+organism_id:{taxon}+AND+gene_exact:{gene}"
-    with cols[2]:        
-        st.write(".")
-        st.write(f"[Uniprot api call]({url})")
+        url_un = f"https://rest.uniprot.org/uniprotkb/search?query=reviewed:false+AND+organism_id:{taxon}+AND+gene_exact:{gene}"
+    with cols[2]:                        
+        st.write(f"[Uniprot api call - reviewed]({url})")
+        st.write(f"[Uniprot api call - unreviewed]({url_un})")
+    
+        
+        
         
     code_string += f"ra = requests.get(url='{url}')"
+    code_string += f"ra = requests.get(url='{url_un}')"
     code_string += """
 accessions = []
 pdbs = []
@@ -90,12 +95,21 @@ print(pdbs)
         pdb_dict["residues"] =  []
 
         ra = requests.get(url=url)
+        ra_un = requests.get(url=url_un)
         data = ra.json()
+        data_un = ra_un.json()
+        un_accessions = []
+        unrev_no = 0
+        if len(data_un["results"]) > 0:
+            for dt in data_un["results"]:
+                un_accessions.append(dt["primaryAccession"])
         if len(data["results"]) > 0:
             for dt in data["results"]:
                 accession = dt["primaryAccession"]            
                 accessions = dt["secondaryAccessions"]
             accessions.insert(0, accession)
+            unrev_no = len(accessions)
+            accessions += un_accessions
             
             res = data["results"][0]["uniProtKBCrossReferences"]
             for x in res:
@@ -128,24 +142,29 @@ print(pdbs)
                     pdb_dict["residues"].append(residues)
                     count += 1
                                     
-        if len(accession) > 0:
-            cols = st.columns(3)    
-            for acc in accessions:        
+        if len(accession) > 0:            
+            count = -1
+            st.write("AlphaFold structures")
+            for acc in accessions:                        
+                count += 1
                 af_pdb = f"AF-{acc}-F1-model_v4"
                 af_url = f"https://alphafold.ebi.ac.uk/files/{af_pdb}.pdb"
                 response = requests.get(af_url)
                 if response.status_code == 200:
+                    cols = st.columns(3)    
                     with cols[0]:
-                        st.text_input("AplhaFold structure", af_pdb)
-                    with cols[1]:
-                        st.write(".")
+                        st.text_input("AplhaFold structure", af_pdb,label_visibility="collapsed")
+                    with cols[1]:                        
                         st.write(f"[AlphaFold {acc}](https://alphafold.ebi.ac.uk/entry/{acc})")                            
-                        break
-                else:
-                    st.warning(f'{af_url} does not exist')
+                        if count > unrev_no:
+                            with cols[2]:
+                                st.warning("This is an unreviewed structure")
+                        #break
+                #else:
+                #    st.warning(f'{af_url} does not exist')
             with st.expander("Expand accessions"):
                 st.write(accessions)
-                
+                            
             st.text_input("PDB Structures", pdbs[:-1])
 
             df = pd.DataFrame()

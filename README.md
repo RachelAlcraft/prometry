@@ -17,7 +17,7 @@ This means the library can create dataframes for uses as diverse as contact maps
 
 ---           
 
-**The application is made freely available by streamlit at no cost to me or you at: [PROMETRY](https://prometry.streamlit.app)**  
+**The application is freely hosted by streamlit: [PROMETRY](https://prometry.streamlit.app)**  
 
 This website gives a brief demonstration of some of the ways that prometry can be used.
 As a publicly hosted web application this does not include time and memory-intense uses such as
@@ -31,7 +31,7 @@ You can also make use of this website directly to create all your data - all the
 
 ---  
 
-All the source code for the library and this application is made freely available by me to you in the spirit of open science.
+All the source code for the library and this application is made freely available in the spirit of open science.
 
 If you make use of anything from this application (dataframe data, plots, python code, scientific ideas...)
 please follow the guidance on the [Citing](https://prometry.streamlit.app/Citing) page.                     

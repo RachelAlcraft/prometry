@@ -3,6 +3,7 @@ from pathlib import Path
 sys.path.append(os.path.join(os.path.dirname(Path(__file__).parent),"src"))
 from prometry import pdbloader as pl
 from prometry import pdbgeometry as pg
+from prometry import pdbcontacts as pc
 
 
 import pandas as pd
@@ -20,6 +21,17 @@ def test_nn():
         pobjs.append(po)
     gm = pg.GeometryMaker(pobjs)
     df = gm.calculateGeometry(ls_geos)
+    print(df)
+
+def test_nn_2d():    
+    geo = 'N:N[dis|0.0<>10.0,rid|>2]'
+    pobjs = []
+    for pdb in ls_structures:            
+        pla = pl.PdbLoader(pdb,DATADIR,cif=False,source="ebi")
+        po = pla.load_pdb()
+        pobjs.append(po)
+    cm = pc.ContactMaker(pobjs)
+    df = cm.calculateContacts(geo)
     print(df)
 
  

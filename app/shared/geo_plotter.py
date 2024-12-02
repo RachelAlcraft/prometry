@@ -14,7 +14,7 @@ def geo_plot(df_geos):
     cfg.init()
     if df_geos is not None:        
         if len(df_geos.index) > 0:
-            st.write("### Visualisation")
+            st.write("### (3/3) Visualisation")
             ax_cols = list(df_geos.columns)
             ax_colsZ = list(df_geos.columns)
             ax_colsZ.insert(0,"Probability density plot")                                                                        
@@ -75,15 +75,17 @@ def geo_plot_ramachandran(df_geos):
 def space_plot(df_atoms):
     cfg.init()
     if df_atoms is not None and len(df_atoms.index) > 0:
-        st.write("### Visualisation")
+        st.write("### (3/3) Visualisation")
         ax_cols = list(["x","y","z"])
         ax_colsZ = list(df_atoms.columns)
 
-        dim = st.radio("dimensions",["1d","2d","3d"],index=1)
+        #dim = st.radio("dimensions",["1d","2d","3d"],index=1)
+        dim = "3d"
 
-        cols = st.columns([2,2,2,2,2])
+        cols = st.columns([2,2,1])
         with cols[0]:
-            pdb = st.selectbox("pdb", ["all"] + list(df_atoms["pdb_code"].unique()),index=0)
+            #pdb = st.selectbox("pdb", ["all"] + list(df_atoms["pdb_code"].unique()),index=0)
+            pdb = st.selectbox("pdb", list(df_atoms["pdb_code"].unique()),index=0)
                                                                         
         if dim == "1d":
             st.write("Comparitive structures through 1d plots of distance, chain A")
@@ -99,18 +101,19 @@ def space_plot(df_atoms):
             matching_pdbs = set(df_ca.loc[df_ca["rid"] == rid_val]["pdb_code"].to_list())
             st.write(matching_pdbs)
         else:            
+            #with cols[1]:
+            #    x_ax1 = st.selectbox("x-axis", ax_cols,index=0)
+            #with cols[2]:
+            #    y_ax1 = st.selectbox("y-axis",ax_cols,index=1)
+            #if dim == "3d":
+            #    with cols[3]:
+            #        z_ax1 = st.selectbox("z-axis",ax_cols,index=2)
+            #    with cols[4]:
+            #        h_ax1 = st.selectbox("hue",ax_colsZ,index=0)        
+            #else:
+            x_ax1,y_ax1,z_ax1 = "x","y","z"
             with cols[1]:
-                x_ax1 = st.selectbox("x-axis", ax_cols,index=0)
-            with cols[2]:
-                y_ax1 = st.selectbox("y-axis",ax_cols,index=1)
-            if dim == "3d":
-                with cols[3]:
-                    z_ax1 = st.selectbox("z-axis",ax_cols,index=2)
-                with cols[4]:
-                    h_ax1 = st.selectbox("hue",ax_colsZ,index=0)        
-            else:
-                with cols[3]:
-                    h_ax1 = st.selectbox("hue",ax_colsZ,index=0)
+                h_ax1 = st.selectbox("hue",ax_colsZ,index=0)
                 
         df_use = df_atoms
         df_use = df_use.reset_index()
@@ -163,7 +166,7 @@ def space_plot(df_atoms):
 def contact_plot(df_geo):
     cfg.init()
     if df_geo is not None and len(df_geo.index) > 0:
-        st.write("### Visualisation")
+        st.write("### (3/3) Visualisation")
         geo = df_geo.columns[0]
         rid1 = "rid"
         rid2 = f"rid2_{geo}"
